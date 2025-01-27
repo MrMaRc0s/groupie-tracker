@@ -14,7 +14,7 @@ type Artist struct {
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
-	Locations    string   `json:"locations"`
+	Locations    []string `json:"locations"`
 	ConcertDates string   `json:"concertDates"`
 	Relations    string   `json:"relations"`
 }
@@ -43,6 +43,16 @@ func FetchArtists(apiURL string) ([]Artist, error) {
 	err = json.Unmarshal(body, &artists)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse JSON: %v", err)
+	}
+
+	for i, artist := range artists {
+		if artist.Locations != nil {
+			locations, err := fetchLocations(artist.Locations[i], artist.ID)
+			if err != nil {
+				return nil, fmt.Errorf("failed to fetch locations: %v", err)
+			}
+			artists[i].Locations = locations
+		}
 	}
 
 	return artists, nil
