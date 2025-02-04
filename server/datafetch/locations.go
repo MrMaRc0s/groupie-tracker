@@ -7,41 +7,39 @@ import (
 	"net/http"
 )
 
-type LocationData struct {
+type Location struct {
 	Locations []string `json:"locations"`
-	Dates     []string
-	DatesURL  string `json:"dates"`
 }
 
-func fetchLocations(locationURL string) ([]string, []string, error) { // Send GET request to fetch location data
+func fetchLocations(locationURL string) ([]Location, error) { // Send GET request to fetch location data
 
 	resp, err := http.Get(locationURL)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to fetch locations: %v", err)
+		return nil, fmt.Errorf("failed to fetch locations: %v", err)
 	}
 	defer resp.Body.Close()
 
 	// Check for non-200 status codes
 	if resp.StatusCode != http.StatusOK {
-		return nil, nil, fmt.Errorf("API returned status code %d", resp.StatusCode)
+		return nil, fmt.Errorf("API returned status code %d", resp.StatusCode)
 	}
 
 	// Read the response body
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to read response body: %v", err)
+		return nil, fmt.Errorf("failed to read response body: %v", err)
 	}
 
-	var locations LocationData
+	var locations []Location
 	err = json.Unmarshal(body, &locations)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to parse JSON: %v", err)
+		return nil, fmt.Errorf("failed to parse JSON: %v", err)
 	}
 
-	locations.Dates, err = fetchDates(locations.DatesURL)
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to fetch dates: %v", err)
-	}
+	// locations.Dates, err = fetchDates(locations.DatesURL)
+	// if err != nil {
+	// 	return nil, nil, fmt.Errorf("failed to fetch dates: %v", err)
+	// }
 
-	return locations.Locations, locations.Dates, nil
+	return locations, nil
 }

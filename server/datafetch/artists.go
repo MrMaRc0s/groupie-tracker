@@ -14,17 +14,11 @@ type Artist struct {
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
-	Locations    []string
-	LocURL       string `json:"locations"`
-	ConcertDates []string
-	DatesURL     string `json:"concertDates"`
-	Relations    map[string][]string
-	RelURL       string `json:"relations"`
 }
 
 func FetchArtists(apiURL string) ([]Artist, error) {
 	// Send GET request to the API
-	resp, err := http.Get(apiURL + "/artists")
+	resp, err := http.Get(apiURL)
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch artists: %v", err)
 	}
@@ -47,19 +41,19 @@ func FetchArtists(apiURL string) ([]Artist, error) {
 		return nil, fmt.Errorf("failed to parse JSON: %v", err)
 	}
 
-	for i, artist := range artists {
-		locations, dates, err := fetchLocations(artist.LocURL)
-		if err != nil {
-			return nil, fmt.Errorf("failed to fetch locations: %v", err)
-		}
-		relation, err := FetchRelation(artist.RelURL)
-		if err != nil {
-			return nil, fmt.Errorf("failed to fetch relation: %v", err)
-		}
-		artists[i].Locations = locations
-		artists[i].ConcertDates = dates
-		artists[i].Relations = relation
-	}
+	// for i, artist := range artists {
+	// 	locations, dates, err := fetchLocations(artist.LocURL)
+	// 	if err != nil {
+	// 		return nil, fmt.Errorf("failed to fetch locations: %v", err)
+	// 	}
+	// 	relation, err := FetchRelation(artist.RelURL)
+	// 	if err != nil {
+	// 		return nil, fmt.Errorf("failed to fetch relation: %v", err)
+	// 	}
+	// 	artists[i].Locations = locations
+	// 	artists[i].ConcertDates = dates
+	// 	artists[i].Relations = relation
+	// }
 
 	return artists, nil
 }

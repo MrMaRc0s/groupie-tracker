@@ -4,32 +4,41 @@ import (
 	"fmt"
 	fetch "godot/server/datafetch"
 	"net/http"
+	"time"
 )
 
 func main() {
+	startNow := time.Now()
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Welcome to the Band Info Server!")
 	})
 	apiURL := "https://groupietrackers.herokuapp.com/api"
-	artist, err := fetch.FetchArtists(apiURL)
+	artists, locations, err := fetch.FetchAll(apiURL)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
 	}
 
 	fmt.Println("Artists:")
-	for _, a := range artist {
-		fmt.Printf("ID: %d\n", a.ID)
-		fmt.Printf("Name: %s\n", a.Name)
-		fmt.Printf("Image: %s\n", a.Image)
-		fmt.Printf("Members: %v\n", a.Members)
-		fmt.Printf("Creation Date: %d\n", a.CreationDate)
-		fmt.Printf("First Album: %s\n", a.FirstAlbum)
-		fmt.Printf("Locations: %s\n", a.Locations)
-		fmt.Printf("Concert Dates: %s\n", a.ConcertDates)
-		fmt.Printf("Relations: %s\n", a.Relations)
+	for _, artist := range artists {
+		fmt.Printf("ID: %d\n", artist.ID)
+		fmt.Printf("Name: %s\n", artist.Name)
+		fmt.Printf("Image: %s\n", artist.Image)
+		fmt.Printf("Members: %v\n", artist.Members)
+		fmt.Printf("Creation Date: %d\n", artist.CreationDate)
+		fmt.Printf("First Album: %s\n", artist.FirstAlbum)
+		// fmt.Printf("Locations: %s\n", artist.Locations)
+		// fmt.Printf("Concert Dates: %s\n", artist.ConcertDates)
+		// fmt.Printf("Relations: %s\n", artist.Relations)
 		fmt.Println()
 	}
+
+	fmt.Println("Locations:")
+
+	fmt.Printf("Location: %s\n", locations)
+
+	fmt.Println("Time Taken: ", time.Since(startNow))
 
 	fmt.Println("Server is running on http://localhost:8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
