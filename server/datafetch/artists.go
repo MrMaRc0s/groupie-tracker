@@ -14,9 +14,12 @@ type Artist struct {
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
-	Locations    []string `json:"locations"`
-	ConcertDates string   `json:"concertDates"`
-	Relations    string   `json:"relations"`
+	Locations    []string
+	LocURL       string `json:"locations"`
+	ConcertDates []string
+	DatesURL     string `json:"concertDates"`
+	Relations    map[string][]string
+	RelURL       string `json:"relations"`
 }
 
 func FetchArtists(apiURL string) ([]Artist, error) {
@@ -38,7 +41,6 @@ func FetchArtists(apiURL string) ([]Artist, error) {
 		return nil, fmt.Errorf("failed to read response body: %v", err)
 	}
 
-	// Unmarshal JSON data into a slice of Artist structs
 	var artists []Artist
 	err = json.Unmarshal(body, &artists)
 	if err != nil {
@@ -46,13 +48,17 @@ func FetchArtists(apiURL string) ([]Artist, error) {
 	}
 
 	for i, artist := range artists {
-		if artist.Locations != nil {
-			locations, err := fetchLocations(artist.Locations[i], artist.ID)
-			if err != nil {
-				return nil, fmt.Errorf("failed to fetch locations: %v", err)
-			}
-			artists[i].Locations = locations
+		locations, dates, err := fetchLocations(artist.LocURL)
+		if err != nil {
+			return nil, fmt.Errorf("failed to fetch locations: %v", err)
 		}
+		relation, err := FetchRelation(artist.RelURL)
+		if err != nil {
+			return nil, fmt.Errorf("failed to fetch relation: %v", err)
+		}
+		artists[i].Locations = locations
+		artists[i].ConcertDates = dates
+		artists[i].Relations = relation
 	}
 
 	return artists, nil
