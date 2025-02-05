@@ -3,44 +3,33 @@ package fetch
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
-	"sync"
 )
 
 type Relation struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
-func fetchRelation(relationURL string, ch chan<- Relation, wg *sync.WaitGroup) {
-	defer wg.Done()
+func fetchRelation(relationURL string) map[string][]string {
 
 	resp, err := http.Get(relationURL)
 	if err != nil {
 		fmt.Printf("failed to fetch relation: %v", err)
-		return
+		return nil
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		fmt.Printf("API returned status code %d", resp.StatusCode)
-		return
+		return nil
 	}
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Printf("failed to read response body: %v", err)
-		return
-	}
-
-	var relation map[string][]Relation
-	err = json.Unmarshal(body, &relation)
+	var relation Relation
+	err = json.NewDecoder(resp.Body).Decode(&relation)
 	if err != nil {
 		fmt.Printf("failed to parse JSON: %v", err)
-		return
+		return nil
 	}
 
-	for _, relation := range relation["index"] {
-		ch <- relation
-	}
+	return relation.DatesLocations
 }

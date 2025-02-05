@@ -16,7 +16,7 @@ func main() {
 		fmt.Fprintln(w, "Welcome to the Band Info Server!")
 	})
 
-	artists, locations, date, relation, err := fetch.FetchAll(apiURL)
+	artists, err := fetch.FetchAll(apiURL)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -30,29 +30,11 @@ func main() {
 		fmt.Printf("Members: %v\n", artist.Members)
 		fmt.Printf("Creation Date: %d\n", artist.CreationDate)
 		fmt.Printf("First Album: %s\n", artist.FirstAlbum)
-		// fmt.Printf("Locations: %s\n", artist.Locations)
-		// fmt.Printf("Concert Dates: %s\n", artist.ConcertDates)
-		// fmt.Printf("Relations: %s\n", artist.Relations)
+		fmt.Printf("Locations: %s\n", artist.Locations)
+		fmt.Printf("Concert Dates: %s\n", artist.ConcertDates)
+		fmt.Printf("Relations: %s\n", artist.Relations)
 		fmt.Println()
 	}
-
-	fmt.Println("Locations:")
-	for i, location := range locations {
-		fmt.Printf("%d: %s\n", i, location)
-	}
-	fmt.Println()
-
-	fmt.Println("Dates:")
-	for i, date := range date {
-		fmt.Printf("%d: %s\n", i, date)
-	}
-	fmt.Println()
-
-	fmt.Println("Relations:")
-	for i, relation := range relation {
-		fmt.Printf("%d: %s\n", i, relation)
-	}
-	fmt.Println()
 
 	fmt.Println("Time Taken: ", time.Since(startNow))
 	fmt.Println("Server is running on http://localhost:8080")
