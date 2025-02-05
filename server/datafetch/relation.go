@@ -5,36 +5,42 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"sync"
 )
 
-type RelationData struct {
+type Relation struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
-func FetchRelation(relationURL string) (map[string][]string, error) {
+func fetchRelation(relationURL string, ch chan<- Relation, wg *sync.WaitGroup) {
+	defer wg.Done()
 
 	resp, err := http.Get(relationURL)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch relation: %v", err)
+		fmt.Printf("failed to fetch relation: %v", err)
+		return
 	}
 	defer resp.Body.Close()
 
-	// Check for non-200 status codes
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("API returned status code %d", resp.StatusCode)
+		fmt.Printf("API returned status code %d", resp.StatusCode)
+		return
 	}
 
-	// Read the response body
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read response body: %v", err)
+		fmt.Printf("failed to read response body: %v", err)
+		return
 	}
 
-	var relation RelationData
+	var relation map[string][]Relation
 	err = json.Unmarshal(body, &relation)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse JSON: %v", err)
+		fmt.Printf("failed to parse JSON: %v", err)
+		return
 	}
 
-	return relation.DatesLocations, nil
+	for _, relation := range relation["index"] {
+		ch <- relation
+	}
 }

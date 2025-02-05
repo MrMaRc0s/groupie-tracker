@@ -10,11 +10,13 @@ import (
 func main() {
 	startNow := time.Now()
 
+	apiURL := "https://groupietrackers.herokuapp.com/api"
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Welcome to the Band Info Server!")
 	})
-	apiURL := "https://groupietrackers.herokuapp.com/api"
-	artists, locations, err := fetch.FetchAll(apiURL)
+
+	artists, locations, date, relation, err := fetch.FetchAll(apiURL)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -35,11 +37,24 @@ func main() {
 	}
 
 	fmt.Println("Locations:")
+	for i, location := range locations {
+		fmt.Printf("%d: %s\n", i, location)
+	}
+	fmt.Println()
 
-	fmt.Printf("Location: %s\n", locations)
+	fmt.Println("Dates:")
+	for i, date := range date {
+		fmt.Printf("%d: %s\n", i, date)
+	}
+	fmt.Println()
+
+	fmt.Println("Relations:")
+	for i, relation := range relation {
+		fmt.Printf("%d: %s\n", i, relation)
+	}
+	fmt.Println()
 
 	fmt.Println("Time Taken: ", time.Since(startNow))
-
 	fmt.Println("Server is running on http://localhost:8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		fmt.Println(err)

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"sync"
 )
 
 type Artist struct {
@@ -16,44 +17,38 @@ type Artist struct {
 	FirstAlbum   string   `json:"firstAlbum"`
 }
 
-func FetchArtists(apiURL string) ([]Artist, error) {
+func fetchArtists(artistURL string, ch chan<- Artist, wg *sync.WaitGroup) {
+	defer wg.Done()
+
 	// Send GET request to the API
-	resp, err := http.Get(apiURL)
+	resp, err := http.Get(artistURL)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch artists: %v", err)
+		fmt.Printf("failed to fetch artists: %v", err)
+		return
 	}
 	defer resp.Body.Close()
 
 	// Check for non-200 status code
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("API returned status code %d", resp.StatusCode)
+		fmt.Printf("API returned status code %d", resp.StatusCode)
+		return
 	}
 
 	// Read the response body
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read response body: %v", err)
+		fmt.Printf("failed to read response body: %v", err)
+		return
 	}
 
 	var artists []Artist
 	err = json.Unmarshal(body, &artists)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse JSON: %v", err)
+		fmt.Printf("failed to parse JSON: %v", err)
+		return
 	}
 
-	// for i, artist := range artists {
-	// 	locations, dates, err := fetchLocations(artist.LocURL)
-	// 	if err != nil {
-	// 		return nil, fmt.Errorf("failed to fetch locations: %v", err)
-	// 	}
-	// 	relation, err := FetchRelation(artist.RelURL)
-	// 	if err != nil {
-	// 		return nil, fmt.Errorf("failed to fetch relation: %v", err)
-	// 	}
-	// 	artists[i].Locations = locations
-	// 	artists[i].ConcertDates = dates
-	// 	artists[i].Relations = relation
-	// }
-
-	return artists, nil
+	for _, artist := range artists {
+		ch <- artist
+	}
 }

@@ -5,36 +5,44 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"sync"
 )
 
-type DateData struct {
+type Date struct {
 	Dates []string `json:"dates"`
 }
 
-func fetchDates(dateURL string) ([]string, error) {
+func fetchDates(dateURL string, ch chan<- Date, wg *sync.WaitGroup) {
+	defer wg.Done()
 
 	resp, err := http.Get(dateURL)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch dates: %v", err)
+		fmt.Printf("failed to fetch dates: %v", err)
+		return
 	}
 	defer resp.Body.Close()
 
 	// Check for non-200 status codes
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("API returned status code %d", resp.StatusCode)
+		fmt.Printf("API returned status code %d", resp.StatusCode)
+		return
 	}
 
 	// Read the response body
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read response body: %v", err)
+		fmt.Printf("failed to read response body: %v", err)
+		return
 	}
 
-	var dates DateData
+	var dates map[string][]Date
 	err = json.Unmarshal(body, &dates)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse JSON: %v", err)
+		fmt.Printf("failed to parse JSON: %v", err)
+		return
 	}
 
-	return dates.Dates, nil
+	for _, date := range dates["index"] {
+		ch <- date
+	}
 }
