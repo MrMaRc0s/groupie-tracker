@@ -20,7 +20,7 @@ type Artist struct {
 	Relations    map[string][]string `json:"-"`
 }
 
-func FetchArtists(URL string) {
+func FetchArtists(URL string, completion func()) {
 	artistURL := URL + "/artists"
 	resp, err := http.Get(artistURL)
 	if err != nil {
@@ -111,5 +111,9 @@ func FetchArtists(URL string) {
 		fmt.Printf("Concert Dates: %v\n", artist.ConcertDates)
 		fmt.Printf("Relations: %v\n", artist.Relations)
 		fmt.Println()
+	}
+
+	if completion != nil {
+		completion()
 	}
 }

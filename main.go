@@ -4,7 +4,13 @@ import (
 	"fmt"
 	fetch "groupie/server"
 	"net/http"
+	"sync"
 	"time"
+)
+
+var (
+	dataLoaded bool
+	dataMutex  sync.RWMutex
 )
 
 func main() {
@@ -12,29 +18,33 @@ func main() {
 
 	apiURL := "https://groupietrackers.herokuapp.com/api"
 
-	// Serve static files (like HTML, CSS, JS)
-	fs := http.FileServer(http.Dir("./static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
-
-	// Handle the main page
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		dataMutex.RLock()
+		defer dataMutex.RUnlock()
+
+		if !dataLoaded {
+			w.WriteHeader(http.StatusProcessing)
+			fmt.Fprintln(w, "Server is starting up... Please refresh in a moment!")
+			return
+		}
 		http.ServeFile(w, r, "static/mainpage.html")
 	})
 
-	// Fetch data
-	fetch.FetchArtists(apiURL)
+	// Start data fetching in background
+	go func() {
+		fetch.FetchArtists(apiURL, func() {
+			dataMutex.Lock()
+			dataLoaded = true
+			dataMutex.Unlock()
+			fmt.Println("Initial data loading completed!")
+		})
+	}()
 
-	fmt.Println("Time Taken: ", time.Since(startNow))
+	fmt.Println("Time Taken to Start:", time.Since(startNow))
 	fmt.Println("Server is running on http://localhost:8080")
 
-	// Start server
+	// Start server without blocking
 	if err := http.ListenAndServe(":8080", nil); err != nil {
-		fmt.Println(err)
-		fmt.Println("Trying port 8081...")
-
-		if err := http.ListenAndServe(":8081", nil); err != nil {
-			fmt.Println("Port 8081 is already in use", err)
-			return
-		}
+		fmt.Println("Server error:", err)
 	}
 }
