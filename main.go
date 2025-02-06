@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	fetch "godot/server/datafetch"
+	fetch "groupie/server"
 	"net/http"
 	"time"
 )
