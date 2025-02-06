@@ -86,7 +86,7 @@
                         artistCard.classList.add("artist-card");
                         artistCard.innerHTML = `
                             <h2>${artist.name}</h2>
-                            <p>Formed: ${artist.formationDate}</p>
+                            <img src="${artist.image}" alt="${artist.name}"border-radius: 10px;">
                             <p>Members: ${artist.members.join(", ")}</p>
                         `;
                         artistsContainer.appendChild(artistCard);

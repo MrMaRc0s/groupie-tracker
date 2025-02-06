@@ -20,11 +20,11 @@ type Artist struct {
 	Relations    map[string][]string `json:"-"`
 }
 
-func FetchArtists(URL string, completion func()) {
+func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 	artistURL := URL + "/artists"
 	resp, err := http.Get(artistURL)
 	if err != nil {
-		fmt.Printf("failed to fetch artists: %v", err)
+		fmt.Printf("Failed to fetch artists: %v", err)
 		return
 	}
 	defer resp.Body.Close()
@@ -36,7 +36,7 @@ func FetchArtists(URL string, completion func()) {
 
 	var artists []Artist
 	if err := json.NewDecoder(resp.Body).Decode(&artists); err != nil {
-		fmt.Printf("failed to parse artists JSON: %v", err)
+		fmt.Printf("Failed to parse artists JSON: %v", err)
 		return
 	}
 
@@ -48,17 +48,15 @@ func FetchArtists(URL string, completion func()) {
 		go func(a Artist, index int) {
 			defer wg.Done()
 
-			// Fetch data concurrently
+			// Fetch extra details
 			locCh := make(chan []string, 1)
 			dateCh := make(chan []string, 1)
 			relCh := make(chan map[string][]string, 1)
 
-			// Build URLs using artist ID
 			locationURL := URL + "/locations/" + strconv.Itoa(a.ID)
 			datesURL := URL + "/dates/" + strconv.Itoa(a.ID)
 			relationURL := URL + "/relation/" + strconv.Itoa(a.ID)
 
-			// Fetch locations
 			go func() {
 				locations, err := fetchLocations(locationURL)
 				if err != nil {
@@ -69,7 +67,6 @@ func FetchArtists(URL string, completion func()) {
 				locCh <- locations
 			}()
 
-			// Fetch dates
 			go func() {
 				dates, err := fetchDates(datesURL)
 				if err != nil {
@@ -80,7 +77,6 @@ func FetchArtists(URL string, completion func()) {
 				dateCh <- dates
 			}()
 
-			// Fetch relations
 			go func() {
 				relations, err := fetchRelation(relationURL)
 				if err != nil {
@@ -91,7 +87,6 @@ func FetchArtists(URL string, completion func()) {
 				relCh <- relations
 			}()
 
-			// Collect data
 			a.Locations = <-locCh
 			a.ConcertDates = <-dateCh
 			a.Relations = <-relCh
@@ -102,18 +97,10 @@ func FetchArtists(URL string, completion func()) {
 
 	wg.Wait()
 
-	// Print updated artists
-	fmt.Println("Artists:")
-	for _, artist := range updatedArtists {
-		fmt.Printf("ID: %d\n", artist.ID)
-		fmt.Printf("Name: %s\n", artist.Name)
-		fmt.Printf("Locations: %v\n", artist.Locations)
-		fmt.Printf("Concert Dates: %v\n", artist.ConcertDates)
-		fmt.Printf("Relations: %v\n", artist.Relations)
-		fmt.Println()
-	}
+	fmt.Println("Artists fetched successfully!")
 
+	// ✅ Pass updated artist data to completion function
 	if completion != nil {
-		completion()
+		completion(updatedArtists)
 	}
 }
