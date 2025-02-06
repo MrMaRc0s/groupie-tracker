@@ -16,25 +16,7 @@ func main() {
 		fmt.Fprintln(w, "Welcome to the Band Info Server!")
 	})
 
-	artists, err := fetch.FetchAll(apiURL)
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-
-	fmt.Println("Artists:")
-	for _, artist := range artists {
-		fmt.Printf("ID: %d\n", artist.ID)
-		fmt.Printf("Name: %s\n", artist.Name)
-		fmt.Printf("Image: %s\n", artist.Image)
-		fmt.Printf("Members: %v\n", artist.Members)
-		fmt.Printf("Creation Date: %d\n", artist.CreationDate)
-		fmt.Printf("First Album: %s\n", artist.FirstAlbum)
-		fmt.Printf("Locations: %s\n", artist.Locations)
-		fmt.Printf("Concert Dates: %s\n", artist.ConcertDates)
-		fmt.Printf("Relations: %s\n", artist.Relations)
-		fmt.Println()
-	}
+	fetch.FetchArtists(apiURL)
 
 	fmt.Println("Time Taken: ", time.Since(startNow))
 	fmt.Println("Server is running on http://localhost:8080")

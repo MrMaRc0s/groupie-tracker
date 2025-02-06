@@ -4,13 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"sync"
 )
 
 type Relation struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
-func fetchRelation(relationURL string) map[string][]string {
+func fetchRelation(relationURL string, ch chan<- Relation, wg *sync.WaitGroup) map[string][]string {
+	defer wg.Done()
 
 	resp, err := http.Get(relationURL)
 	if err != nil {
@@ -30,6 +32,8 @@ func fetchRelation(relationURL string) map[string][]string {
 		fmt.Printf("failed to parse JSON: %v", err)
 		return nil
 	}
+
+	ch <- relation
 
 	return relation.DatesLocations
 }

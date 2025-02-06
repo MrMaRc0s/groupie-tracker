@@ -4,13 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"sync"
 )
 
 type Date struct {
 	Dates []string `json:"dates"`
 }
 
-func fetchDates(dateURL string) []string {
+func fetchDates(dateURL string, ch chan<- Date, wg *sync.WaitGroup) []string {
+	defer wg.Done()
 
 	resp, err := http.Get(dateURL)
 	if err != nil {
@@ -31,6 +33,8 @@ func fetchDates(dateURL string) []string {
 		fmt.Printf("failed to parse JSON: %v", err)
 		return nil
 	}
+
+	ch <- dates
 
 	return dates.Dates
 }
