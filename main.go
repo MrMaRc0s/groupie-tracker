@@ -48,6 +48,8 @@ func main() {
 		json.NewEncoder(w).Encode(artists) // Return artist data
 	})
 
+	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
+
 	// Start data fetching in the background
 	go func() {
 		fetch.FetchArtists(apiURL, func(fetchedArtists []fetch.Artist) { // Pass data

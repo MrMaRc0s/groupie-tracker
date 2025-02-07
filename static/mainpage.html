@@ -3,100 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Band Info</title>
-    <style>
-        /* Reset some default styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: "Poppins", Arial, sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        #artists {
-            margin-top: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .artist-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-
-        .artist-card:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .artist-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .artist-card p {
-            font-size: 1rem;
-            color: #ddd;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .artist-card {
-                width: 100%;
-            }
-        }
-    </style>
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="/style/style.css">
 </head>
 <body>
-    <h1>🎸 Band Info 🎶</h1>
-    <div id="artists">
-        <h2>Loading artists...</h2>
+    <h1>🎸 Groupie Tracker 🎶</h1>
+    <div class="container" id="artists">
+        <p id="loadingMessage">Loading artists... please wait.</p>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="artistModal">
+      <span class="modal-close" id="modalClose">X</span>
+      <div id="modalContent"></div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            fetch("/api/artists")
-                .then(response => response.json())
-                .then(data => {
-                    const artistsContainer = document.getElementById("artists");
-                    artistsContainer.innerHTML = ""; // Clear placeholder text
-
-                    data.forEach(artist => {
-                        const artistCard = document.createElement("div");
-                        artistCard.classList.add("artist-card");
-                        artistCard.innerHTML = `
-                            <h2>${artist.name}</h2>
-                            <img src="${artist.image}" alt="${artist.name}"border-radius: 10px;">
-                            <p>Members: ${artist.members.join(", ")}</p>
-                        `;
-                        artistsContainer.appendChild(artistCard);
-                    });
-                })
-                .catch(error => {
-                    console.error("Error fetching artists:", error);
-                    document.getElementById("artists").innerHTML = "<h2>Failed to load artists.</h2>";
-                });
-        });
-    </script>
+    <script src="/style/script.js"></script>
 </body>
 </html>
