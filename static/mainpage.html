@@ -11,12 +11,15 @@
     <div class="container" id="artists">
         <p id="loadingMessage">Loading artists... please wait.</p>
     </div>
-    <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay">
+        <img src="{{.Image}}">
+        <p>{{.Name}}</p>
+    </div>
     <div class="modal" id="artistModal">
-      <span class="modal-close" id="modalClose">X</span>
+      <span class="modal-close" id="modalClose"></span>
       <div id="modalContent"></div>
     </div>
 
-    <script src="/style/script.js"></script>
+    <!-- <script src="/style/script.js"></script> -->
 </body>
 </html>
