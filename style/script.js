@@ -1,53 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
-    fetch("/api/artists")
-        .then(response => response.json())
-        .then(data => {
-            const artistsContainer = document.getElementById("artists");
-            artistsContainer.innerHTML = ""; // Clear placeholder text
+document.addEventListener("DOMContentLoaded", function () {
+    // Select all artist cards
+    const artistCards = document.querySelectorAll(".artist-card a");
+    const overlays = document.querySelectorAll(".overlay");
 
-            data.forEach(artist => {
-                const artistCard = document.createElement("div");
-                artistCard.classList.add("artist-card");
-                artistCard.innerHTML = `
-                    <h2>${artist.name}</h2>
-                    <img src="${artist.image}" alt="${artist.name}"border-radius: 10px;">
-                `;
-                artistCard.addEventListener("click", () => {
-                    showArtistDetails(artist);
-                });
-                artistsContainer.appendChild(artistCard);
-            });
-        })
-        .catch(error => {
-            console.error("Error fetching artists:", error);
-            document.getElementById("artists").innerHTML = "<h2>Failed to load artists.</h2>";
+    // Open overlay on click
+    artistCards.forEach((card) => {
+        card.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default link behavior
+            const artistId = this.getAttribute("href").substring(7); // Extract ID from href
+            document.getElementById(`artist-${artistId}`).classList.add("show");
         });
+    });
+
+    // Close overlay on clicking close button or outside the content
+    overlays.forEach((overlay) => {
+        overlay.addEventListener("click", function (event) {
+            if (
+                event.target.classList.contains("close-button") || // Click close button
+                event.target.classList.contains("overlay") // Click outside content
+            ) {
+                this.classList.remove("show");
+            }
+        });
+    });
 });
-
-function showArtistDetails(artist) {
-    const modalContent = document.getElementById("modalContent");
-    modalContent.innerHTML = `
-        <div class="artist-detail-card">
-        <img src="${artist.image}" alt="${artist.name}" class="artist-detail-image">
-        <div class="artist-detail-info">
-            <h2>${artist.name}</h2>
-            <p><strong>Members:</strong> ${artist.members.join(", ")}</p>
-            ${artist.info ? `<p><strong>Info:</strong> ${artist.info}</p>` : ""}
-            <!-- Add more fields here as needed -->
-        </div>
-        </div>
-    `;
-  
-    // Display the modal and overlay
-    document.getElementById("artistModal").classList.add("show");
-    document.getElementById("overlay").classList.add("show");
-  }
-
-  function hideModal() {
-    document.getElementById("artistModal").classList.remove("show");
-    document.getElementById("overlay").classList.remove("show");
-  }
-  
-  // Set up event listeners for closing the modal
-  document.getElementById("modalClose").addEventListener("click", hideModal);
-  document.getElementById("overlay").addEventListener("click", hideModal);
