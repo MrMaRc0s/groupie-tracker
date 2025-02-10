@@ -9,17 +9,33 @@
 <body>
     <h1>🎸 Groupie Tracker 🎶</h1>
     <div class="container" id="artists">
-        <p id="loadingMessage">Loading artists... please wait.</p>
-    </div>
-    <div class="overlay" id="overlay">
-        <img src="{{.Image}}">
-        <p>{{.Name}}</p>
-    </div>
-    <div class="modal" id="artistModal">
-      <span class="modal-close" id="modalClose"></span>
-      <div id="modalContent"></div>
-    </div>
+        {{if .Artists}}
+            {{range .Artists}}
+                <div class="artist-card">
+                    <a href="artist-{{.ID}}">
+                        <h2>{{.Name}}</h2>
+                        <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
+                    </a>
+                </div>
 
+                <div class="overlay" id="artist-{{.ID}}">
+                <div class="overlay-content">
+                    <a href="" class="close-button">&times;</a>
+                        <h2>{{.Name}}</h2>
+                        <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
+                        <p>Members: {{.Members}}</p>
+                        <p>Creation Date: {{.CreationDate}}</p>
+                        <p>First Album: {{.FirstAlbum}}</p>
+                        <p>Locations: {{.Locations}}</p>
+                        <p>Dates: {{.ConcertDates}}</p>
+                        <p>Relations: {{.Relations}}</p>
+                </div>
+                </div>
+            {{end}}
+        {{else}}
+            <p id="loadingMessage">Loading artists... please wait.</p>
+        {{end}}
+    </div>
     <!-- <script src="/style/script.js"></script> -->
 </body>
 </html>

@@ -11,8 +11,7 @@ func main() {
 	startNow := time.Now()
 	apiURL := "https://groupietrackers.herokuapp.com/api"
 
-	http.HandleFunc("/", server.Handler)
-	http.HandleFunc("/artists", server.DataRender)
+	http.HandleFunc("/", server.DataRender)
 	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
 	server.Fetching(apiURL)
 
