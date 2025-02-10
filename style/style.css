@@ -6,7 +6,7 @@
 
 body {
     font-family: "Poppins", Arial, sans-serif;
-    background: linear-gradient(135deg, #7a0074, #831313);
+    background: linear-gradient(135deg, #7a0074, #ff00aa, #831313);
     color: rgb(0, 0, 0);
     text-align: center;
     padding: 20px;
@@ -41,7 +41,7 @@ a {
     z-index: 1000;
 }
   .overlay-content {
-    background-color: #c8ff00;
+    background: linear-gradient(135deg, #27a800, #73ff00, #c8ff00);
     padding: 20px;
     border-radius: 10px;
     position: relative;
@@ -49,6 +49,8 @@ a {
     width: 400px; /* Set a fixed width for better alignment */
     text-align: center;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    line-height: 1.5;
+    color: #333;
 }
   .overlay-content img {
     max-width: 200px;
@@ -56,6 +58,33 @@ a {
     display: block;
     margin: 0 auto;
   }
+
+  .overlay-content h2 {
+    margin-top: 0;
+    font-weight: 700; 
+    font-size: 2.0em;
+  }
+
+  .overlay-content #headers {
+    margin: 10px 0;
+    font-family: 'Fredoka One', cursive;
+    font-weight: 700; 
+    font-size: 1.2em;
+  }
+
+  .overlay-content p {
+    /* margin: 10px 0; */
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700; 
+    font-size: 1.5em;
+  }
+
+  .overlay-content a {
+    font-family: 'Fredoka One', cursive;
+    font-weight: 700; 
+    font-size: 1.2em;
+  }
+
   .close-button {
     position: absolute;
     top: 10px;
@@ -63,6 +92,10 @@ a {
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+  }
+
+  .close-button:hover {
+    color: #333;
   }
 
 .container {

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Fredoka+One&family=Poppins:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
     <title>Groupie Tracker</title>
     <link rel="stylesheet" href="/style/style.css">
 </head>
@@ -23,12 +24,19 @@
                     <a class="close-button">&times;</a>
                         <h2>{{.Name}}</h2>
                         <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
-                        <p>Members: {{.Members}}</p>
-                        <p>Creation Date: {{.CreationDate}}</p>
-                        <p>First Album: {{.FirstAlbum}}</p>
-                        <p>Locations: {{.Locations}}</p>
-                        <p>Dates: {{.ConcertDates}}</p>
-                        <p>Relations: {{.Relations}}</p>
+                        <p id="headers">Members:</p>
+                        <ul>
+                            {{range .Members}}
+                                <p>{{.}}</p>
+                            {{end}}
+                        </ul>
+                        <p id="headers">Creation Date</p>
+                            <p>{{.CreationDate}}</p>
+                        <p id="headers">First Album</p>
+                            <p>{{.FirstAlbum}}</p>
+                        <a href="/locations">Locations</a>
+                        <a href="/dates">Concert Dates</a>
+                        <a href="/relations">Relations</a>
                 </div>
                 </div>
             {{end}}
