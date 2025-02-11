@@ -14,6 +14,7 @@ func main() {
 	// Setup routes first
 	http.HandleFunc("/", server.HomeRender)
 	http.HandleFunc("/homepage", server.DataRender)
+	http.HandleFunc("/details", server.DetailsRender)
 	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
 
 	// Start data fetching in background

@@ -8,6 +8,7 @@ import (
 	"groupie/fetch"
 	"html/template"
 	"net/http"
+	"strconv"
 	"sync"
 )
 
@@ -65,11 +66,28 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Show loading template if data isn't ready
-	if !pageData.Loaded {
-		w.WriteHeader(http.StatusProcessing)
-		tmpl.ExecuteTemplate(w, "loading", nil)
+	// if !pageData.Loaded {
+	// 	w.WriteHeader(http.StatusProcessing)
+	// 	tmpl.ExecuteTemplate(w, "loading", nil)
+	// 	return
+	// }
+
+	tmpl.Execute(w, pageData)
+}
+
+func DetailsRender(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("static/info.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	id, _ := strconv.Atoi(r.FormValue("id"))
+	id -= 1
+	pageData := PageData{
+		Loaded:  dataLoaded,
+		Artists: []fetch.Artist{artists[id]},
 
+		// Tracks:  TopTracks,
+	}
 	tmpl.Execute(w, pageData)
 }

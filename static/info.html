@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Fredoka+One&family=Poppins:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="/style/styleHome.css">
+</head>
+<body>
+    <div class="artist-cards">
+        {{range .Artists}}
+        <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
+        <p id="headers">Members:</p>
+        <ul>
+            {{range .Members}}
+                <p>{{.}}</p>
+            {{end}}
+        </ul>
+        <p id="headers">Creation Date:</p>
+            <p>{{.CreationDate}}</p>
+        <p id="headers">First Album:</p>
+            <p>{{.FirstAlbum}}</p>
+    </div>
+    <br>
+    <button>Locations</button>
+    <button>Concert Dates</button>
+    <button>Relations</button>
+    {{end}}
+</body>
+</html>

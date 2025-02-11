@@ -14,7 +14,7 @@
     <h1>🎸 Groupie Tracker 🎶</h1>
     <div class="container" id="artists">
         {{range .Artists}}
-            <div class="artist-card">
+            <div class="artist-cards">
                 <audio id="audio-{{.ID}}">
                     <source src="{{.ID}}.mp3" type="audio/mpeg">
                     Your browser does not support the audio element.
@@ -38,13 +38,15 @@
                             <p>{{.}}</p>
                         {{end}}
                     </ul>
-                    <p id="headers">Creation Date</p>
+                    <p id="headers">Creation Date:</p>
                         <p>{{.CreationDate}}</p>
-                    <p id="headers">First Album</p>
+                    <p id="headers">First Album:</p>
                         <p>{{.FirstAlbum}}</p>
-                    <a href="/locations">Locations</a>
-                    <a href="/dates">Concert Dates</a>
-                    <a href="/relations">Relations</a>
+                        <form action="/details" method="GET">
+                            <input type="hidden" name="id" value="{{.ID}}">
+                            <button>View More</button>
+                        </form>
+                    <!--<a href="/details">View More</a>-->
             </div>
             </div>
         {{end}}

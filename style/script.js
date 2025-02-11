@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Select all artist cards
-    const artistCards = document.querySelectorAll(".artist-card a");
+    const artistCards = document.querySelectorAll(".artist-cards a");
     const overlays = document.querySelectorAll(".overlay");
 
     // Open overlay on click
