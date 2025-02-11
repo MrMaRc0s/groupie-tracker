@@ -1,0 +1,54 @@
+<!-- TO AUDIO DEN LEITOURGEI DEN EXO VREI TROPO -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Fredoka+One&family=Poppins:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="/style/styleHome.css">
+</head>
+<body>
+    <h1>🎸 Groupie Tracker 🎶</h1>
+    <div class="container" id="artists">
+        {{range .Artists}}
+            <div class="artist-card">
+                <audio id="audio-{{.ID}}">
+                    <source src="{{.ID}}.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <a href="artist-{{.ID}}">
+                    <h2>{{.Name}}</h2>
+                    <img src="{{.Image}}" alt="{{.Name}}" class="artist-image"
+                    onmouseenter="playTrack('{{.ID}}')"
+                    onmouseleave="stopTrack('{{.ID}}')">
+                </a>
+            </div>
+
+            <div class="overlay" id="artist-{{.ID}}">
+            <div class="overlay-content">
+                <a class="close-button">&times;</a>
+                    <h2>{{.Name}}</h2>
+                    <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
+                    <p id="headers">Members:</p>
+                    <ul>
+                        {{range .Members}}
+                            <p>{{.}}</p>
+                        {{end}}
+                    </ul>
+                    <p id="headers">Creation Date</p>
+                        <p>{{.CreationDate}}</p>
+                    <p id="headers">First Album</p>
+                        <p>{{.FirstAlbum}}</p>
+                    <a href="/locations">Locations</a>
+                    <a href="/dates">Concert Dates</a>
+                    <a href="/relations">Relations</a>
+            </div>
+            </div>
+        {{end}}
+    </div>
+    <script src="/style/script.js"></script>
+</body>
+</html>

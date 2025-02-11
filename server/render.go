@@ -1,3 +1,6 @@
+// EXO SXOLIA OPOU EINAI NA TREKSEI TO FETCHTRACKS ALLA DEN THA LEITOURGHSEI STO TEMPLATE
+// APLA KANEI FETCH KAPOIA LINK GIA TOP TRACK KATHE ARTIST
+
 package server
 
 import (
@@ -12,11 +15,13 @@ var (
 	dataLoaded bool
 	dataMutex  sync.RWMutex
 	artists    []fetch.Artist
+	// TopTracks  []fetch.Track
 )
 
 type PageData struct {
 	Loaded  bool
 	Artists []fetch.Artist
+	// Tracks  []fetch.Track
 }
 
 func Fetching(apiURL string) {
@@ -25,17 +30,29 @@ func Fetching(apiURL string) {
 			dataMutex.Lock()
 			defer dataMutex.Unlock()
 			artists = fetchedArtists
+			// for _, artist := range artists {
+			// 	TopTracks = append(TopTracks, fetch.FetchTracks(artist.Name))
+			// }
 			dataLoaded = true
 			fmt.Println("Initial data loading completed!")
 		})
 	}()
 }
 
+func HomeRender(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("static/welcomepage.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	tmpl.Execute(w, nil)
+}
+
 func DataRender(w http.ResponseWriter, r *http.Request) {
 	dataMutex.RLock()
 	defer dataMutex.RUnlock()
 
-	tmpl, err := template.ParseFiles("static/mainpage.html")
+	tmpl, err := template.ParseFiles("static/homepage.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -44,6 +61,7 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	pageData := PageData{
 		Loaded:  dataLoaded,
 		Artists: artists,
+		// Tracks:  TopTracks,
 	}
 
 	// Show loading template if data isn't ready

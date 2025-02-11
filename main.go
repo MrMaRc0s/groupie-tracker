@@ -12,7 +12,8 @@ func main() {
 	apiURL := "https://groupietrackers.herokuapp.com/api"
 
 	// Setup routes first
-	http.HandleFunc("/", server.DataRender)
+	http.HandleFunc("/", server.HomeRender)
+	http.HandleFunc("/homepage", server.DataRender)
 	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
 
 	// Start data fetching in background

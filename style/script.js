@@ -24,3 +24,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+
+
+// DEN LEITOURGEI !!!
+
+function playTrack(artistID) {
+    // Select the audio element by concatenating the prefix with the artist's ID
+    var audioElement = document.getElementById(`audio-${artistID}`);
+    if (audioElement) {
+      // Optionally, you can set volume or other properties here
+      audioElement.play();
+    }
+  }
+
+  function stopTrack(artistID) {
+    var audioElement = document.getElementById(`audio-${artistID}`);
+    if (audioElement) {
+      audioElement.pause();
+      audioElement.currentTime = 0; // Reset the track to the beginning
+    }
+  }

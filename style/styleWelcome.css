@@ -1,0 +1,123 @@
+body{
+    background:#000;
+  }
+  
+  .visual{
+    width: 800px;
+    height: 550px;
+    background-image: url("media/images/neon.gif");
+    background-size: 800px 550px;
+    margin:auto;
+    border:20px solid #080808;
+    outline:1px solid #111;
+    overflow: hidden;
+    transition: all ease-in-out 1s;
+  }
+  
+  .welcomeBox{
+    /* display: flex; */
+    color: #000000;
+    text-transform:lowercase;
+    text-align: center;
+    width: 400px;
+    height: 550px;
+    margin: auto;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .txt1{
+    font-family: chill;
+    font-size: 200px;
+    position: relative;
+    left:-135px;
+    transition: all ease-in-out 0.9s;
+    /* transition-delay: 0.9s; */
+  }
+  
+  .txt2{
+    font-family: chill;
+    font-size: 200px;
+    position: relative;
+    right: -110px;
+    transition: all ease-in-out 0.9s;
+    /* transition-delay: 0.9s; */
+  }
+  
+  .visual:hover .txt1{
+    left: -600px;
+    transition: all ease-in-out 0.8s;
+  }
+  
+  .visual:hover .txt2{
+    right: -600px;
+    transition: all ease-in-out 0.8s;
+  }
+  
+  .visual:hover{
+    background: url("media/images/neon.gif");
+    background-size: 800px 550px;
+    transition: all ease-in-out 1s;
+  }
+
+  .buttons{
+    width: 800px;
+    height: 550px;
+    margin: auto;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.buttons button{
+    width: 100px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: rgb(103, 0, 103);
+    position: relative;
+    top: -300px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-family: rajdhani;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing:1px;
+    margin: auto;
+    cursor: pointer;
+    border: 0;
+    color: #ff0000;
+    font-size: 20px;
+    font-weight: 700;
+    transform: scale(0);
+    transition: all ease-in-out 0.8s;
+    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    opacity: 0;
+  }
+
+.buttons a {
+    text-decoration: none;
+    color: #000000;
+}
+  
+.buttons button:hover{
+    transition: all ease-in-out 0.8s;
+  }
+
+  .visual:hover .buttons button{
+    /* top: 0px; */
+    transition: all ease-in-out 0.8s;
+    /* transition-delay: 0.8s; */
+    transform: scale(1); /* Zoom in */
+    opacity: 1; 
+  }
+  
+  @font-face {
+    font-family: 'Chill';
+    font-style: normal;
+    font-weight: normal;
+    src: url('https://dl.dropbox.com/s/agpnu5irqlaaeco/Chillvornia%20Stamp%20Slant.otf') format('woff');
+    }
+  
