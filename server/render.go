@@ -41,9 +41,13 @@ func Fetching(apiURL string) {
 }
 
 func HomeRender(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		ErrorPage(w, http.StatusNotFound)
+		return
+	}
 	tmpl, err := template.ParseFiles("static/welcomepage.html")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
 	tmpl.Execute(w, nil)
@@ -53,9 +57,14 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	dataMutex.RLock()
 	defer dataMutex.RUnlock()
 
+	if r.URL.Path != "/homepage" {
+		ErrorPage(w, http.StatusNotFound)
+		return
+	}
+
 	tmpl, err := template.ParseFiles("static/homepage.html")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
 
@@ -76,13 +85,21 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 }
 
 func DetailsRender(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/details" {
+		ErrorPage(w, http.StatusNotFound)
+		return
+	}
 	tmpl, err := template.ParseFiles("static/info.html")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
 	id, _ := strconv.Atoi(r.FormValue("id"))
 	id -= 1
+	if id < 0 || id >= len(artists) {
+		ErrorPage(w, http.StatusBadRequest)
+		return
+	}
 	pageData := PageData{
 		Loaded:  dataLoaded,
 		Artists: []fetch.Artist{artists[id]},

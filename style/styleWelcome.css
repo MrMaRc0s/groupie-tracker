@@ -15,18 +15,45 @@ body{
   }
 
   .welcomeBox{
-    /* display: flex; */
     color: #000000;
-    text-transform:lowercase;
     text-align: center;
     width: 400px;
     height: 550px;
     margin: auto;
-    position: relative;
     justify-content: center;
     align-items: center;
   }
+
+  .error .txt1 {
+    margin-top: -200px;
+    left: -300px;
+  }
+
+  .error .txt2 {
+    margin-top: -100px;
+  }
   
+  .welcomeBox h1{
+    font-family: chill;
+    font-size: 100px;
+    position: relative;
+    transform: scale(0);
+    transition: all ease-in-out 0.8s;
+    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    opacity: 0;
+  }
+  
+  .welcomeBox p {
+    font-family: comic cursive;
+    font-size: 35px;
+    margin-top: -200px;
+    position: relative;
+    transform: scale(0);
+    transition: all ease-in-out 0.8s;
+    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    opacity: 0;
+  }
+
   .txt1{
     font-family: chill;
     font-size: 400px;
@@ -55,12 +82,13 @@ body{
     transition: all ease-in-out 0.8s;
   }
   
-  .visual:hover{
+  /* .visual:hover{
     background: url("images/neon.gif");
     background-size: 1850px, 870px;
     transition: all ease-in-out 1s;
   }
-  
+   */
+
 .buttons a{
     text-decoration: none;
     color: #000000;
@@ -92,7 +120,19 @@ body{
   transform: scale(1);
   opacity: 1; 
 }
-  
+
+.welcomeBox:hover h1{
+  transition: all ease-in-out 0.8s;
+  transform: scale(1);
+  opacity: 1; 
+}
+
+.welcomeBox:hover p{
+  transition: all ease-in-out 0.8s;
+  transform: scale(1);
+  opacity: 1; 
+}
+
   @font-face {
     font-family: 'Chill';
     font-style: normal;

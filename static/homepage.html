@@ -31,22 +31,22 @@
             <div class="overlay" id="artist-{{.ID}}">
             <div class="overlay-content">
                 <a class="close-button">&times;</a>
-                    <h2>{{.Name}}</h2>
-                    <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
-                    <p id="headers">Members:</p>
-                    <ul>
-                        {{range .Members}}
-                            <p>{{.}}</p>
-                        {{end}}
-                    </ul>
-                    <p id="headers">Creation Date:</p>
-                        <p>{{.CreationDate}}</p>
-                    <p id="headers">First Album:</p>
-                        <p>{{.FirstAlbum}}</p>
-                        <form action="/details" method="GET">
-                            <input type="hidden" name="id" value="{{.ID}}">
-                            <button>View More <i class="fas fa-external-link-alt"></i></button>
-                        </form>
+                <h2>{{.Name}}</h2>
+                <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
+                <p id="headers">Members:</p>
+                <ul>
+                    {{range .Members}}
+                        <p>{{.}}</p>
+                    {{end}}
+                </ul>
+                <p id="headers">Creation Date:</p>
+                <p>{{.CreationDate}}</p>
+                <p id="headers">First Album:</p>
+                <p>{{.FirstAlbum}}</p>
+                <form action="/details" method="GET">
+                    <input type="hidden" name="id" value="{{.ID}}">
+                    <button>View More <i class="fas fa-external-link-alt"></i></button>
+                </form>
             </div>
             </div>
         {{end}}
