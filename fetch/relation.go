@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 type Relation struct {
@@ -24,6 +25,14 @@ func fetchRelation(relationURL string) (map[string][]string, error) {
 	var relData Relation
 	if err := json.NewDecoder(resp.Body).Decode(&relData); err != nil {
 		return nil, fmt.Errorf("failed to parse relation JSON: %w", err)
+	}
+
+	//newMap := make(map[string]string)
+
+	for key := range relData.DatesLocations {
+		newKey := strings.Replace(key, "_", " ", -1)
+		newKey = strings.Replace(newKey, "-", ", ", -1)
+
 	}
 
 	return relData.DatesLocations, nil

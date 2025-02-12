@@ -26,7 +26,7 @@
         <summary class="dropdown-btn">Locations</summary>
         <div class="dropdown-content">
             {{range .Locations}}
-                <p>{{.}}</p>
+                <a href="">{{.}}</p>
             {{end}}
         </div>
     </details>
@@ -41,11 +41,12 @@
     <details class="dropdown">
         <summary class="dropdown-btn">Relations</summary>
         <div class="dropdown-content">
-            {{range .Relations}}
-                <p>{{.}}</p>
+            {{range $key, $value := .Relations}}
+                <p>{{printf "%s, %s" $key $value}}</p>
             {{end}}
         </div>
     </details>
     {{end}}
+    <button><a href="/homepage">Go Home</a></button>
 </body>
 </html>
