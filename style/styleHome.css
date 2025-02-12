@@ -123,18 +123,57 @@ a {
     transition: transform 0.3s ease, background 0.3s ease;
 }
 
-/* .artist-card {
-  display: inline-block;
+.artist-card {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  align-items: center;
   margin: 10px;
-  cursor: pointer;
   background: rgba(255, 255, 255, 0.1);
   padding: 20px;
-  border: 1px solid #1d0000;
+  border: 2px solid #230000;
   border-radius: 20px;
-  width: 1000px;
+  height: 400px;
+  width: 1500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, background 0.3s ease;
-} */
+  position: relative;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  line-height: 1.5;
+  color: #333;
+}
+
+.artist-card img {
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 1);
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  /* transition: transform 0.5s ease-out; */
+}
+
+.artist-card:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.artist-card #headers {
+  color: #000000;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  margin: 10px 0;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 700; 
+}
+
+.artist-card p {
+  color: #313131;
+  font-family: 'Amatic SC', cursive;
+  font-weight: 700; 
+  font-size: 2em;
+}
 
 .artist-cards img {
     /* width: 100px;
@@ -162,6 +201,91 @@ a {
 .artist-cards p {
     font-size: 1rem;
     color: #ddd;
+}
+
+
+/* Optional: Hide the default marker in some browsers */
+.dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Style the dropdown content */
+.dropdown-content {
+  padding: 20px;
+  background: linear-gradient(135deg, #165100, #448d00, #1eb300);
+  color: #000000;
+  font-family: 'Amatic SC', cursive;
+  font-weight: 700; 
+  font-size: 1.5em;
+  line-height: 1.5;
+  text-align: center;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  margin-top: 8px;
+  box-shadow: 1px 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Optional: Add a transition for smooth opening */
+.dropdown[open] .dropdown-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin: 20px;
+}
+
+.dropdown-btn {
+  background: #34004e;
+  color: #770073;
+  padding: 12px 24px;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 700;
+  font-size: 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.dropdown-btn:hover {
+  transform: scale(1.05);
+  background: #920066;
+  color: #000000;
+}
+.dropdown-content.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-content p {
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+.overlay-content button {
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000000;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 700;
+  font-size: 1.2em;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.overlay-content button:hover {
+  text-decoration: underline;
+  transform: scale(1.05);
+  color: #5c3751;
 }
 
 @keyframes spin {

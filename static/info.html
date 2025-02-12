@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/style/styleHome.css">
 </head>
 <body>
-    <div class="artist-cards">
+    <div class="artist-card">
         {{range .Artists}}
         <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
         <p id="headers">Members:</p>
@@ -22,9 +22,30 @@
             <p>{{.FirstAlbum}}</p>
     </div>
     <br>
-    <button>Locations</button>
-    <button>Concert Dates</button>
-    <button>Relations</button>
+    <details class="dropdown">
+        <summary class="dropdown-btn">Locations</summary>
+        <div class="dropdown-content">
+            {{range .Locations}}
+                <p>{{.}}</p>
+            {{end}}
+        </div>
+    </details>
+    <details class="dropdown">
+        <summary class="dropdown-btn">Concert Dates</summary>
+        <div class="dropdown-content">
+            {{range .ConcertDates}}
+                <p>{{.}}</p>
+            {{end}}
+        </div>
+    </details>
+    <details class="dropdown">
+        <summary class="dropdown-btn">Relations</summary>
+        <div class="dropdown-content">
+            {{range .Relations}}
+                <p>{{.}}</p>
+            {{end}}
+        </div>
+    </details>
     {{end}}
 </body>
 </html>

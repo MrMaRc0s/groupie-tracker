@@ -60,53 +60,34 @@ body{
     background-size: 1850px, 870px;
     transition: all ease-in-out 1s;
   }
-
-  .buttons{
-    width: 1850px;
-    height: 870px;
-    margin: auto;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-  }
   
-.buttons button{
-    width: 100px;
-    height: 50px;
-    border-radius: 50px;
-    background-color: rgb(103, 0, 103);
+.buttons a{
+    text-decoration: none;
+    color: #000000;
     position: relative;
-    top: -100px;
+    top: -400px;
     display: flex;
+    font-family: chill;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    font-family: rajdhani;
     text-transform: uppercase;
-    font-size: 10px;
     letter-spacing:1px;
     margin: auto;
     cursor: pointer;
-    border: 0;
-    color: #ff0000;
-    font-size: 20px;
+    font-size: 100px;
     font-weight: 700;
     transform: scale(0);
     transition: all ease-in-out 0.8s;
     transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
     opacity: 0;
   }
-
-.buttons a {
-    text-decoration: none;
-    color: #000000;
-}
   
-.buttons button:hover{
+.buttons a:hover{
     transition: all ease-in-out 0.8s;
   }
 
-.visual:hover .buttons button{
+.welcomeBox:hover .buttons a{
   transition: all ease-in-out 0.8s;
   transform: scale(1);
   opacity: 1; 

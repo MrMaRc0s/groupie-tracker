@@ -86,7 +86,6 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 	pageData := PageData{
 		Loaded:  dataLoaded,
 		Artists: []fetch.Artist{artists[id]},
-
 		// Tracks:  TopTracks,
 	}
 	tmpl.Execute(w, pageData)
