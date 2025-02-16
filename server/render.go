@@ -16,13 +16,13 @@ var (
 	dataLoaded bool
 	dataMutex  sync.RWMutex
 	artists    []fetch.Artist
-	// TopTracks  []fetch.Track
+	TopTracks  []fetch.Track
 )
 
 type PageData struct {
 	Loaded  bool
 	Artists []fetch.Artist
-	// Tracks  []fetch.Track
+	Tracks  []fetch.Track
 }
 
 func Fetching(apiURL string) {
@@ -31,9 +31,9 @@ func Fetching(apiURL string) {
 			dataMutex.Lock()
 			defer dataMutex.Unlock()
 			artists = fetchedArtists
-			// for _, artist := range artists {
-			// 	TopTracks = append(TopTracks, fetch.FetchTracks(artist.Name))
-			// }
+			for _, artist := range artists {
+				TopTracks = append(TopTracks, fetch.FetchTracks(artist.Name))
+			}
 			dataLoaded = true
 			fmt.Println("Initial data loading completed!")
 		})
@@ -71,7 +71,7 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	pageData := PageData{
 		Loaded:  dataLoaded,
 		Artists: artists,
-		// Tracks:  TopTracks,
+		Tracks:  TopTracks,
 	}
 
 	// Show loading template if data isn't ready

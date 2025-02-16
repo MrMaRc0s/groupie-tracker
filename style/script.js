@@ -29,19 +29,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // DEN LEITOURGEI !!!
 
+let pauseTimeout;
 function playTrack(artistID) {
     // Select the audio element by concatenating the prefix with the artist's ID
+    console.log("Playing track for artist", artistID);
+    clearTimeout(pauseTimeout);
     var audioElement = document.getElementById(`audio-${artistID}`);
     if (audioElement) {
       // Optionally, you can set volume or other properties here
-      audioElement.play();
+      audioElement.play().catch(function(error) {
+        console.error("Playback failed:", error);
+      });
+    } else {
+      console.error("Audio element not found for artist", artistID);
     }
   }
 
   function stopTrack(artistID) {
-    var audioElement = document.getElementById(`audio-${artistID}`);
-    if (audioElement) {
-      audioElement.pause();
-      audioElement.currentTime = 0; // Reset the track to the beginning
-    }
+    pauseTimeout = setTimeout(function() {
+        var audioElement = document.getElementById(`audio-${artistID}`);
+        if (audioElement) {
+        audioElement.pause();
+        audioElement.currentTime = 0; // Reset the track to the beginning
+        }
+    }, 100)
   }
