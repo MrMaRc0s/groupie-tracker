@@ -20,20 +20,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 event.target.classList.contains("overlay") // Click outside content
             ) {
                 this.classList.remove("show");
+                // Extract artistID from overlay's id (assuming id format "artist-{{.ID}}")
+                const artistID = this.id.substring(7);
+                stopTrack(artistID);
             }
         });
     });
 });
 
-
-
-// DEN LEITOURGEI !!!
-
-let pauseTimeout;
+// MUSIC
 function playTrack(artistID) {
     // Select the audio element by concatenating the prefix with the artist's ID
     console.log("Playing track for artist", artistID);
-    clearTimeout(pauseTimeout);
     var audioElement = document.getElementById(`audio-${artistID}`);
     if (audioElement) {
       // Optionally, you can set volume or other properties here
@@ -45,12 +43,14 @@ function playTrack(artistID) {
     }
   }
 
-  function stopTrack(artistID) {
-    pauseTimeout = setTimeout(function() {
-        var audioElement = document.getElementById(`audio-${artistID}`);
-        if (audioElement) {
-        audioElement.pause();
-        audioElement.currentTime = 0; // Reset the track to the beginning
-        }
-    }, 100)
+function stopTrack(artistID) {
+  var overlay = document.getElementById(`artist-${artistID}`);
+  if (overlay && overlay.classList.contains("show")) {
+    return;
   }
+  var audioElement = document.getElementById(`audio-${artistID}`);
+  if (audioElement) {
+  audioElement.pause();
+  audioElement.currentTime = 0; // Reset the track to the beginning
+  }
+}

@@ -15,16 +15,16 @@
     <h1>🎸 Groupie Tracker 🎶</h1>
     <div class="container" id="artists">
         {{range .Artists}}
-            <div class="artist-cards">
-                <audio id="audio-{{.ID}}">
-                    <source src="style/media/tracks/{{.ID}}.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
+            <audio id="audio-{{.ID}}" prload="auto" loop>
+                <source src="style/media/tracks/{{.ID}}.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="artist-cards" 
+            onmouseenter="playTrack('{{.ID}}')"
+            onmouseleave="stopTrack('{{.ID}}')">  
                 <a href="artist-{{.ID}}">
                     <h2>{{.Name}}</h2>
-                    <img src="{{.Image}}" alt="{{.Name}}" class="artist-image"
-                    onmouseenter="playTrack('{{.ID}}')"
-                    onmouseleave="stopTrack('{{.ID}}')">
+                    <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
                 </a>
             </div>
 
