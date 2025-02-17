@@ -5,8 +5,8 @@ body{
   .visual{
     width: 1850px;
     height: 870px;
-    background-image: url("images/neon.gif");
-    background-size: 1850px, 870px;
+    background-image: url("https://i.redd.it/q5vqv973wot71.gif");
+    background-size: cover;
     margin:auto;
     border:20px solid #080808;
     outline:1px solid #111;
