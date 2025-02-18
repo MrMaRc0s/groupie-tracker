@@ -46,6 +46,21 @@ button:hover {
   color: #27041c;
 }
 
+.link {
+  text-decoration: none;
+  font-family: 'Fredoka One', cursive;
+  color: #333;
+  font-weight: 700;
+  font-size: 1.2em;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.link:hover {
+  text-decoration: underline;
+  transform: scale(1.2);
+  color: #27041c;
+}
+
 .overlay.show {
   display: flex;
 }

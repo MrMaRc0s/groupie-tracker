@@ -1,6 +1,3 @@
-// EXO SXOLIA OPOU EINAI NA TREKSEI TO FETCHTRACKS ALLA DEN THA LEITOURGHSEI STO TEMPLATE
-// APLA KANEI FETCH KAPOIA LINK GIA TOP TRACK KATHE ARTIST
-
 package server
 
 import (
@@ -73,13 +70,6 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 		Artists: artists,
 		// Tracks:  TopTracks,
 	}
-
-	// Show loading template if data isn't ready
-	// if !pageData.Loaded {
-	// 	w.WriteHeader(http.StatusProcessing)
-	// 	tmpl.ExecuteTemplate(w, "loading", nil)
-	// 	return
-	// }
 
 	tmpl.Execute(w, pageData)
 }

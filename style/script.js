@@ -28,6 +28,43 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// SEARCH BAR
+const searchBar = document.getElementById('searchBar');
+const suggestionsDiv = document.getElementById('suggestions');
+const resultsDiv = document.getElementById('results');
+
+let debounceTimer;
+searchBar.addEventListener('keyup', function() {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    const query = searchBar.value;
+
+    // Fetch suggestions.
+    fetch(`/suggestions?query=${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(suggestions => {
+        suggestionsDiv.innerHTML = '';
+        suggestions.forEach(item => {
+          const el = document.createElement('div');
+          el.textContent = `${item.value} - ${item.type}`;
+          suggestionsDiv.appendChild(el);
+        });
+      });
+
+    // Fetch filtered artist results.
+    fetch(`/search?query=${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(artists => {
+        resultsDiv.innerHTML = '';
+        artists.forEach(artist => {
+          const el = document.createElement('div');
+          el.textContent = artist.name;
+          resultsDiv.appendChild(el);
+        });
+      });
+  }, 300); // 300ms debounce delay.
+});
+
 // MUSIC
 function playTrack(artistID) {
     // Select the audio element by concatenating the prefix with the artist's ID
