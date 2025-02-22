@@ -16,7 +16,6 @@ func main() {
 	http.HandleFunc("/", server.HomeRender)
 	http.HandleFunc("/homepage", server.DataRender)
 	http.HandleFunc("/details", server.DetailsRender)
-	http.HandleFunc("/search", search.SearchHandler)
 	http.HandleFunc("/suggestions", search.SuggestionsHandler)
 	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
 

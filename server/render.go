@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"groupie/fetch"
+	search "groupie/searchBar"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -19,6 +20,7 @@ var (
 type PageData struct {
 	Loaded  bool
 	Artists []fetch.Artist
+	Query   string
 	// Tracks  []fetch.Track
 }
 
@@ -59,6 +61,9 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	query := r.URL.Query().Get("query")
+	filteredArtists := search.SearchArtists(query, artists)
+
 	tmpl, err := template.ParseFiles("static/homepage.html")
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError)
@@ -67,7 +72,8 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 
 	pageData := PageData{
 		Loaded:  dataLoaded,
-		Artists: artists,
+		Artists: filteredArtists,
+		Query:   query,
 		// Tracks:  TopTracks,
 	}
 

@@ -10,8 +10,13 @@
 </head>
 <body>
     <h1>🎸 Groupie Tracker 🎶</h1>
-    <input type="text" id="search" placeholder="Search for an artist"><br><br>
-    <div id="suggestions"></div>
+    <form class="search-bar" method="GET" action="/homepage">
+        <input type="search" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
+        <button class="search-btn" type="submit">
+            <span>Search</span>
+        </button>
+        <!-- <div class="suggestions" id="suggestions"></div> -->
+    </form>
     <div id="results"></div>
     <div class="container" id="artists">
         {{range .Artists}}

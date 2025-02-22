@@ -2,6 +2,7 @@ package search
 
 import (
 	"encoding/json"
+	"groupie/fetch"
 	"net/http"
 	"strconv"
 	"strings"
@@ -11,12 +12,14 @@ func SuggestionsHandler(w http.ResponseWriter, r *http.Request) {
 	query := strings.ToLower(r.URL.Query().Get("query"))
 
 	type Suggestion struct {
-		Value string
-		Type  string
-		ID    int
+		Value string `json:"value"`
+		Type  string `json:"type"`
+		ID    int    `json:"id"`
 	}
 
 	var suggestions []Suggestion
+
+	artists := []fetch.Artist{}
 
 	for _, artist := range artists {
 		if strings.Contains(strings.ToLower(artist.Name), query) {

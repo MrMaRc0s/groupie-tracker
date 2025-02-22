@@ -33,3 +33,10 @@ Creators and Primary Developers :
 - Konstantinos Petroutsos
 - Christos Markos
 - Christos Gkaldanidis
+
+# Songs that need to be louder
+- 3 Pink Floyd
+- 13 Genesis
+- 14 Phil Collins
+- 15 Led Zeppelin
+- 21 Mamonas Assassinas
