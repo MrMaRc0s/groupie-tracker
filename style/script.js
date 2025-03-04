@@ -26,6 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    // button to show filter
+    const minDateRange = document.getElementById("min-date-range");
+    const minDateValue = document.getElementById("min-date-value");
+  
+    if (minDateRange && minDateValue) {
+        minDateRange.addEventListener("input", function () {
+            minDateValue.textContent = this.value;
+        });
+  
+        // Set initial value on page load
+        minDateValue.textContent = minDateRange.value;
+    }
 });
 
 // SEARCH BAR
@@ -89,5 +102,14 @@ function stopTrack(artistID) {
   if (audioElement) {
   audioElement.pause();
   audioElement.currentTime = 0; // Reset the track to the beginning
+  }
+}
+
+function showFilter() {
+  const filterDiv = document.getElementById('filter');
+  if (filterDiv.style.display === 'none' || filterDiv.style.display === '') {
+      filterDiv.style.display = 'block';
+  } else {
+      filterDiv.style.display = 'none';
   }
 }

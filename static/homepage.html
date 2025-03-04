@@ -19,28 +19,36 @@
     </form>
 
     <!-- fiters -->
-    <button class="filter-btn" type="submit">
-        <span>filter-btn</span>
-    </button>
+    <button id="filter-btn" onclick="showFilter()">Filter</button>
     <div class="filter" id="filter">
         <form method="GET" action="/homepage">
             <label for="min-date-range">Minimum Creation Date:</label>
-            <input type="range" id="min-date-range" name="min-date" min="1950" max="2025" value="1950" step="1">
-            <span id="min-date-value">1950</span>
-            <script>
-                const minDateRange = document.getElementById('min-date-range');
-                const minDateValue = document.getElementById('min-date-value');
-                
-                minDateRange.addEventListener('input', function() {
-                    minDateValue.textContent = this.value;
-                });
-                
-                // Update initial value
-                minDateValue.textContent = minDateRange.value;
-            </script>
+            <input type="range" id="min-date-range" name="min-date" min="1958" max="2015" value="1958" step="1">
+            <span id="min-date-value">1958</span>
             <br />
-            <label for="first-album">First Album:</label>
-            <input type="text" id="first-album" name="first-album">
+            <label>Members:</label><br>
+
+            <input type="checkbox" id="member-1" name="number-members" value="1">
+            <label for="member-1">1</label>
+            
+            <input type="checkbox" id="member-2" name="number-members" value="2">
+            <label for="member-2">2</label>
+            
+            <input type="checkbox" id="member-3" name="number-members" value="3">
+            <label for="member-3">3</label>
+            
+            <input type="checkbox" id="member-4" name="number-members" value="4">
+            <label for="member-4">4</label>
+            
+            <input type="checkbox" id="member-5" name="number-members" value="5">
+            <label for="member-5">5</label>
+            
+            <input type="checkbox" id="member-6" name="number-members" value="6">
+            <label for="member-6">6</label>
+            
+            <input type="checkbox" id="member-7" name="number-members" value="7">
+            <label for="member-7">7</label>
+            
             
             <button type="submit">Apply</button>
         </form>
