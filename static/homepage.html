@@ -17,6 +17,36 @@
         </button>
         <!-- <div class="suggestions" id="suggestions"></div> -->
     </form>
+
+    <!-- fiters -->
+    <button class="filter-btn" type="submit">
+        <span>filter-btn</span>
+    </button>
+    <div class="filter" id="filter">
+        <form method="GET" action="/homepage">
+            <label for="min-date-range">Minimum Creation Date:</label>
+            <input type="range" id="min-date-range" name="min-date" min="1950" max="2025" value="1950" step="1">
+            <span id="min-date-value">1950</span>
+            <script>
+                const minDateRange = document.getElementById('min-date-range');
+                const minDateValue = document.getElementById('min-date-value');
+                
+                minDateRange.addEventListener('input', function() {
+                    minDateValue.textContent = this.value;
+                });
+                
+                // Update initial value
+                minDateValue.textContent = minDateRange.value;
+            </script>
+            <br />
+            <label for="first-album">First Album:</label>
+            <input type="text" id="first-album" name="first-album">
+            
+            <button type="submit">Apply</button>
+        </form>
+    </div>
+    <!-- fiters /-->
+     
     <div id="results"></div>
     <div class="container" id="artists">
         {{range .Artists}}
