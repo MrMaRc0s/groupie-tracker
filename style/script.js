@@ -80,18 +80,18 @@ searchBar.addEventListener('keyup', function() {
 
 // MUSIC
 function playTrack(artistID) {
-    // Select the audio element by concatenating the prefix with the artist's ID
-    console.log("Playing track for artist", artistID);
-    var audioElement = document.getElementById(`audio-${artistID}`);
-    if (audioElement) {
-      // Optionally, you can set volume or other properties here
-      audioElement.play().catch(function(error) {
-        console.error("Playback failed:", error);
-      });
-    } else {
-      console.error("Audio element not found for artist", artistID);
-    }
+  // Select the audio element by concatenating the prefix with the artist's ID
+  console.log("Playing track for artist", artistID);
+  var audioElement = document.getElementById(`audio-${artistID}`);
+  if (audioElement) {
+    // Optionally, you can set volume or other properties here
+    audioElement.play().catch(function(error) {
+      console.error("Playback failed:", error);
+    });
+  } else {
+    console.error("Audio element not found for artist", artistID);
   }
+}
 
 function stopTrack(artistID) {
   var overlay = document.getElementById(`artist-${artistID}`);
