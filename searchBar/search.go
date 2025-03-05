@@ -19,7 +19,7 @@ func SearchArtists(query string, artists []fetch.Artist) []fetch.Artist {
 			for _, member := range artist.Members {
 				if strings.Contains(strings.ToLower(member), strings.ToLower(query)) {
 					filteredArtists = append(filteredArtists, artist)
-					break
+					goto NextArtist
 				}
 			}
 			for _, location := range artist.Locations {
@@ -29,6 +29,7 @@ func SearchArtists(query string, artists []fetch.Artist) []fetch.Artist {
 				}
 			}
 		}
+	NextArtist:
 	}
 	return filteredArtists
 }
