@@ -39,6 +39,18 @@ document.addEventListener("DOMContentLoaded", function () {
         // Set initial value on page load
         minDateValue.textContent = minDateRange.value;
     }
+    
+    const minAlbumDateRange = document.getElementById("min-album-date-range");
+    const minAlbumDateValue = document.getElementById("min-album-date-value");
+  
+    if (minAlbumDateRange && minAlbumDateValue) {
+        minAlbumDateRange.addEventListener("input", function () {
+            minAlbumDateValue.textContent = this.value;
+        });
+  
+        // Set initial value on page load
+        minAlbumDateValue.textContent = minAlbumDateRange.value;
+    }
 });
 
 // SEARCH BAR
