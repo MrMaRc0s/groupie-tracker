@@ -8,6 +8,16 @@ import (
 	"sync"
 )
 
+type RawArtist struct { // Struct to match the API's JSON format
+	ID           int      `json:"id"`
+	Image        string   `json:"image"`
+	Name         string   `json:"name"`
+	Members      []string `json:"members"`
+	CreationDate int      `json:"creationDate"`
+	FirstAlbum   string   `json:"firstAlbum"`
+	LocationsURL string   `json:"locations"` // API returns a URL, not actual locations
+}
+
 type Artist struct {
 	ID           int                 `json:"id"`
 	Image        string              `json:"image"`
@@ -15,7 +25,7 @@ type Artist struct {
 	Members      []string            `json:"members"`
 	CreationDate int                 `json:"creationDate"`
 	FirstAlbum   string              `json:"firstAlbum"`
-	Locations    []string            `json:"-"`
+	Locations    []ConcertLocation   `json:"locations"`
 	ConcertDates []string            `json:"-"`
 	Relations    map[string][]string `json:"-"`
 }
@@ -29,15 +39,23 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
-		fmt.Printf("API returned status code %d", resp.StatusCode)
+	var rawArtists []RawArtist
+	if err := json.NewDecoder(resp.Body).Decode(&rawArtists); err != nil {
+		fmt.Printf("Failed to parse artists JSON: %v", err)
 		return
 	}
 
-	var artists []Artist
-	if err := json.NewDecoder(resp.Body).Decode(&artists); err != nil {
-		fmt.Printf("Failed to parse artists JSON: %v", err)
-		return
+	// Convert RawArtist to Artist
+	artists := make([]Artist, len(rawArtists))
+	for i, raw := range rawArtists {
+		artists[i] = Artist{
+			ID:           raw.ID,
+			Image:        raw.Image,
+			Name:         raw.Name,
+			Members:      raw.Members,
+			CreationDate: raw.CreationDate,
+			FirstAlbum:   raw.FirstAlbum,
+		}
 	}
 
 	var wg sync.WaitGroup
@@ -49,7 +67,7 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 			defer wg.Done()
 
 			// Fetch extra details
-			locCh := make(chan []string, 1)
+			locCh := make(chan []ConcertLocation, 1)
 			dateCh := make(chan []string, 1)
 			relCh := make(chan map[string][]string, 1)
 
