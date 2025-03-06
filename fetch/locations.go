@@ -49,6 +49,22 @@ func fetchLocations(locationURL string) ([]ConcertLocation, error) {
 		}
 
 		city, country := parts[0], parts[1]
+		switch country {
+		case "uk":
+			country = "gb"
+		case "french polynesia":
+			country = "fp"
+		case "new caledonia":
+			country = "fr"
+		}
+		switch city {
+		case "north carolina":
+			city = "charlotte"
+		case "south carolina":
+			city = "columbia"
+		case "queensland":
+			city = "brisbane"
+		}
 		lat, lng, err := geo.Geocode(city, country)
 		if err != nil {
 			fmt.Printf("Geocoding failed for %s: %v\n", loc, err)

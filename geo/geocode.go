@@ -8,9 +8,6 @@ import (
 )
 
 // curl -H "X-Api-Key: DUuHzfSg6h9fVT+twOX7Kg==61bhJkCixkC6QN8V" "https://api.api-ninjas.com/v1/geocoding?city=Manchester&country=uk"
-// REPLACE UK WITH GB
-// REPLACE USA WITH US
-// REPLACE PORTUGAL WITH PT
 func Geocode(city, country string) (float64, float64, error) {
 	apiKey := "DUuHzfSg6h9fVT+twOX7Kg==61bhJkCixkC6QN8V"
 	if apiKey == "" {
