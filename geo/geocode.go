@@ -5,7 +5,13 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strings"
 )
+
+type Results struct {
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+}
 
 // curl -H "X-Api-Key: DUuHzfSg6h9fVT+twOX7Kg==61bhJkCixkC6QN8V" "https://api.api-ninjas.com/v1/geocoding?city=Manchester&country=uk"
 func Geocode(city, country string) (float64, float64, error) {
@@ -34,10 +40,7 @@ func Geocode(city, country string) (float64, float64, error) {
 		return 0, 0, fmt.Errorf("API error: %s", resp.Status)
 	}
 
-	var results []struct {
-		Latitude  float64 `json:"latitude"`
-		Longitude float64 `json:"longitude"`
-	}
+	var results []Results
 	if err := json.NewDecoder(resp.Body).Decode(&results); err != nil {
 		return 0, 0, err
 	}
@@ -47,4 +50,24 @@ func Geocode(city, country string) (float64, float64, error) {
 	}
 
 	return results[0].Latitude, results[0].Longitude, nil
+}
+
+func Coordinates(locations []string) (map[string][]float64, error) {
+	results := map[string][]float64{}
+
+	for _, location := range locations {
+		citycountry := strings.Split(location, ",")
+		city := citycountry[0]
+		country := citycountry[1]
+
+		lat, lng, err := Geocode(city, country)
+		if err != nil {
+			return nil, err
+		}
+		fmt.Println(results)
+
+		results[location] = append(results[location], lat, lng)
+	}
+
+	return results, nil
 }

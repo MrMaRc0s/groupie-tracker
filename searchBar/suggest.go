@@ -33,8 +33,8 @@ func SuggestionsHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		for _, location := range artist.Locations {
-			if strings.Contains(strings.ToLower(location.Name), query) {
-				suggestions = append(suggestions, Suggestion{Value: location.Name, Type: "location", ID: artist.ID})
+			if strings.Contains(strings.ToLower(location), query) {
+				suggestions = append(suggestions, Suggestion{Value: location, Type: "location", ID: artist.ID})
 			}
 		}
 

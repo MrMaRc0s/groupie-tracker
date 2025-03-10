@@ -25,7 +25,7 @@ type Artist struct {
 	Members      []string            `json:"members"`
 	CreationDate int                 `json:"creationDate"`
 	FirstAlbum   string              `json:"firstAlbum"`
-	Locations    []ConcertLocation   `json:"locations"`
+	Locations    []string            `json:"locations"`
 	ConcertDates []string            `json:"-"`
 	Relations    map[string][]string `json:"-"`
 }
@@ -67,7 +67,7 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 			defer wg.Done()
 
 			// Fetch extra details
-			locCh := make(chan []ConcertLocation, 1)
+			locCh := make(chan []string, 1)
 			dateCh := make(chan []string, 1)
 			relCh := make(chan map[string][]string, 1)
 

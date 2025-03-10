@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"groupie/fetch"
+	"groupie/geo"
 	search "groupie/searchBar"
 	"html/template"
 	"net/http"
@@ -21,6 +22,7 @@ type PageData struct {
 	Loaded  bool
 	Artists []fetch.Artist
 	Query   string
+	Coords  map[string][]float64
 	// Tracks  []fetch.Track
 }
 
@@ -63,6 +65,10 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 
 	query := r.URL.Query().Get("query")
 	filteredArtists := search.SearchArtists(query, artists)
+	var coordinates map[string][]float64
+	for _, artist := range artists {
+		coordinates, _ = geo.Coordinates(artist.Locations)
+	}
 
 	tmpl, err := template.ParseFiles("static/homepage.html")
 	if err != nil {
@@ -74,9 +80,9 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 		Loaded:  dataLoaded,
 		Artists: filteredArtists,
 		Query:   query,
+		Coords:  coordinates,
 		// Tracks:  TopTracks,
 	}
-
 	tmpl.Execute(w, pageData)
 }
 
