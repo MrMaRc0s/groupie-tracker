@@ -80,3 +80,51 @@ func fetchLocations(locationURL string) ([]ConcertLocation, error) {
 
 	return concertLocs, nil
 }
+
+func LocationParse(relations map[string][]string) []ConcertLocation {
+	var locs []string
+	var concertLocs []ConcertLocation
+	for relation := range relations {
+		locs = append(locs, relation)
+	}
+
+	for _, loc := range locs {
+		parts := strings.Split(loc, ", ")
+		if len(parts) < 2 {
+			// Invalid format: save without coordinates
+			concertLocs = append(concertLocs, ConcertLocation{Name: loc})
+			continue
+		}
+
+		city, country := parts[0], parts[1]
+		switch country {
+		case "uk":
+			country = "gb"
+		case "french polynesia":
+			country = "fp"
+		case "new caledonia":
+			country = "fr"
+		}
+		switch city {
+		case "north carolina":
+			city = "charlotte"
+		case "south carolina":
+			city = "columbia"
+		case "queensland":
+			city = "brisbane"
+		}
+		lat, lng, err := geo.Geocode(city, country)
+		if err != nil {
+			fmt.Printf("Geocoding failed for %s: %v\n", loc, err)
+			concertLocs = append(concertLocs, ConcertLocation{Name: loc})
+		} else {
+			concertLocs = append(concertLocs, ConcertLocation{
+				Name: loc,
+				Lat:  lat,
+				Lng:  lng,
+			})
+		}
+	}
+
+	return concertLocs
+}
