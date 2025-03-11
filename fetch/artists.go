@@ -67,33 +67,9 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 			defer wg.Done()
 
 			// Fetch extra details
-			locCh := make(chan []ConcertLocation, 1)
-			dateCh := make(chan []string, 1)
 			relCh := make(chan map[string][]string, 1)
 
-			locationURL := URL + "/locations/" + strconv.Itoa(a.ID)
-			datesURL := URL + "/dates/" + strconv.Itoa(a.ID)
 			relationURL := URL + "/relation/" + strconv.Itoa(a.ID)
-
-			go func() {
-				locations, err := fetchLocations(locationURL)
-				if err != nil {
-					fmt.Printf("Error fetching locations for artist %d: %v\n", a.ID, err)
-					locCh <- nil
-					return
-				}
-				locCh <- locations
-			}()
-
-			go func() {
-				dates, err := fetchDates(datesURL)
-				if err != nil {
-					fmt.Printf("Error fetching dates for artist %d: %v\n", a.ID, err)
-					dateCh <- nil
-					return
-				}
-				dateCh <- dates
-			}()
 
 			go func() {
 				relations, err := fetchRelation(relationURL)
@@ -105,8 +81,6 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 				relCh <- relations
 			}()
 
-			a.Locations = <-locCh
-			a.ConcertDates = <-dateCh
 			a.Relations = <-relCh
 
 			updatedArtists[index] = a
@@ -114,6 +88,15 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 	}
 
 	wg.Wait()
+
+	// var locations []ConcertLocation
+	for i := range artists {
+		artists[i].Locations = LocationParse(artists[i].Relations)
+	}
+
+	// artists = append(artists, Artist{
+	// 	Locations: locations,
+	// })
 
 	fmt.Println("Artists fetched successfully!")
 

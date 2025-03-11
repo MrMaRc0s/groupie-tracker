@@ -9,56 +9,66 @@
     <link rel="stylesheet" href="/style/styleHome.css">
 </head>
 <body>
-    <h1>🎸 Groupie Tracker 🎶</h1>
-    <form class="search-bar" method="GET" action="/homepage">
-        <input type="search" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
-        <button class="search-btn" type="submit">
-            <span>Search</span>
-        </button>
-        <!-- <div class="suggestions" id="suggestions"></div> -->
-    </form>
-
-    <!-- fiters -->
-    <button class="filter-btn" id="filter-btn" onclick="showFilter()">Filters</button>
-    <div class="filter" id="filter">
-        <form method="GET" action="/homepage">
-            <label for="min-date-range">Minimum Creation Date:</label>
-            <input type="range" id="min-date-range" name="min-date" min="1958" max="2015" value="1958" step="1">
-            <span id="min-date-value">1958</span>
-            <br />
-            <label for="min-album-date-range">Minimum First Album Date:</label>
-            <input type="range" id="min-album-date-range" name="min-album-date-range" min="1958" max="2015" value="1958" step="1">
-            <span id="min-album-date-value">1958</span>
-            <br />
-            <label>Members:</label><br>
-
-            <input type="checkbox" id="member-1" name="number-members" value="1">
-            <label for="member-1">1</label>
-            
-            <input type="checkbox" id="member-2" name="number-members" value="2">
-            <label for="member-2">2</label>
-            
-            <input type="checkbox" id="member-3" name="number-members" value="3">
-            <label for="member-3">3</label>
-            
-            <input type="checkbox" id="member-4" name="number-members" value="4">
-            <label for="member-4">4</label>
-            
-            <input type="checkbox" id="member-5" name="number-members" value="5">
-            <label for="member-5">5</label>
-            
-            <input type="checkbox" id="member-6" name="number-members" value="6">
-            <label for="member-6">6</label>
-            
-            <input type="checkbox" id="member-7" name="number-members" value="7">
-            <label for="member-7">7</label>
-            
-            
-            <button type="submit">Apply</button>
+    <header>
+        <!-- <nav>
+            <ul class="navbar">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav> -->
+        
+        <h1>Groupie Tracker</h1>
+        <form class="search-bar" method="GET" action="/homepage">
+            <input type="search" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
+            <button class="search-btn" type="submit">
+                <span>Search</span>
+            </button>
+            <!-- <div class="suggestions" id="suggestions"></div> -->
         </form>
-    </div>
-    <!-- fiters /-->
-     
+
+        <!-- fiters -->
+        <button class="filter-btn" id="filter-btn" onclick="showFilter()">Filters</button>
+        <div class="filter" id="filter">
+            <form method="GET" action="/homepage">
+                <label for="min-date-range">Minimum Creation Date:</label>
+                <input type="range" id="min-date-range" name="min-date" min="1958" max="2015" value="1958" step="1">
+                <span id="min-date-value">1958</span>
+                <br />
+                <label for="min-album-date-range">Minimum First Album Date:</label>
+                <input type="range" id="min-album-date-range" name="min-album-date-range" min="1958" max="2015" value="1958" step="1">
+                <span id="min-album-date-value">1958</span>
+                <br />
+                <label>Members:</label><br>
+
+                <input type="checkbox" id="member-1" name="number-members" value="1">
+                <label for="member-1">1</label>
+                
+                <input type="checkbox" id="member-2" name="number-members" value="2">
+                <label for="member-2">2</label>
+                
+                <input type="checkbox" id="member-3" name="number-members" value="3">
+                <label for="member-3">3</label>
+                
+                <input type="checkbox" id="member-4" name="number-members" value="4">
+                <label for="member-4">4</label>
+                
+                <input type="checkbox" id="member-5" name="number-members" value="5">
+                <label for="member-5">5</label>
+                
+                <input type="checkbox" id="member-6" name="number-members" value="6">
+                <label for="member-6">6</label>
+                
+                <input type="checkbox" id="member-7" name="number-members" value="7">
+                <label for="member-7">7</label>
+                
+                
+                <button type="submit">Apply</button>
+            </form>
+        </div>
+        <!-- fiters /-->
+    </header>  
     <div id="results"></div>
     <div class="container" id="artists">
         {{range .Artists}}
