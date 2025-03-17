@@ -25,7 +25,7 @@ type Artist struct {
 	Members      []string            `json:"members"`
 	CreationDate int                 `json:"creationDate"`
 	FirstAlbum   string              `json:"firstAlbum"`
-	Locations    []ConcertLocation   `json:"locations"`
+	Locations    []Location          `json:"locations"`
 	ConcertDates []string            `json:"-"`
 	Relations    map[string][]string `json:"-"`
 }
@@ -68,14 +68,14 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 
 			// Fetch extra details
 			relCh := make(chan map[string][]string, 1)
+			errCh := make(chan error, 1)
 
 			relationURL := URL + "/relation/" + strconv.Itoa(a.ID)
 
 			go func() {
 				relations, err := fetchRelation(relationURL)
 				if err != nil {
-					fmt.Printf("Error fetching relations for artist %d: %v\n", a.ID, err)
-					relCh <- nil
+					errCh <- fmt.Errorf("error fetching relations for artist %d: %v", a.ID, err)
 					return
 				}
 				relCh <- relations
@@ -83,20 +83,16 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 
 			a.Relations = <-relCh
 
+			a.Locations = LocationParse(a.Relations)
 			updatedArtists[index] = a
+
+			artists = append(artists, Artist{
+				Locations: a.Locations,
+			})
 		}(artist, i)
 	}
 
 	wg.Wait()
-
-	// var locations []ConcertLocation
-	for i := range artists {
-		artists[i].Locations = LocationParse(artists[i].Relations)
-	}
-
-	// artists = append(artists, Artist{
-	// 	Locations: locations,
-	// })
 
 	fmt.Println("Artists fetched successfully!")
 

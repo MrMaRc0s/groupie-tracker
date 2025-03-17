@@ -27,10 +27,15 @@ func fetchRelation(relationURL string) (map[string][]string, error) {
 		return nil, fmt.Errorf("failed to parse relation JSON: %w", err)
 	}
 
-	for key := range relData.DatesLocations {
+	newDatesLocations := make(map[string][]string)
+
+	for key, value := range relData.DatesLocations {
 		newKey := strings.Replace(key, "_", " ", -1)
 		newKey = strings.Replace(newKey, "-", ", ", -1)
+		newDatesLocations[newKey] = value
 	}
+
+	relData.DatesLocations = newDatesLocations
 
 	return relData.DatesLocations, nil
 }
