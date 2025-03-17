@@ -42,7 +42,7 @@
         <summary class="dropdown-btn">Relations</summary>
         <div class="dropdown-content">
             {{range $key, $value := .Relations}}
-                <p>{{printf "%s, %s" $key $value}}</p>
+                <p>{{printf "%s - %s" $key $value}}</p>
             {{end}}
         </div>
     </details>

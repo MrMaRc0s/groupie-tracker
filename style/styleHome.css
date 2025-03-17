@@ -44,6 +44,7 @@ header {
   font-family: 'Raleway', sans-serif;
   padding: 15px;
   font-size:18px;
+  z-index: 100;
 }
 
 .navbar {
