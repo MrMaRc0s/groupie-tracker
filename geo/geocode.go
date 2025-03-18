@@ -7,9 +7,13 @@ import (
 	"net/url"
 )
 
-// curl -H "X-Api-Key: DUuHzfSg6h9fVT+twOX7Kg==61bhJkCixkC6QN8V" "https://api.api-ninjas.com/v1/geocoding?city=Manchester&country=uk"
+// var rateLimit = time.NewTicker(200 * time.Millisecond)
+
+// curl -H "X-Api-Key: djR54+zkh/6VTO7KxRW6tw==UEt82p4yIp9OAPNG" "https://api.api-ninjas.com/v1/geocoding?city=Manchester&country=uk"
 func Geocode(city, country string) (float64, float64, error) {
-	apiKey := "DUuHzfSg6h9fVT+twOX7Kg==61bhJkCixkC6QN8V"
+	// <-rateLimit.C
+
+	apiKey := "djR54+zkh/6VTO7KxRW6tw==UEt82p4yIp9OAPNG"
 	if apiKey == "" {
 		return 0, 0, fmt.Errorf("API key missing")
 	}

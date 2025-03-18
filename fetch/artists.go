@@ -92,6 +92,7 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 	close(errCh)
 
 	if err := <-errCh; err != nil {
+		fmt.Println(err)
 		return
 	}
 
