@@ -1,9 +1,14 @@
 package fetch
 
 import (
+	"fmt"
 	"groupie/geo"
 	"strings"
+	"sync"
 )
+
+var locCache = make(map[string]Location)
+var locMutec sync.Mutex
 
 type Location struct {
 	Name string  `json:"name"`
@@ -27,28 +32,19 @@ func LocationParse(relations map[string][]string) []Location {
 		}
 
 		city, country := parts[0], parts[1]
-		// city = strings.Replace(city, "_", " ", -1)
-		// country = strings.Replace(country, "_", " ", -1)
-		// fmt.Println(city, country)
-		switch country {
-		case "uk":
-			country = "gb"
-		case "french polynesia":
-			country = "fp"
-		case "new caledonia":
-			country = "fr"
+
+		locMutec.Lock()
+		if cached, ok := locCache[loc]; ok {
+			Locs = append(Locs, cached)
+			locMutec.Unlock()
+			continue
 		}
-		switch city {
-		case "north carolina":
-			city = "charlotte"
-		case "south carolina":
-			city = "columbia"
-		case "queensland":
-			city = "brisbane"
-		}
+		locMutec.Unlock()
+
+		city, country = apiSpecifics(city, country)
 		lat, lng, err := geo.Geocode(city, country)
 		if err != nil {
-			// fmt.Printf("Geocoding failed for %s: %v\n", loc, err)
+			fmt.Printf("Geocoding failed for %s: %v\n", loc, err)
 			Locs = append(Locs, Location{Name: loc})
 		} else {
 			Locs = append(Locs, Location{
@@ -57,7 +53,31 @@ func LocationParse(relations map[string][]string) []Location {
 				Lng:  lng,
 			})
 		}
+
+		locMutec.Lock()
+		locCache[loc] = Locs[len(Locs)-1]
+		locMutec.Unlock()
 	}
 
 	return Locs
+}
+
+func apiSpecifics(city, country string) (string, string) {
+	switch country {
+	case "uk":
+		country = "gb"
+	case "french polynesia":
+		country = "fp"
+	case "new caledonia":
+		country = "fr"
+	}
+	switch city {
+	case "north carolina":
+		city = "charlotte"
+	case "south carolina":
+		city = "columbia"
+	case "queensland":
+		city = "brisbane"
+	}
+	return city, country
 }
