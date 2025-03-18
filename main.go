@@ -20,7 +20,7 @@ func main() {
 	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
 
 	// Start data fetching in background
-	server.Fetching(apiURL) // Already wrapped in goroutine
+	server.Fetching(apiURL, "data.json") // Already wrapped in goroutine
 
 	fmt.Println("Time Taken to Start:", time.Since(startNow))
 	fmt.Println("Server is running on http://localhost:8080")

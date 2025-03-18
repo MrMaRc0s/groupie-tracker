@@ -26,8 +26,8 @@ type Artist struct {
 	CreationDate int                 `json:"creationDate"`
 	FirstAlbum   string              `json:"firstAlbum"`
 	Locations    []Location          `json:"locations"`
-	ConcertDates []string            `json:"-"`
-	Relations    map[string][]string `json:"-"`
+	ConcertDates []string            `json:"concertDates"`
+	Relations    map[string][]string `json:"relation"`
 }
 
 func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
@@ -60,39 +60,40 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 
 	var wg sync.WaitGroup
 	updatedArtists := make([]Artist, len(artists))
+	errCh := make(chan error, len(artists))
 
 	for i, artist := range artists {
+
 		wg.Add(1)
-		go func(a Artist, index int) {
+		go func() {
 			defer wg.Done()
 
 			// Fetch extra details
 			relCh := make(chan map[string][]string, 1)
-			errCh := make(chan error, 1)
 
-			relationURL := URL + "/relation/" + strconv.Itoa(a.ID)
+			relationURL := URL + "/relation/" + strconv.Itoa(artist.ID)
 
-			go func() {
-				relations, err := fetchRelation(relationURL)
-				if err != nil {
-					errCh <- fmt.Errorf("error fetching relations for artist %d: %v", a.ID, err)
-					return
-				}
-				relCh <- relations
-			}()
+			relations, err := fetchRelation(relationURL)
+			if err != nil {
+				errCh <- fmt.Errorf("error fetching relations for artist %d: %v", artist.ID, err)
+				return
+			}
+			relCh <- relations
 
-			a.Relations = <-relCh
+			artist.Relations = <-relCh
 
-			a.Locations = LocationParse(a.Relations)
-			updatedArtists[index] = a
-
-			artists = append(artists, Artist{
-				Locations: a.Locations,
-			})
-		}(artist, i)
+			artist.Locations = LocationParse(artist.Relations)
+			artist.ConcertDates = DatesParse(artist.Relations)
+			updatedArtists[i] = artist
+		}()
 	}
 
 	wg.Wait()
+	close(errCh)
+
+	if err := <-errCh; err != nil {
+		return
+	}
 
 	fmt.Println("Artists fetched successfully!")
 

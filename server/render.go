@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"groupie/fetch"
 	search "groupie/searchBar"
 	"html/template"
@@ -11,32 +10,14 @@ import (
 )
 
 var (
-	dataLoaded bool
-	dataMutex  sync.RWMutex
-	artists    []fetch.Artist
+	dataMutex sync.RWMutex
 	// TopTracks  []fetch.Track
 )
 
 type PageData struct {
-	Loaded  bool
 	Artists []fetch.Artist
 	Query   string
 	// Tracks  []fetch.Track
-}
-
-func Fetching(apiURL string) {
-	go func() { // Run in goroutine
-		fetch.FetchArtists(apiURL, func(fetchedArtists []fetch.Artist) {
-			dataMutex.Lock()
-			defer dataMutex.Unlock()
-			artists = fetchedArtists
-			// for _, artist := range artists {
-			// 	TopTracks = append(TopTracks, fetch.FetchTracks(artist.Name))
-			// }
-			dataLoaded = true
-			fmt.Println("Initial data loading completed!")
-		})
-	}()
 }
 
 func HomeRender(w http.ResponseWriter, r *http.Request) {
@@ -71,7 +52,6 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	}
 
 	pageData := PageData{
-		Loaded:  dataLoaded,
 		Artists: filteredArtists,
 		Query:   query,
 		// Tracks:  TopTracks,
@@ -97,7 +77,6 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	pageData := PageData{
-		Loaded:  dataLoaded,
 		Artists: []fetch.Artist{artists[id]},
 		// Tracks:  TopTracks,
 	}
