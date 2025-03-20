@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"groupie/fetch"
 	search "groupie/searchBar"
 	"html/template"
@@ -71,7 +72,7 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	id, _ := strconv.Atoi(r.FormValue("id"))
-	id -= 1
+	id--
 	if id < 0 || id >= len(artists) {
 		ErrorPage(w, http.StatusBadRequest)
 		return
@@ -79,11 +80,24 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 
 	var locPtrs []*fetch.Location
 	for i := range artists[id].Locations {
-		locPtrs = append(locPtrs, &artists[id].Locations[i])
+		if artists[id].Locations[i].Lat == 0 && artists[id].Locations[i].Lng == 0 {
+			locPtrs = append(locPtrs, artists[id].Locations[i])
+		} else {
+			fmt.Println("Using cached data from file for", artists[id].Locations[i].Name)
+		}
 	}
 
-	updatedLocations, _ := fetch.FetchCoords(locPtrs)
-	artists[id].Locations = updatedLocations
+	if len(locPtrs) > 0 {
+		fmt.Println()
+		fetch.FetchCoords(locPtrs)
+		saveData("data.json", artists)
+		fmt.Println("Cache coordinates for locations:")
+		for i := range locPtrs {
+			fmt.Println(locPtrs[i].Name, locPtrs[i].Lat, locPtrs[i].Lng)
+		}
+		fmt.Println()
+	}
+
 	pageData := PageData{
 		Artists: []fetch.Artist{artists[id]},
 		// Tracks:  TopTracks,

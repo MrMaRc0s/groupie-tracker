@@ -7,8 +7,8 @@ import (
 	"sync"
 )
 
-var locCache = make(map[string]Location)
-var locMutec sync.Mutex
+var LocCache = make(map[string]*Location)
+var LocMutec sync.Mutex
 
 type Location struct {
 	Name string  `json:"name"`
@@ -16,21 +16,27 @@ type Location struct {
 	Lng  float64 `json:"lng"`
 }
 
-func LocationParse(relations map[string][]string) []Location {
-	var locs []string
-	var Locs []Location
+func LocationParse(relations map[string][]string) []*Location {
+	locs := make([]*Location, 0, len(relations))
 	for relation := range relations {
-		locs = append(locs, relation)
+		locs = append(locs, cahedLocations(relation))
 	}
-
-	for _, loc := range locs {
-		Locs = append(Locs, Location{Name: loc})
-	}
-
-	return Locs
+	return locs
 }
 
-func FetchCoords(locs []*Location) ([]Location, error) {
+func cahedLocations(name string) *Location {
+	if loc, exists := LocCache[name]; exists {
+		return loc
+	}
+
+	newLoc := &Location{Name: name}
+	LocMutec.Lock()
+	LocCache[name] = newLoc
+	LocMutec.Unlock()
+	return newLoc
+}
+
+func FetchCoords(locs []*Location) error {
 	for _, loc := range locs {
 		parts := strings.Split(loc.Name, ", ")
 		if len(parts) < 2 {
@@ -39,37 +45,32 @@ func FetchCoords(locs []*Location) ([]Location, error) {
 
 		city, country := parts[0], parts[1]
 
-		locMutec.Lock()
-		if cached, ok := locCache[loc.Name]; ok {
+		LocMutec.Lock()
+		if cached, ok := LocCache[loc.Name]; ok && cached.Lat != 0 && cached.Lng != 0 {
 			fmt.Printf("Using cached data for %s\n", loc.Name)
 			loc.Lat, loc.Lng = cached.Lat, cached.Lng
-			locMutec.Unlock()
+			LocMutec.Unlock()
 			continue
 		}
-		locMutec.Unlock()
+		LocMutec.Unlock()
 
 		city, country = apiSpecifics(city, country)
 		lat, lng, err := geo.Geocode(city, country)
 		if err != nil {
 			fmt.Printf("Geocoding failed for %s: %v\n", loc.Name, err)
 			continue
-		} else {
-			loc.Lat, loc.Lng = lat, lng
 		}
 
+		loc.Lat, loc.Lng = lat, lng
+
 		fmt.Println("Geocoding completed for", loc.Name)
-		locMutec.Lock()
-		locCache[loc.Name] = Location{Name: loc.Name, Lat: lat, Lng: lng}
+		LocMutec.Lock()
+		LocCache[loc.Name] = &Location{Name: loc.Name, Lat: lat, Lng: lng}
 		fmt.Printf("Cached data for %s\n", loc.Name)
-		locMutec.Unlock()
+		LocMutec.Unlock()
 	}
 
-	updatedLocs := make([]Location, len(locs))
-	for i, loc := range locs {
-		updatedLocs[i] = *loc
-	}
-
-	return updatedLocs, nil
+	return nil
 }
 
 func apiSpecifics(city, country string) (string, string) {

@@ -18,7 +18,7 @@ func fileExists(filename string) bool {
 }
 
 func saveData(filename string, artists []fetch.Artist) error {
-	dataBytes, err := json.Marshal(artists)
+	dataBytes, err := json.MarshalIndent(artists, "", "  ")
 	if err != nil {
 		return err
 	}
