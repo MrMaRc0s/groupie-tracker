@@ -76,6 +76,14 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusBadRequest)
 		return
 	}
+
+	var locPtrs []*fetch.Location
+	for i := range artists[id].Locations {
+		locPtrs = append(locPtrs, &artists[id].Locations[i])
+	}
+
+	updatedLocations, _ := fetch.FetchCoords(locPtrs)
+	artists[id].Locations = updatedLocations
 	pageData := PageData{
 		Artists: []fetch.Artist{artists[id]},
 		// Tracks:  TopTracks,
