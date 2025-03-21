@@ -6,7 +6,7 @@
 
 body {
   font-family: "Poppins", Arial, sans-serif;
-  background: linear-gradient(135deg, #42003f, #ff00aa, #831313);
+  background: linear-gradient(135deg, #250124, #9e1771, #681212);
   color: rgb(0, 0, 0);
   text-align: center;
   padding: 20px;
@@ -15,8 +15,8 @@ body {
 .filter-btn {
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
-  background: #000000;
-  color: #ffffff;
+  background: #5b314f;
+  color: #000000;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -28,13 +28,13 @@ body {
 
 .filter-btn:hover {
   transform: scale(1.05);
-  background: #27041c;
+  background: #ab197d;
   font-weight: 700;
 }
 
 header {
   width: 102.1%;
-  /* height: 100px; */
+  height: 100px;
   position: sticky;
   display: inline-flex;
   top: 0;
@@ -140,7 +140,7 @@ body, button, input {
 .search-bar input {
   background: transparent;
   border-radius: 1.5em;
-  box-shadow: 0 0 0 0.4em #000000 inset;
+  box-shadow: 0 0 0 0.4em #8e0096 inset;
   padding: 0.75em;
   transform: translate(0.5em,0.5em) scale(0.5);
   transform-origin: 100% 0;
@@ -151,6 +151,7 @@ body, button, input {
 .search-bar input::-webkit-search-decoration {
   -webkit-appearance: none;
 }
+
 .search-bar input:focus,
 .search-bar input:valid {
   background: #fff;
@@ -159,14 +160,15 @@ body, button, input {
   transform: scale(1);
 }
 .search-btn {
-  background: #000000;
+  background: #8e0096;
   border-radius: 0 0.75em 0.75em 0 / 0 1.5em 1.5em 0;
   padding: 0.75em;
   position: relative;
   transform: translate(0.25em,0.25em) rotate(45deg) scale(0.25,0.125);
   transform-origin: -10% 50%;
 }
-.search-btn:before, 
+
+.search-btn:before,
 .search-btn:after {
   content: "";
   display: block;
@@ -175,7 +177,7 @@ body, button, input {
 }
 .search-btn:before {
   border-radius: 50%;
-  box-shadow: 0 0 0 0.2em #f1f1f1 inset;
+  box-shadow: 0 0 0 0.2em #ffffff inset;
   top: 0.75em;
   left: 0.75em;
   width: 1.2em;
@@ -201,7 +203,7 @@ body, button, input {
 /* Active state */
 .search-bar input:focus + .search-btn,
 .search-bar input:valid + .search-btn {
-  background: #000000;
+  background: #58326b;
   border-radius: 0 0.375em 0.375em 0;
   transform: scale(1);
 }
@@ -214,7 +216,7 @@ body, button, input {
 .search-bar input:focus + .search-btn:hover,
 .search-bar input:valid + .search-btn:hover,
 .search-bar input:valid:not(:focus) + .search-btn:focus {
-  background: #5b0067;
+  background: #967e99;
 }
 .search-bar input:focus + .search-btn:active,
 .search-bar input:valid + .search-btn:active {
@@ -226,7 +228,7 @@ body, button, input {
 .link {
   text-decoration: none;
   font-family: 'Fredoka One', cursive;
-  color: #333;
+  color: #a8a5a8;
   font-weight: 700;
   font-size: 1.2em;
   transition: transform 0.3s ease, background 0.3s ease;
@@ -235,7 +237,7 @@ body, button, input {
 .link:hover {
   text-decoration: underline;
   transform: scale(1.2);
-  color: #27041c;
+  color: #821660;
 }
 
 .overlay.show {
@@ -248,7 +250,7 @@ body, button, input {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgb(0 0 0 / 74%);
   display: none;
   justify-content: center;
   align-items: center;
@@ -256,16 +258,16 @@ body, button, input {
 }
 
 .overlay-content {
-  background: linear-gradient(135deg, #27a800, #73ff00, #c8ff00);
+  background: linear-gradient(135deg, #000000, #212121, #000000);
   padding: 20px;
   border-radius: 10px;
   position: relative;
-  max-width: 90%;
+  max-width: -webkit-fill-available;
   width: 400px; /* Set a fixed width for better alignment */
   text-align: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 10px rgb(101 97 97);
   line-height: 1.5;
-  color: #333;
+  color: #85006c;
 }
 
 .overlay-content img {
@@ -274,13 +276,14 @@ body, button, input {
   display: block;
   margin: 0 auto;
   border-radius: 50%;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 1);
+  box-shadow: 0px 5px 10px rgb(132 132 132);
   margin-bottom: 20px;
   margin-top: 20px;
 }
 
 .overlay-content h2 {
   margin-top: 0;
+  font-family: 'Fredoca One', cursive;
   font-weight: 700; 
   font-size: 2.0em;
 }
@@ -307,6 +310,7 @@ body, button, input {
 
 .close-button {
   position: absolute;
+  color: #939393;
   top: 10px;
   right: 15px;
   font-size: 28px;
@@ -315,7 +319,7 @@ body, button, input {
 }
 
 .close-button:hover {
-  color: #333;
+  color: #cacad3;
 }
 
 .container {
@@ -330,9 +334,9 @@ body, button, input {
   display: inline-block;
   margin: 10px;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, #ff6d6d, #57626b, #001e4d);
   padding: 20px;
-  border: 1px solid #1d0000;
+  border: 1px solid #280000;
   border-radius: 20px;
   width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -346,7 +350,7 @@ body, button, input {
   gap: 30px;
   align-items: center;
   margin: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(144 11 11);
   padding: 20px;
   border: 2px solid #230000;
   border-radius: 20px;
@@ -367,7 +371,7 @@ body, button, input {
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 10px;
-  /* transition: transform 0.5s ease-out; */
+  transition: transform 0.5s ease-out;
 }
 
 .artist-card:hover {
@@ -376,7 +380,7 @@ body, button, input {
 }
 
 .artist-card #headers {
-  color: #000000;
+  color: #ffffff;
   font-size: 1.5rem;
   margin-bottom: 10px;
   margin: 10px 0;
@@ -385,15 +389,15 @@ body, button, input {
 }
 
 .artist-card p {
-  color: #313131;
+  color: #ff0000;
   font-family: 'Amatic SC', cursive;
   font-weight: 700; 
   font-size: 2em;
 }
 
 .artist-cards img {
-  /* width: 100px;
-  height: 100px; */
+  /* width: 100px; */
+  /* height: 100px; */
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 1);
   border-radius: 50%;
   margin-bottom: 10px;
@@ -406,7 +410,7 @@ body, button, input {
 
 .artist-cards:hover {
   transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.2);
+  background: rgb(0 0 0 / 43%);
 }
 
 .artist-cards h2 {
