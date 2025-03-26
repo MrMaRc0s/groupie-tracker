@@ -18,6 +18,7 @@ func main() {
 	http.HandleFunc("/details", server.DetailsRender)
 	http.HandleFunc("/suggestions", search.SuggestionsHandler)
 	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
+	http.Handle("/favicon.ico", http.FileServer(http.Dir("./static")))
 
 	// Start data fetching in background
 	cacheFilename := "data.json"
