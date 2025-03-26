@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"groupie/fetch"
+	"groupie/filters"
 	search "groupie/searchBar"
 	"html/template"
 	"net/http"
@@ -44,7 +45,8 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	}
 
 	query := r.URL.Query().Get("query")
-	filteredArtists := search.SearchArtists(query, artists)
+	searchedArtists := search.SearchArtists(query, artists)
+	filteredArtists := filters.FilterArtists(searchedArtists, r.URL.Query())
 
 	tmpl, err := template.ParseFiles("static/homepage.html")
 	if err != nil {

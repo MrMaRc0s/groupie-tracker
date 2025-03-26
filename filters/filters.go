@@ -1,28 +1,21 @@
 package filters
 
 import (
+	"groupie/fetch"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
-// Artist represents the structure of an artist.
-type Artist struct {
-	ID           int
-	Name         string
-	Image        string
-	Members      []string
-	CreationDate int
-	FirstAlbum   int
-}
-
-// FilterArtists filters the list of artists based on the query parameters.
-func FilterArtists(artists []Artist, queryParams url.Values) []Artist {
-	var filteredArtists []Artist
+func FilterArtists(artists []fetch.Artist, queryParams url.Values) []fetch.Artist {
+	var filteredArtists []fetch.Artist
 
 	// Parse query parameters
 	minCreationDate, _ := strconv.Atoi(queryParams.Get("min-date"))
 	minAlbumDate, _ := strconv.Atoi(queryParams.Get("min-album-date-range"))
 	numberMembers := queryParams["number-members"]
+	var album []string
+	var albumYear int
 
 	for _, artist := range artists {
 		// Filter by minimum creation date
@@ -30,8 +23,10 @@ func FilterArtists(artists []Artist, queryParams url.Values) []Artist {
 			continue
 		}
 
+		album = strings.Split(artist.FirstAlbum, "-")
+		albumYear, _ = strconv.Atoi(album[len(album)-1])
 		// Filter by minimum first album date
-		if artist.FirstAlbum < minAlbumDate {
+		if albumYear < minAlbumDate {
 			continue
 		}
 
@@ -50,7 +45,6 @@ func FilterArtists(artists []Artist, queryParams url.Values) []Artist {
 			}
 		}
 
-		// Add artist to the filtered list
 		filteredArtists = append(filteredArtists, artist)
 	}
 
