@@ -22,7 +22,7 @@ body {
   border-radius: 5px;
   font-weight: 700;
   letter-spacing: 1px;
-  margin: 10px;
+  margin-left: auto;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -36,7 +36,8 @@ header {
   width: 102.1%;
   height: 100px;
   position: sticky;
-  display: inline-flex;
+  display: flex;
+  justify-content: space-between;
   top: 0;
   transform: translateX(-1.1%);
   background-color:#111111;
@@ -68,6 +69,7 @@ a {
 h1 {  
   font-size: 2.5rem;
   margin-bottom: 10px;
+  margin: 0;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: #ac96c9
@@ -133,6 +135,9 @@ body, button, input {
 }
 .search-bar {
   margin: auto;
+  display: flex;
+  align-items: center;
+  position: relative;
   padding: 1.5em;
   justify-content: center;
   max-width: 30em;
@@ -140,6 +145,7 @@ body, button, input {
 .search-bar input {
   background: transparent;
   border-radius: 1.5em;
+  padding: 8px;
   box-shadow: 0 0 0 0.4em #8e0096 inset;
   padding: 0.75em;
   transform: translate(0.5em,0.5em) scale(0.5);
@@ -165,7 +171,7 @@ body, button, input {
   padding: 0.75em;
   position: relative;
   transform: translate(0.25em,0.25em) rotate(45deg) scale(0.25,0.125);
-  transform-origin: -10% 50%;
+  transform-origin: 0% 50%;
 }
 
 .search-btn:before,
@@ -260,6 +266,7 @@ body, button, input {
 .overlay-content {
   background: linear-gradient(135deg, #000000, #212121, #000000);
   padding: 20px;
+  display: table-column;
   border-radius: 10px;
   position: relative;
   max-width: -webkit-fill-available;
@@ -285,7 +292,7 @@ body, button, input {
   margin-top: 0;
   font-family: 'Fredoca One', cursive;
   font-weight: 700; 
-  font-size: 2.0em;
+  font-size: 3.0em;
 }
 
 .overlay-content #headers {
@@ -410,7 +417,7 @@ body, button, input {
 
 .artist-cards:hover {
   transform: scale(1.05);
-  background: rgb(0 0 0 / 43%);
+  background: linear-gradient(135deg, #ff6d6d88, #57626b7e, #001e4d85);
 }
 
 .artist-cards h2 {
@@ -513,6 +520,28 @@ body, button, input {
   justify-content: center;
   margin: 20px;
 }
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    height: 130px;
+    align-items: flex-start;
+  }
+
+  .filter-btn {
+    margin: 10px 0;
+  }
+
+  .search-bar {
+    align-self: stretch;
+  }
+
+  .search-bar input:focus + .search-btn:active,
+  .search-bar input:valid + .search-btn:active {
+    width: 100%;
+  }
+}
+
 
 @keyframes spin {
   0% {
