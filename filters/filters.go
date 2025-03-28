@@ -11,22 +11,25 @@ func FilterArtists(artists []fetch.Artist, queryParams url.Values) []fetch.Artis
 	var filteredArtists []fetch.Artist
 
 	// Parse query parameters
-	minCreationDate, _ := strconv.Atoi(queryParams.Get("min-date"))
-	minAlbumDate, _ := strconv.Atoi(queryParams.Get("min-album-date-range"))
+	creationDateMin, _ := strconv.Atoi(queryParams.Get("creationDateMin"))
+	creationDateMax, _ := strconv.Atoi(queryParams.Get("creationDateMax"))
+
+	firstAlbumDateMin, _ := strconv.Atoi(queryParams.Get("firstAlbumDateMin"))
+	firstAlbumDateMax, _ := strconv.Atoi(queryParams.Get("firstAlbumDateMax"))
 	numberMembers := queryParams["number-members"]
 	var album []string
 	var albumYear int
 
 	for _, artist := range artists {
 		// Filter by minimum creation date
-		if artist.CreationDate < minCreationDate {
+		if artist.CreationDate < creationDateMin && artist.CreationDate > creationDateMax {
 			continue
 		}
 
 		album = strings.Split(artist.FirstAlbum, "-")
 		albumYear, _ = strconv.Atoi(album[len(album)-1])
 		// Filter by minimum first album date
-		if albumYear < minAlbumDate {
+		if albumYear < firstAlbumDateMin && albumYear > firstAlbumDateMax {
 			continue
 		}
 

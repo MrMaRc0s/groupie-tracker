@@ -31,37 +31,24 @@
         <!-- fiters -->
         <button class="filter-btn" id="filter-btn" onclick="showFilter()">Filters</button>
         <div class="filter" id="filter">
-            <form method="GET" action="/homepage">
-                <label for="min-date-range">Minimum Creation Date:</label>
-                <input type="range" id="min-date-range" name="min-date" min="1958" max="2015" value="1958" step="1">
-                <span id="min-date-value">1958</span>
-                <br />
-                <label for="min-album-date-range">Minimum First Album Date:</label>
-                <input type="range" id="min-album-date-range" name="min-album-date-range" min="1958" max="2015" value="1958" step="1">
-                <span id="min-album-date-value">1958</span>
-                <br />
-                <label>Members:</label><br>
+            <form method="GET" action="/homepage">                       
 
-                <input type="checkbox" id="member-1" name="number-members" value="1">
-                <label for="member-1">1</label>
+                <label>Creation Date:</label>
+                <input type="number" name="creationDateMin" id="creationDateMin" min="1958" max="2025" value="1958">
+                <input type="number" name="creationDateMax" id="creationDateMax" min="1958" max="2025" value="2025">
                 
-                <input type="checkbox" id="member-2" name="number-members" value="2">
-                <label for="member-2">2</label>
-                
-                <input type="checkbox" id="member-3" name="number-members" value="3">
-                <label for="member-3">3</label>
-                
-                <input type="checkbox" id="member-4" name="number-members" value="4">
-                <label for="member-4">4</label>
-                
-                <input type="checkbox" id="member-5" name="number-members" value="5">
-                <label for="member-5">5</label>
-                
-                <input type="checkbox" id="member-6" name="number-members" value="6">
-                <label for="member-6">6</label>
-                
-                <input type="checkbox" id="member-7" name="number-members" value="7">
-                <label for="member-7">7</label>
+                <label>First Album Year:</label>
+                <input type="number" name="firstAlbumDateMin" id="firstAlbumDateMin" min="1963" max="2025" value="1963">
+                <input type="number" name="firstAlbumDateMax" id="firstAlbumDateMax" min="1963" max="2025" value="2025">
+
+                <fieldset>
+                    <legend>Number of Members:</legend>
+                    <label><input type="checkbox" name="Member" value="1">1</label>
+                    <label><input type="checkbox" name="Member" value="2">2</label>
+                    <label><input type="checkbox" name="Member" value="3">3</label>
+                    <label><input type="checkbox" name="Member" value="4">4</label>
+                    <label><input type="checkbox" name="Member" value="5">5+</label>
+                </fieldset>
                 
                 
                 <button type="submit">Apply</button>
