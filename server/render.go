@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
 	"groupie/fetch"
 	"groupie/filters"
@@ -17,8 +18,9 @@ var (
 )
 
 type PageData struct {
-	Artists []fetch.Artist
-	Query   string
+	Artists     []fetch.Artist
+	ArtistsJSON string
+	Query       string
 	// Tracks  []fetch.Track
 }
 
@@ -104,5 +106,14 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 		Artists: []fetch.Artist{artists[id]},
 		// Tracks:  TopTracks,
 	}
+
+	//JSON marshaling
+	artistsJSON, err := json.Marshal(pageData.Artists)
+	if err != nil {
+		ErrorPage(w, http.StatusInternalServerError)
+		return
+	}
+	pageData.ArtistsJSON = string(artistsJSON)
+	fmt.Println("Sending JSON:", string(artistsJSON))
 	tmpl.Execute(w, pageData)
 }
