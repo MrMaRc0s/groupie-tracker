@@ -119,9 +119,5 @@ function stopTrack(artistID) {
 
 function showFilter() {
   const filterDiv = document.getElementById('filter');
-  if (filterDiv.style.display === 'none' || filterDiv.style.display === '') {
-      filterDiv.style.display = 'block';
-  } else {
-      filterDiv.style.display = 'none';
-  }
+  filter.classList.toggle('show');
 }
