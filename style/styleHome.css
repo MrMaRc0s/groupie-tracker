@@ -17,7 +17,7 @@ body {
   transition: transform 0.3s ease, background 0.3s ease;
   background: #5b314f;
   color: #000000;
-  padding: 10px 20px;
+  padding: 8px 15px;
   border: none;
   border-radius: 5px;
   font-weight: 700;
@@ -38,6 +38,8 @@ header {
   position: sticky;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
   top: 0;
   transform: translateX(-1.1%);
   background-color:#111111;
@@ -46,12 +48,6 @@ header {
   padding: 15px;
   font-size:18px;
   z-index: 100;
-}
-
-.navbar {
-  margin: 20px;
-  max-height: 80px;
-  text-align: center;
 }
 
 li {
@@ -66,10 +62,13 @@ a {
   color: #C6A3F4;
 }
 
-h1 {  
+.title {  
   font-size: 2.5rem;
+  flex-grow: 1;
+  text-align: center;
   margin-bottom: 10px;
   margin: 0;
+  position: center;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: #ac96c9
@@ -233,17 +232,15 @@ body, button, input {
 
 .link {
   text-decoration: none;
-  font-family: 'Fredoka One', cursive;
-  color: #a8a5a8;
+  font-family: 'Amatic SC', cursive;
+  color: #cccccc;
   font-weight: 700;
-  font-size: 1.2em;
-  transition: transform 0.3s ease, background 0.3s ease;
+  font-size: 1.5em;
 }
 
 .link:hover {
   text-decoration: underline;
-  transform: scale(1.2);
-  color: #821660;
+  color: #852e6b
 }
 
 .overlay.show {
@@ -274,7 +271,7 @@ body, button, input {
   text-align: center;
   box-shadow: 0px 4px 10px rgb(101 97 97);
   line-height: 1.5;
-  color: #85006c;
+  overflow: auto; /* Enables scrolling if the content is too large */
 }
 
 .overlay-content img {
@@ -293,6 +290,7 @@ body, button, input {
   font-family: 'Fredoca One', cursive;
   font-weight: 700; 
   font-size: 3.0em;
+  color: #757700
 }
 
 .overlay-content #headers {
@@ -300,13 +298,15 @@ body, button, input {
   font-family: 'Fredoka One', cursive;
   font-weight: 700; 
   font-size: 1.2em;
+  color: #757700
 }
 
-.overlay-content p {
-  /* margin: 10px 0; */
+.details{
+  margin: 10px 0;
   font-family: 'Amatic SC', cursive;
   font-weight: 700; 
   font-size: 1.5em;
+  color: #852e6b
 }
 
 .overlay-content a {
@@ -327,6 +327,7 @@ body, button, input {
 
 .close-button:hover {
   color: #cacad3;
+  transform: scale(1.1);
 }
 
 .container {
@@ -503,15 +504,16 @@ body, button, input {
   border: none;
   cursor: pointer;
   color: #000000;
-  font-family: 'Fredoka One', cursive;
+  text-shadow: 0px 0px 6px rgb(200, 200, 200); /* Shadow with blur */  font-family: 'Fredoka One', cursive;
   font-weight: 700;
   font-size: 1.2em;
   transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .overlay-content button:hover {
-  text-decoration: underline;
   transform: scale(1.05);
+  text-shadow: 2px 2px 6px rgb(0, 0, 0); /* Shadow with blur */  
+  font-family: 'Fredoka One', cursive;
   color: #5c3751;
 }
 
@@ -530,6 +532,11 @@ body, button, input {
 
   .filter-btn {
     margin: 10px 0;
+  }
+
+  .overlay-content {
+    width: 90%;
+    max-height: 80vh;
   }
 
   .search-bar {

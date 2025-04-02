@@ -10,24 +10,7 @@
 </head>
 <body>
     <header>
-        <!-- <nav>
-            <ul class="navbar">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav> -->
         
-        <h1>Groupie Tracker</h1>
-        <form class="search-bar" method="GET" action="/homepage">
-            <input type="search" class="search-input" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
-            <button class="search-btn" type="submit">
-                <span>Search</span>
-            </button>
-            <!-- <div class="suggestions" id="suggestions"></div> -->
-        </form>
-
         <!-- fiters -->
         <button class="filter-btn" id="filter-btn" onclick="showFilter()">Filters</button>
         <div class="filter" id="filter">
@@ -62,7 +45,18 @@
                 <button type="submit">Apply</button>
             </form>
         </div>
-        <!-- fiters /-->
+         <!-- fiters /-->
+
+        <h1 class="title">Groupie Tracker</h1>
+
+        <form class="search-bar" method="GET" action="/homepage">
+            <input type="search" class="search-input" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
+            <button class="search-btn" type="submit">
+                <span>Search</span>
+            </button>
+            <!-- <div class="suggestions" id="suggestions"></div> -->
+        </form>
+        
     </header>  
     <div id="results"></div>
     <div class="container" id="artists">
@@ -88,13 +82,13 @@
                 <p id="headers">Members:</p>
                 <ul>
                     {{range .Members}}
-                        <a class="link" href="https://en.wikipedia.org/wiki/{{.}}"><p>{{.}}</p></a>
+                        <a class="link" href="https://en.wikipedia.org/wiki/{{.}}"><p class="link">{{.}}</p></a>
                     {{end}}
                 </ul>
                 <p id="headers">Creation Date:</p>
-                <p>{{.CreationDate}}</p>
+                <p class="details">{{.CreationDate}}</p>
                 <p id="headers">First Album:</p>
-                <p>{{.FirstAlbum}}</p>
+                <p class="details">{{.FirstAlbum}}</p>
                 <form action="/details" method="GET">
                     <input type="hidden" name="id" value="{{.ID}}">
                     <button>View More <i class="fas fa-external-link-alt"></i></button>
