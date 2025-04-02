@@ -9,55 +9,60 @@
     <link rel="stylesheet" href="/style/styleHome.css">
 </head>
 <body>
-    <header>
-        
-        <!-- fiters -->
-        <button class="filter-btn" id="filter-btn" onclick="showFilter()">Filters</button>
-        <div class="filter" id="filter">
-            <form method="GET" action="/homepage">                       
-
-                <label>Creation Date:</label>
-                <input type="number" name="creationDateMin" id="creationDateMin" min="1958" max="2025" value="1958">
-                <input type="number" name="creationDateMax" id="creationDateMax" min="1958" max="2025" value="2025">
-                
-                <label>First Album Year:</label>
-                <input type="number" name="firstAlbumDateMin" id="firstAlbumDateMin" min="1963" max="2025" value="1963">
-                <input type="number" name="firstAlbumDateMax" id="firstAlbumDateMax" min="1963" max="2025" value="2025">
-
-                <fieldset>
-                    <legend>Number of Members:</legend>
-                    <label><input type="checkbox" name="Member" value="1">1</label>
-                    <label><input type="checkbox" name="Member" value="2">2</label>
-                    <label><input type="checkbox" name="Member" value="3">3</label>
-                    <label><input type="checkbox" name="Member" value="4">4</label>
-                    <label><input type="checkbox" name="Member" value="5">5+</label>
-                </fieldset>
-                <input type="search" list="locations1" id="location" name="location" autocomplete="off">
-                <datalist id="locations1">
-                    {{range .Artists}}
-                        {{range .Locations}}
-                            <option value="{{.Name}}">{{.Name}}</option>
-                        {{end}}
-                    {{end}}
-                </datalist>
-                
-                
-                <button type="submit">Apply</button>
+    <header class="main-header">
+        <div class="header-left">
+            <button class="filter-btn" id="filter-btn" onclick="showFilter()">Filters</button>
+        </div>
+        <div class="header-center">
+            <a href="/homepage" class="title-link">
+                <h1 class="title">Groupie Tracker</h1>
+            </a>
+        </div>
+        <div class="header-right">
+            <form class="search-bar" method="GET" action="/homepage">
+                <input type="search" class="search-input" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
+                <button class="search-btn" type="submit">
+                    <span>Search</span>
+                </button>
             </form>
         </div>
-         <!-- fiters /-->
+    </header>
+    
+    <div class="filter" id="filter">
+        <form method="GET" action="/homepage">                       
 
-        <h1 class="title">Groupie Tracker</h1>
+            <label>Creation Date:</label>
+            <input type="number" name="creationDateMin" id="creationDateMin" min="1958" max="2025" value="1958">
+            <input type="number" name="creationDateMax" id="creationDateMax" min="1958" max="2025" value="2025">
+            
+            <label>First Album Year:</label>
+            <input type="number" name="firstAlbumDateMin" id="firstAlbumDateMin" min="1963" max="2025" value="1963">
+            <input type="number" name="firstAlbumDateMax" id="firstAlbumDateMax" min="1963" max="2025" value="2025">
 
-        <form class="search-bar" method="GET" action="/homepage">
-            <input type="search" class="search-input" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
-            <button class="search-btn" type="submit">
-                <span>Search</span>
-            </button>
-            <!-- <div class="suggestions" id="suggestions"></div> -->
+            <fieldset>
+                <legend>Number of Members:</legend>
+                <label><input type="checkbox" name="Member" value="1">1</label>
+                <label><input type="checkbox" name="Member" value="2">2</label>
+                <label><input type="checkbox" name="Member" value="3">3</label>
+                <label><input type="checkbox" name="Member" value="4">4</label>
+                <label><input type="checkbox" name="Member" value="5">5</label>
+                <label><input type="checkbox" name="Member" value="6">6</label>
+                <label><input type="checkbox" name="Member" value="7">7</label>
+            </fieldset>
+            <input type="search" list="locations1" id="location" name="location" autocomplete="off">
+            <datalist id="locations1">
+                {{range .Artists}}
+                    {{range .Locations}}
+                        <option value="{{.Name}}">{{.Name}}</option>
+                    {{end}}
+                {{end}}
+            </datalist>
+            
+            
+            <button type="submit">Apply</button>
         </form>
-        
-    </header>  
+    </div>
+    
     <div id="results"></div>
     <div class="container" id="artists">
         {{range .Artists}}
