@@ -118,6 +118,6 @@ function stopTrack(artistID) {
 }
 
 function showFilter() {
-  const filterDiv = document.getElementById('filter');
+  const filter = document.getElementById('filter');
   filter.classList.toggle('show');
 }

@@ -56,12 +56,12 @@ li {
   text-transform: uppercase; 
 }
 
-a {
+/* a {
   text-decoration: none;
   color: #C6A3F4;
-}
+} */
 
-.title {  
+/* .title {  
   font-size: 2.5rem;
   flex-grow: 1;
   text-align: center;
@@ -72,7 +72,7 @@ a {
   letter-spacing: 2px;
   color: #ac96c9;
   font-family: 'Fredoka One', cursive;
-}
+} */
 
 a {
   text-decoration: none;
@@ -104,9 +104,15 @@ a {
 /* Make the title link look clean */
 .title-link {
   text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .title-link:hover {
+  transform: scale(1.05);
+  color: #000000;
   text-decoration: none;
 }
 
@@ -530,6 +536,10 @@ body, button, input {
   display: none;
   justify-content: center;
   margin: 20px;
+}
+
+.filter.show {
+  display: flex;
 }
 
 @media (max-width: 768px) {
