@@ -13,7 +13,7 @@ body {
   padding: 20px;
 }
 
-.filter-btn {
+/* .filter-btn {
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
   background: #5b314f;
@@ -29,9 +29,9 @@ body {
 .filter-btn:hover {
   transform: scale(1.05);
   background: #ab197d;
-}
+} */
 
-header {
+/* header {
   width: 102.1%;
   height: 100px;
   position: sticky;
@@ -47,7 +47,7 @@ header {
   padding: 15px;
   font-size:18px;
   z-index: 100;
-}
+} */
 
 li {
   display: inline-block;
@@ -631,7 +631,7 @@ body, button, input {
 }
 
 /* Search Bar */
-.search-bar {
+/* .search-bar {
   display: flex;
   align-items: center;
   position: relative;
@@ -658,7 +658,7 @@ body, button, input {
 
 .search-btn:hover {
   background: #58326b;
-}
+} */
 
 /* Responsive Design */
 @media (max-width: 768px) {

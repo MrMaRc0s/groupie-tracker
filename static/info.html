@@ -13,6 +13,24 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUBGSAboy446uQZ33BdHTTLnVbiUsy3zI&callback=initMap" async defer></script>
 </head>
 <body>
+    <header class="main-header">
+        <div class="header-left">
+            <button class="filter-btn" id="filter-btn" onclick="showFilter()">Filters</button>
+        </div>
+        <div class="header-center">
+            <a href="/homepage" class="title-link">
+                <h1 class="title">Groupie Tracker</h1>
+            </a>
+        </div>
+        <div class="header-right">
+            <form class="search-bar" method="GET" action="/homepage">
+                <input type="search" class="search-input" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
+                <button class="search-btn" type="submit">
+                    <span>Search</span>
+                </button>
+            </form>
+        </div>
+    </header>
     <div class="artist-card">
         {{range .Artists}}
         <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
