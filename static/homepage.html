@@ -13,6 +13,15 @@
         <div class="header-left">
             <button class="filter-btn" id="filter-btn" onclick="showFilter()">Filters</button>
         </div>
+        <div class="header-left">
+            <button class="sound-btn" id="sound-btn" onclick="showSlider()">
+                <img id="sound-icon" src="style/media/icons/volume-max.png" alt="Sound Icon" />
+            </button>
+            <div class="slider-container">
+                <input id="volume-slider" class="slider" type="range" min="0" max="100" value="100" style="display: none;" />
+                <span id="volume-value" style="display: none;">100</span>
+            </div>
+        </div>        
         <div class="header-center">
             <button class="title-link">
                 <a href="/homepage">
@@ -23,9 +32,7 @@
         <div class="header-right">
             <form class="search-bar" method="GET" action="/homepage">
                 <input type="search" class="search-input" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
-                <button class="search-btn" type="submit">
-                    <span>Search</span>
-                </button>
+                <button class="search-btn" type="submit"></button>
             </form>
         </div>
     </header>
@@ -50,6 +57,7 @@
                 <label><input type="checkbox" name="Member" value="5">5</label>
                 <label><input type="checkbox" name="Member" value="6">6</label>
                 <label><input type="checkbox" name="Member" value="7">7</label>
+                <label><input type="checkbox" name="Member" value="8">8</label>
             </fieldset>
             locations of concerts:
             <input type="search" list="locations1" id="location" name="location" autocomplete="off">

@@ -1,3 +1,65 @@
+let currentAudioElement = null; // Keep track of the currently playing audio element
+let globalVolume = 1.0; // Default volume level (50%)
+
+// VOLUME SLIDER
+function showSlider() {
+  const slider = document.getElementById("volume-slider");
+  const output = document.getElementById("volume-value");
+
+  // Toggle display using a helper function
+  toggleDisplay(slider);
+  toggleDisplay(output);
+}
+
+function toggleDisplay(element) {
+  if (element.style.display === "none" || element.style.display === "") {
+    element.style.display = "block";
+  } else {
+    element.style.display = "none";
+  }
+}
+
+// Update audio volume when slider value changes
+const volumeSlider = document.getElementById("volume-slider");
+const output = document.getElementById("volume-value");
+
+volumeSlider.addEventListener('input', function() {
+  const volume = this.value;
+  output.textContent = volume; // Update the displayed volume value
+  globalVolume = volume / 100; // Update the global volume variable
+  console.log(`Global volume set to: ${globalVolume}`);
+});
+
+// MUSIC
+function playTrack(artistID) {
+  console.log("Playing track for artist", artistID);
+  const audioElement = document.getElementById(`audio-${artistID}`);
+  if (audioElement) {
+    currentAudioElement = audioElement; // Set the current audio element
+    audioElement.volume = globalVolume; // Apply the global volume
+    audioElement.play().catch(function (error) {
+      console.error("Playback failed:", error);
+    });
+  } else {
+    console.error("Audio element not found for artist", artistID);
+  }
+}
+
+function stopTrack(artistID) {
+  const overlay = document.getElementById(`artist-${artistID}`);
+  if (overlay && overlay.classList.contains("show")) {
+    return;
+  }
+  const audioElement = document.getElementById(`audio-${artistID}`);
+  if (audioElement) {
+    audioElement.pause();
+    audioElement.currentTime = 0; // Reset the track to the beginning
+    if (currentAudioElement === audioElement) {
+      currentAudioElement = null; // Clear the current audio element
+    }
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     // Select all artist cards
     const artistCards = document.querySelectorAll(".artist-cards a");
@@ -90,33 +152,7 @@ searchBar.addEventListener('keyup', function() {
   }, 300); // 300ms debounce delay.
 });
 
-// MUSIC
-function playTrack(artistID) {
-  // Select the audio element by concatenating the prefix with the artist's ID
-  console.log("Playing track for artist", artistID);
-  var audioElement = document.getElementById(`audio-${artistID}`);
-  if (audioElement) {
-    // Optionally, you can set volume or other properties here
-    audioElement.play().catch(function(error) {
-      console.error("Playback failed:", error);
-    });
-  } else {
-    console.error("Audio element not found for artist", artistID);
-  }
-}
-
-function stopTrack(artistID) {
-  var overlay = document.getElementById(`artist-${artistID}`);
-  if (overlay && overlay.classList.contains("show")) {
-    return;
-  }
-  var audioElement = document.getElementById(`audio-${artistID}`);
-  if (audioElement) {
-  audioElement.pause();
-  audioElement.currentTime = 0; // Reset the track to the beginning
-  }
-}
-
+// Filter
 function showFilter() {
   const filter = document.getElementById('filter');
   filter.classList.toggle('show');

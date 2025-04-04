@@ -36,7 +36,11 @@ Creators and Primary Developers :
 
 # Songs that need to be louder
 - 3 Pink Floyd
+- 5 xxxtentacion ?
+- 6 Mac Miller ?
+- 12 Rihanna ?
 - 13 Genesis
 - 14 Phil Collins
 - 15 Led Zeppelin
 - 21 Mamonas Assassinas
+- 46 Coldplay ?

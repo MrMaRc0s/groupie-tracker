@@ -49,13 +49,6 @@ body {
   z-index: 100;
 } */
 
-li {
-  display: inline-block;
-  margin:20px;
-  height: 35px;
-  text-transform: uppercase; 
-}
-
 /* a {
   text-decoration: none;
   color: #C6A3F4;
@@ -77,28 +70,6 @@ li {
 a {
   text-decoration: none;
   color: #000000;
-}
-
-.back-button {
-  text-decoration: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #000000;
-  font-family: 'Fredoka One', cursive;
-  font-weight: 700;
-  font-size: 1.2em;
-  transition: transform 0.3s ease, background 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 10px;
-  margin: 10px;
-}
-
-.back-button:hover {
-  text-decoration: underline;
-  transform: scale(1.05);
-  color: #27041c;
 }
 
 /* Make the title link look clean */
@@ -321,7 +292,7 @@ body, button, input {
   font-family: 'Amatic SC', cursive;
   font-weight: 700; 
   font-size: 1.5em;
-  color: #852e6b
+  color: #cccccc
 }
 
 .overlay-content a {
@@ -519,7 +490,8 @@ body, button, input {
   border: none;
   cursor: pointer;
   color: #000000;
-  text-shadow: 0px 0px 6px rgb(200, 200, 200); /* Shadow with blur */  font-family: 'Fredoka One', cursive;
+  text-shadow: 0px 0px 6px rgb(200, 200, 200); /* Shadow with blur */  
+  font-family: 'Fredoka One', cursive;
   font-weight: 700;
   font-size: 1.2em;
   transition: transform 0.3s ease, background 0.3s ease;
@@ -542,30 +514,30 @@ body, button, input {
   display: flex;
 }
 
-@media (max-width: 768px) {
-  header {
+@media (max-height: 900px) { 
+  /* header {
     flex-direction: column;
     height: 130px;
     align-items: flex-start;
-  }
-
+  } */
+/* 
   .filter-btn {
     margin: 10px 0;
-  }
+  } */
 
   .overlay-content {
-    width: 90%;
+    overflow: auto;
     max-height: 80vh;
   }
 
-  .search-bar {
+  /* .search-bar {
     align-self: stretch;
   }
 
   .search-bar input:focus + .search-btn:active,
   .search-bar input:valid + .search-btn:active {
     width: 100%;
-  }
+  } */
 }
 
 
@@ -671,7 +643,7 @@ body, button, input {
 } */
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 768px) or (max-height: 600px) {
   .main-header {
     flex-direction: column;
     align-items: flex-start;
@@ -689,6 +661,11 @@ body, button, input {
 
   .header-right {
     justify-content: center;
+  }
+
+  .overlay-content {
+    width: 90%;
+    max-height: 80vh;
   }
 }
 
@@ -708,3 +685,26 @@ fieldset {
   border-radius: 5px; 
   color: #ffffff; 
 }
+
+/* sound icon */
+
+#sound-icon {
+  width: 30px; /* Set desired width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+#volume-slider {
+  position: absolute;
+  /* Add additional styling as needed */
+}
+
+.sound-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.sound-btn:hover {
+  transform: scale(1.2);
+}
+/* Sound icon */
