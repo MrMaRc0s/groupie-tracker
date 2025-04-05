@@ -569,7 +569,9 @@ body, button, input {
 .header-left {
   flex: 1;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
+  gap: 20px;
 }
 
 .header-center {
@@ -594,7 +596,22 @@ body, button, input {
 }
 
 /* Filter Button */
+
+#filter-icon {
+  width: 30px; /* Set desired width */
+  height: auto; /* Maintain aspect ratio */
+}
+
 .filter-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.filter-btn:hover {
+  transform: scale(1.2);
+}
+/* .filter-btn {
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
   background: #5b314f;
@@ -610,7 +627,7 @@ body, button, input {
 .filter-btn:hover {
   transform: scale(1.05);
   background: #ab197d;
-}
+} */
 
 /* Search Bar */
 /* .search-bar {
@@ -707,4 +724,85 @@ fieldset {
 .sound-btn:hover {
   transform: scale(1.2);
 }
-/* Sound icon */
+
+/* sound slider */
+
+/* Slider Container */
+/* .volume-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+} */
+
+.slider-container {
+  position: relative;
+  /* display: flex; */
+  margin: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slider Input */
+.slider-container .slider {
+  -webkit-appearance: none;
+  width: 150px;
+  height: 8px;
+  background: #770073;
+  border-radius: 5px;
+  outline: none;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.slider-container .slider:hover {
+  background: #1eb300;
+}
+
+.slider-container .slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border: 2px solid #770073;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.slider-container .slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: #1eb300;
+}
+
+.slider-container .slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border: 2px solid #770073;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.slider-container .slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  background: #1eb300;
+}
+
+/* Volume Value */
+.slider-container #volume-value {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Fredoka One', cursive;
+  color: #ffffff;
+  background: linear-gradient(135deg, #34004e, #770073, #910037);
+  padding: 1px 5px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}

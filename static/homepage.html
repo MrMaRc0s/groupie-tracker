@@ -11,16 +11,18 @@
 <body>
     <header class="main-header">
         <div class="header-left">
-            <button class="filter-btn" id="filter-btn" onclick="showFilter()">Filters</button>
-        </div>
-        <div class="header-left">
-            <button class="sound-btn" id="sound-btn" onclick="showSlider()">
-                <img id="sound-icon" src="style/media/icons/volume-max.png" alt="Sound Icon" />
+            <button class="filter-btn" id="filter-btn" onclick="showFilter()">
+                <img id="filter-icon" src="style/media/icons/filters.png" alt="Filter Icon" />
             </button>
-            <div class="slider-container">
-                <input id="volume-slider" class="slider" type="range" min="0" max="100" value="100" style="display: none;" />
-                <span id="volume-value" style="display: none;">100</span>
-            </div>
+            <!-- <div class="volume-control"> -->
+                <button class="sound-btn" id="sound-btn" onclick="showSlider()">
+                    <img id="sound-icon" src="style/media/icons/volume-max.png" alt="Sound Icon" />
+                </button>
+                <div class="slider-container">
+                    <input id="volume-slider" class="slider" type="range" min="0" max="100" value="100" style="display: none;" />
+                    <output id="volume-value" for="volume-slider" class="volume-value" style="display: none;">100%</span>
+                </div>
+            <!-- </div> -->
         </div>        
         <div class="header-center">
             <button class="title-link">

@@ -1,5 +1,5 @@
 let currentAudioElement = null; // Keep track of the currently playing audio element
-let globalVolume = 1.0; // Default volume level (50%)
+let globalVolume = 1.0;
 
 // VOLUME SLIDER
 function showSlider() {
@@ -21,13 +21,34 @@ function toggleDisplay(element) {
 
 // Update audio volume when slider value changes
 const volumeSlider = document.getElementById("volume-slider");
+const volumeIcon = document.getElementById("sound-icon");
 const output = document.getElementById("volume-value");
 
 volumeSlider.addEventListener('input', function() {
   const volume = this.value;
+  let iconSrc;
+
+  if (volume === '0') {
+    iconSrc = 'style/media/icons/volume-min.png';
+  } else if (volume <= 45) {
+    iconSrc = 'style/media/icons/volume-1.png';
+  } else if (volume <= 85) {
+    iconSrc = 'style/media/icons/volume-2.png';
+  } else {
+    iconSrc = 'style/media/icons/volume-max.png';
+  }
   output.textContent = volume; // Update the displayed volume value
   globalVolume = volume / 100; // Update the global volume variable
-  console.log(`Global volume set to: ${globalVolume}`);
+
+  const slideRect = volumeSlider.getBoundingClientRect();
+  const sliderWidth = slideRect.width;
+  const thumbWidth = volumeSlider.offsetHeight;
+  const position = ((volume - this.min) / (this.max - this.min));
+  const offset = position * (sliderWidth - thumbWidth) + (thumbWidth / 2);
+
+  volumeIcon.src = iconSrc;
+  output.style.left = `${offset}px`;
+  output.textContent = `${volume}%`;
 });
 
 // MUSIC
