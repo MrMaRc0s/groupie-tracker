@@ -32,12 +32,20 @@
             </button>
         </div>
         <div class="header-right">
+            <button class="title-link">
+                <a href="/homepage">
+                    <img class="home" src="style/media/icons/home.png" alt="Home Icon" />
+                </a>
+            </button>
             <form class="search-bar" method="GET" action="/homepage">
                 <input type="search" class="search-input" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
                 <button class="search-btn" type="submit"></button>
             </form>
         </div>
     </header>
+    <button class="close-header" onclick="toggleHeader()">
+        &#x25B2;
+    </button>
     
     <div class="filter" id="filter">
         <form method="GET" action="/homepage">                       
@@ -96,7 +104,13 @@
             <div class="overlay-content">
                 <a class="close-button">&times;</a>
                 <h2>{{.Name}}</h2>
-                <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
+                <div class="img-container">
+                    <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
+                    <button class="pause-btn" onclick="togglePlayPause('{{.ID}}')">
+                        <span id="pause-icon-{{.ID}}">&#10074;&#10074;</span>
+                        <span id="play-icon-{{.ID}}" style="display: none;">&#9658;</span>
+                    </button>
+                </div>
                 <p id="headers">Members:</p>
                 <ul>
                     {{range .Members}}
@@ -109,7 +123,7 @@
                 <p class="details">{{.FirstAlbum}}</p>
                 <form action="/details" method="GET">
                     <input type="hidden" name="id" value="{{.ID}}">
-                    <button>View More <i class="fas fa-external-link-alt"></i></button>
+                    <button class="details-btn">View More <i class="fas fa-external-link-alt"></i></button>
                 </form>
             </div>
             </div>

@@ -81,10 +81,60 @@ function stopTrack(artistID) {
   }
 }
 
+function togglePlayPause(artistId) {
+  const audioElement = document.getElementById(`audio-${artistId}`);
+  const pauseIcon = document.getElementById(`pause-icon-${artistId}`);
+  const playIcon = document.getElementById(`play-icon-${artistId}`);
+
+  if (audioElement.paused) {
+    audioElement.play();
+    pauseIcon.style.display = 'inline';
+    playIcon.style.display = 'none';
+  } else {
+    audioElement.pause();
+    pauseIcon.style.display = 'none';
+    playIcon.style.display = 'inline';
+  }
+}
+
+function toggleHeader() {
+  const header = document.querySelector('.main-header');
+  const btn = document.querySelector('.close-header');
+  header.classList.toggle('hidden');
+
+  if (header.classList.contains('hidden')) {
+    btn.innerHTML = "&#x25BC;";
+  } else {
+    btn.innerHTML = "&#x25B2;";
+  }
+}
+
+// Optional: Re-show the header when scrolled to the top.
+window.addEventListener("scroll", function() {
+  const closeBtn = document.querySelector('.close-header');
+
+  if (window.pageYOffset > 100) {
+    closeBtn.style.display = "block";
+  } else if (window.pageYOffset === 0) {
+    closeBtn.innerHTML = "&#x25B2;";
+    closeBtn.style.display = "none";
+    document.querySelector('.main-header').classList.remove('hidden');
+  }
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     // Select all artist cards
     const artistCards = document.querySelectorAll(".artist-cards a");
     const overlays = document.querySelectorAll(".overlay");
+  
+    overlays.forEach(overlay => {
+      const heading = overlay.querySelector("h2");
+      const btn = overlay.querySelector('.pause-btn');
+
+      if (heading.textContent.trim().length > 21) {
+        btn.classList.add("big-name");
+      }
+    });
 
     // Open overlay on click
     artistCards.forEach((card) => {
@@ -92,6 +142,8 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault(); // Prevent the default link behavior
             const artistId = this.getAttribute("href").substring(7); // Extract ID from href
             document.getElementById(`artist-${artistId}`).classList.add("show");
+            document.getElementById(`pause-icon-${artistId}`).style.display = 'inline';
+            document.getElementById(`play-icon-${artistId}`).style.display = 'none';
         });
     });
 
