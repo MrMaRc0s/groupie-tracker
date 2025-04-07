@@ -70,7 +70,7 @@
         </form>
     </div>
 
-    <div id="results"></div>
+    <div id="map"></div>
 
     <div class="artist-card">
         {{range .Artists}}
@@ -110,6 +110,7 @@
                 <p>{{printf "%s - %s" $key $value}}</p>
             {{end}}
         </div>
+    <div id="map" style="height: 400px; width: 100%; margin-top: 20px;"></div>
     </details>
     {{end}}
 </body>
