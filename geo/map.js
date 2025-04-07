@@ -1,7 +1,14 @@
 window.initMap = function () {
-    const artist = window.artistsData; 
-    if (!artist || !artist.Locations) {
-        console.error("No artist or locations found");
+    const artistArray = window.artistsData;
+    if (!artistArray || artistArray.length === 0) {
+        console.error("No artist data found");
+        return;
+    }
+
+    const artist = artistArray[0];
+
+    if (!artist || !artist.Locations || artist.Locations.length === 0) {
+        console.error("No locations found for artist");
         return;
     }
 
@@ -10,17 +17,14 @@ window.initMap = function () {
         center: { lat: 48.8566, lng: 2.3522 }, // Default to Paris
     });
 
-    // Loop through locations and add markers
-    for (let location of artist.Locations) {
-        const { latitude, longitude, name } = location;
-        if (latitude && longitude) {
+    for (let loc of artist.Locations) {
+        if (loc.lat && loc.lng) {
             new google.maps.Marker({
-                position: { lat: latitude, lng: longitude },
+                position: { lat: loc.lat, lng: loc.lng },
                 map: map,
-                title: name
+                title: loc.name
             });
-        } else {
-            console.warn("Missing coordinates for location:", location);
         }
     }
-}
+};
+
