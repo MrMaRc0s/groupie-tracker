@@ -9,7 +9,7 @@
         window.artistsData = {{ .ArtistsJSON }};
     </script>
     <script src="/geo/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUBGSAboy446uQZ33BdHTTLnVbiUsy3zI&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-Gmx1x0Z0TW-k9BPLOOpLslMivZxjxhw&callback=initMap" async defer></script>
 </head>
 <body>
     <header class="main-header">
@@ -69,8 +69,6 @@
         </form>
     </div>
 
-    <div id="map"></div>
-
     <div class="artist-card">
         {{range .Artists}}
         <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
@@ -109,8 +107,10 @@
                 <p>{{printf "%s - %s" $key $value}}</p>
             {{end}}
         </div>
-    <div id="map" style="height: 400px; width: 100%; margin-top: 20px;"></div>
     </details>
+   
     {{end}}
+     <div id="map" style="height: 500px; width: 100%;"></div>
+
 </body>
 </html>
