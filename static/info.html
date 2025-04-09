@@ -5,8 +5,9 @@
      <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Fredoka+One&family=Poppins:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
     <title>Groupie Tracker</title>
     <link rel="stylesheet" href="/style/styleHome.css">
+    <script src="/style/script.js"></script>
     <script>
-        window.artistsData = {{ .ArtistsJSON }};
+        window.artistsData = {{ .ArtistsJSON | safeJS }};
     </script>
     <script src="/geo/map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-Gmx1x0Z0TW-k9BPLOOpLslMivZxjxhw&callback=initMap" async defer></script>
@@ -14,8 +15,19 @@
 <body>
     <header class="main-header">
         <div class="header-left">
-            <button class="filter-btn" id="filter-btn" onclick="showFilter()">Filters</button>
-        </div>
+            <button class="filter-btn" id="filter-btn" onclick="showFilter()">
+                <img id="filter-icon" src="style/media/icons/filters.png" alt="Filter Icon" />
+            </button>
+            <!-- <div class="volume-control"> -->
+                <button class="sound-btn" id="sound-btn" onclick="showSlider()">
+                    <img id="sound-icon" src="style/media/icons/volume-max.png" alt="Sound Icon" />
+                </button>
+                <div class="slider-container">
+                    <input id="volume-slider" class="slider" type="range" min="0" max="100" value="100" style="display: none;" />
+                    <output id="volume-value" for="volume-slider" class="volume-value" style="display: none;">100%</span>
+                </div>
+            <!-- </div> -->
+        </div>        
         <div class="header-center">
             <button class="title-link">
                 <a href="/homepage">
@@ -24,14 +36,20 @@
             </button>
         </div>
         <div class="header-right">
+            <button class="title-link">
+                <a href="/homepage">
+                    <img class="home" src="style/media/icons/home.png" alt="Home Icon" />
+                </a>
+            </button>
             <form class="search-bar" method="GET" action="/homepage">
                 <input type="search" class="search-input" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
-                <button class="search-btn" type="submit">
-                    <span>Search</span>
-                </button>
+                <button class="search-btn" type="submit"></button>
             </form>
         </div>
     </header>
+    <button class="close-header" onclick="toggleHeader()">
+        &#x25B2;
+    </button>
     
     <div class="filter" id="filter">
         <form method="GET" action="/homepage">                       
@@ -88,7 +106,7 @@
         <summary class="dropdown-btn">Locations</summary>
         <div class="dropdown-content">
             {{range .Locations}}
-                <a href="">{{.}}</p>
+                <p>{{.}}</p>
             {{end}}
         </div>
     </details>
