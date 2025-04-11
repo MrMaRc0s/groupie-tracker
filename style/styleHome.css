@@ -537,16 +537,6 @@ body, button, input {
   color: #5c3751;
 }
 
-.filter{
-  display: none;
-  justify-content: center;
-  margin: 20px;
-}
-
-.filter.show {
-  display: flex;
-}
-
 @media (max-height: 900px) { 
   /* header {
     flex-direction: column;
@@ -662,21 +652,6 @@ body, button, input {
   display: none;
 }
 
-/* Filter Button */
-#filter-icon {
-  width: 30px; /* Set desired width */
-  height: auto; /* Maintain aspect ratio */
-}
-
-.filter-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-.filter-btn:hover {
-  transform: scale(1.2);
-}
 /* .filter-btn {
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
@@ -765,14 +740,6 @@ body, button, input {
   .overlay-content {
     max-height: 80vh;
   }
-}
-
-.filter {
-  background-color:  #222222;
-  color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 fieldset {
@@ -886,4 +853,113 @@ fieldset {
   padding: 1px 5px;
   border-radius: 5px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Filters */
+
+/* Hides the arrows for most modern browsers */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hides the arrows for Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.filter{
+  display: none;
+  justify-content: center;
+  margin: 20px;
+  background-color:  #222222;
+  color: #EBEBEB;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.filter.show {
+  display: flex;
+}
+
+
+/* Filter Button */
+#filter-icon {
+  width: 30px; /* Set desired width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.filter-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.filter-btn:hover {
+  transform: scale(1.2);
+}
+
+.filter-input{
+  width: 100px;
+  height: 30px;
+  border-radius: 25px;
+  border: 2px solid #EBEBEB;
+  padding: 5px;
+  margin-right: 10px;
+  background: #222222;
+  color: #EBEBEB;
+  font-family: 'Fredoka One', cursive;
+}
+
+input:focus {
+  border-color: #852e6b; 
+  outline: none;
+  color: #852e6b;
+}
+
+.filter-loc{
+  width: 300px;
+  height: 30px;
+  border-radius: 25px;
+  border: 2px solid #EBEBEB;
+  padding: 5px;
+  margin-right: 10px;
+  background: #222222;
+  color: #EBEBEB;
+  font-family: 'Fredoka One', cursive;
+}
+
+/* submit button */
+.button-submit-filter {
+  border-radius: 25px;
+  background-color: #FFFFFF;
+  border-width: 0;
+  cursor: pointer;
+  font-family: 'Fredoka One', cursive;
+  padding: 1.5em 2.2em;
+  position: relative;
+  height: 10px;
+  width: 150px;
+
+}
+
+.button-submit-filter:before {
+  border-radius: 25px;
+  background-color: #852e6b;
+  clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+  content: "Apply";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+  width: 100%;
+  text-align: center;
+}
+
+.button-submit-filter:hover:before {
+  animation: opacityFallbackIn 0s step-start forwards;
+  clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
 }
