@@ -938,11 +938,11 @@ input:focus {
   border-width: 0;
   cursor: pointer;
   font-family: 'Fredoka One', cursive;
-  padding: 1.5em 2.2em;
+  padding: 0.8em 2.2em;
   position: relative;
-  height: 10px;
+  height: 40px;
   width: 150px;
-
+  line-height: 1;
 }
 
 .button-submit-filter:before {
@@ -957,6 +957,8 @@ input:focus {
   transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
   width: 100%;
   text-align: center;
+  line-height: 40px;
+  color: #FFFFFF;
 }
 
 .button-submit-filter:hover:before {
