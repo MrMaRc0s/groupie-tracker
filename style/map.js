@@ -6,6 +6,7 @@ window.initMap = function () {
     }
 
     const artist = artistArray[0];
+    console.log(artist);
     const locations = artist.locations;
 
     if (!locations || locations.length === 0) {

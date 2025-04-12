@@ -19,7 +19,7 @@ var (
 
 type PageData struct {
 	Artists     []fetch.Artist
-	ArtistsJSON string
+	ArtistsJSON template.JS
 	Query       string
 	// Tracks  []fetch.Track
 }
@@ -87,7 +87,7 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 		if artists[id].Locations[i].Lat == 0 && artists[id].Locations[i].Lng == 0 {
 			locPtrs = append(locPtrs, artists[id].Locations[i])
 		} else {
-			fmt.Println("Using cached data from file for", artists[id].Locations[i].Name)
+			// fmt.Println("Using cached data from file for", artists[id].Locations[i].Name)
 		}
 	}
 
@@ -113,7 +113,7 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
-	pageData.ArtistsJSON = string(artistsJSON)
-	fmt.Println("Sending JSON:", string(artistsJSON))
+	pageData.ArtistsJSON = template.JS(artistsJSON)
+	// fmt.Println("Sending JSON:", template.JS(artistsJSON))
 	tmpl.Execute(w, pageData)
 }
