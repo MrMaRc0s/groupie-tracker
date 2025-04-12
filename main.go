@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	search "groupie/searchBar"
 	"groupie/server"
 	"net/http"
 	"time"
@@ -16,7 +15,7 @@ func main() {
 	http.HandleFunc("/", server.HomeRender)
 	http.HandleFunc("/homepage", server.DataRender)
 	http.HandleFunc("/details", server.DetailsRender)
-	http.HandleFunc("/suggestions", search.SuggestionsHandler)
+	http.HandleFunc("/suggestions", server.SuggestionsHandler)
 	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
 	http.Handle("/favicon.ico", http.FileServer(http.Dir("./static")))
 

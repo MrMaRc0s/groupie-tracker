@@ -1,8 +1,7 @@
-package search
+package server
 
 import (
 	"encoding/json"
-	"groupie/fetch"
 	"net/http"
 	"strconv"
 	"strings"
@@ -18,8 +17,6 @@ func SuggestionsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var suggestions []Suggestion
-
-	artists := []fetch.Artist{}
 
 	for _, artist := range artists {
 		if strings.Contains(strings.ToLower(artist.Name), query) {

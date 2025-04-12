@@ -20,35 +20,37 @@ function toggleDisplay(element) {
 }
 
 // Update audio volume when slider value changes
-const volumeSlider = document.getElementById("volume-slider");
-const volumeIcon = document.getElementById("sound-icon");
-const output = document.getElementById("volume-value");
+document.addEventListener('DOMContentLoaded', function () {
+  const volumeSlider = document.getElementById("volume-slider");
+  const volumeIcon = document.getElementById("sound-icon");
+  const output = document.getElementById("volume-value");
 
-volumeSlider.addEventListener('input', function() {
-  const volume = this.value;
-  let iconSrc;
+  volumeSlider.addEventListener('input', function() {
+    const volume = this.value;
+    let iconSrc;
 
-  if (volume === '0') {
-    iconSrc = 'style/media/icons/volume-min.png';
-  } else if (volume <= 45) {
-    iconSrc = 'style/media/icons/volume-1.png';
-  } else if (volume <= 85) {
-    iconSrc = 'style/media/icons/volume-2.png';
-  } else {
-    iconSrc = 'style/media/icons/volume-max.png';
-  }
-  output.textContent = volume; // Update the displayed volume value
-  globalVolume = volume / 100; // Update the global volume variable
+    if (volume === '0') {
+      iconSrc = 'style/media/icons/volume-min.png';
+    } else if (volume <= 45) {
+      iconSrc = 'style/media/icons/volume-1.png';
+    } else if (volume <= 85) {
+      iconSrc = 'style/media/icons/volume-2.png';
+    } else {
+      iconSrc = 'style/media/icons/volume-max.png';
+    }
+    output.textContent = volume; // Update the displayed volume value
+    globalVolume = volume / 100; // Update the global volume variable
 
-  const slideRect = volumeSlider.getBoundingClientRect();
-  const sliderWidth = slideRect.width;
-  const thumbWidth = volumeSlider.offsetHeight;
-  const position = ((volume - this.min) / (this.max - this.min));
-  const offset = position * (sliderWidth - thumbWidth) + (thumbWidth / 2);
+    const slideRect = volumeSlider.getBoundingClientRect();
+    const sliderWidth = slideRect.width;
+    const thumbWidth = volumeSlider.offsetHeight;
+    const position = ((volume - this.min) / (this.max - this.min));
+    const offset = position * (sliderWidth - thumbWidth) + (thumbWidth / 2);
 
-  volumeIcon.src = iconSrc;
-  output.style.left = `${offset}px`;
-  output.textContent = `${volume}%`;
+    volumeIcon.src = iconSrc;
+    output.style.left = `${offset}px`;
+    output.textContent = `${volume}%`;
+  });
 });
 
 // MUSIC
@@ -109,7 +111,7 @@ function toggleHeader() {
   }
 }
 
-// Optional: Re-show the header when scrolled to the top.
+// Re-show the header when scrolled to the top.
 window.addEventListener("scroll", function() {
   const closeBtn = document.querySelector('.close-header');
 
@@ -189,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // SEARCH BAR
-const searchBar = document.getElementById('searchBar');
+const searchBar = document.getElementById('search-bar');
 const suggestionsDiv = document.getElementById('suggestions');
 const resultsDiv = document.getElementById('results');
 
@@ -212,7 +214,7 @@ searchBar.addEventListener('keyup', function() {
       });
 
     // Fetch filtered artist results.
-    fetch(`/search?query=${encodeURIComponent(query)}`)
+    fetch(`/homepage?query=${encodeURIComponent(query)}`)
       .then(res => res.json())
       .then(artists => {
         resultsDiv.innerHTML = '';

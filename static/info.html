@@ -55,12 +55,12 @@
         <form method="GET" action="/homepage">                       
 
             <label>Creation Date:</label>
-            <input type="number" name="creationDateMin" id="creationDateMin" min="1958" max="2025" value="1958">
-            <input type="number" name="creationDateMax" id="creationDateMax" min="1958" max="2025" value="2025">
+            <input class="filter-input" type="number" name="creationDateMin" id="creationDateMin" min="1958" max="2025" value="1958">-
+            <input class="filter-input" type="number" name="creationDateMax" id="creationDateMax" min="1958" max="2025" value="2025">
             <br />
             <label>First Album Year:</label>
-            <input type="number" name="firstAlbumDateMin" id="firstAlbumDateMin" min="1963" max="2025" value="1963">
-            <input type="number" name="firstAlbumDateMax" id="firstAlbumDateMax" min="1963" max="2025" value="2025">
+            <input class="filter-input" type="number" name="firstAlbumDateMin" id="firstAlbumDateMin" min="1963" max="2025" value="1963">-
+            <input class="filter-input" type="number" name="firstAlbumDateMax" id="firstAlbumDateMax" min="1963" max="2025" value="2025">
 
             <fieldset>
                 <legend>Number of Members:</legend>
@@ -71,9 +71,10 @@
                 <label><input type="checkbox" name="Member" value="5">5</label>
                 <label><input type="checkbox" name="Member" value="6">6</label>
                 <label><input type="checkbox" name="Member" value="7">7</label>
+                <label><input type="checkbox" name="Member" value="8">8</label>
             </fieldset>
-            locations of concerts:
-            <input type="search" list="locations1" id="location" name="location" autocomplete="off">
+            Locations of Concerts:
+            <input class="filter-loc" type="search" list="locations1" id="location" name="location" autocomplete="off">
             <datalist id="locations1">
                 {{range .Artists}}
                     {{range .Locations}}
@@ -83,7 +84,7 @@
             </datalist>
             
             
-            <button type="submit">Apply</button>
+            <button class="button-submit-filter" type="submit">Apply</button>
         </form>
     </div>
 
