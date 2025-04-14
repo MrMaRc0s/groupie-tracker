@@ -44,3 +44,10 @@ Creators and Primary Developers :
 - 15 Led Zeppelin
 - 21 Mamonas Assassinas
 - 46 Coldplay ?
+
+# Things to be done
+**Front-End**
+- Update welcomepage
+- Update error pages
+- Update interface when there are no artists
+- Update the whole details fron-end
