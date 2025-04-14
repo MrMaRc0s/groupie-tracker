@@ -48,6 +48,6 @@ Creators and Primary Developers :
 # Things to be done
 **Front-End**
 - Update welcomepage
-- Update error pages
+- Update error pages (Almost done)
 - Update interface when there are no artists
-- Update the whole details fron-end
+- Update the whole details front-end

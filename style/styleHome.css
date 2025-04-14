@@ -10,7 +10,7 @@ body {
   background: linear-gradient(135deg, #250124, #9e1771, #681212);
   color: rgb(0, 0, 0);
   text-align: center;
-  padding: 20px;
+  min-height: 100vh;
 }
 
 /* .filter-btn {
@@ -646,12 +646,6 @@ body, button, input {
   font-family: 'Fredoka One', cursive;
 }
 
-.home {
-  width: 30px;
-  height: auto;
-  display: none;
-}
-
 /* .filter-btn {
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
@@ -964,4 +958,41 @@ input:focus {
 .button-submit-filter:hover:before {
   animation: opacityFallbackIn 0s step-start forwards;
   clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+}
+
+/* Error pages */
+
+.containerror {
+  text-align: center;
+  margin-top: 150px;
+}
+
+h1.status {
+  font-size: 6rem;
+  margin-bottom: 40px;
+}
+
+.txt {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+#home-icon {
+  width: 30px;
+  height: auto;
+}
+
+.home {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: #977517;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.home:hover {
+  background-color: #ffbf0f;
+  transform: scale(1.2);
 }
