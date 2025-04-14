@@ -7,6 +7,7 @@
      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <title>Groupie Tracker</title>
     <link rel="stylesheet" href="/style/styleHome.css">
+    <script src="/style/script.js"></script>
 </head>
 <body>
     <header class="main-header">
@@ -40,7 +41,6 @@
             <form class="search-bar" method="GET" action="/homepage">
                 <input type="search" class="search-input" id="search-bar" name="query" value="{{.Query}}" pattern=".*\S.*" required>
                 <button class="search-btn" type="submit"></button>
-                <div id="suggestions"></div>
             </form>
         </div>
     </header>
@@ -85,51 +85,6 @@
         </form>
     </div>
     
-    <div id="results"></div>
-    <div class="container" id="artists">
-        {{range .Artists}}
-            <audio id="audio-{{.ID}}" prload="auto" loop>
-                <source src="style/media/tracks/{{.ID}}.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            <div class="artist-cards" 
-            onmouseenter="playTrack('{{.ID}}')"
-            onmouseleave="stopTrack('{{.ID}}')">  
-                <a href="artist-{{.ID}}">
-                    <h2>{{.Name}}</h2>
-                    <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
-                </a>
-            </div>
-
-            <div class="overlay" id="artist-{{.ID}}">
-            <div class="overlay-content">
-                <a class="close-button">&times;</a>
-                <h2>{{.Name}}</h2>
-                <div class="img-container">
-                    <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
-                    <button class="pause-btn" onclick="togglePlayPause('{{.ID}}')">
-                        <span id="pause-icon-{{.ID}}">&#10074;&#10074;</span>
-                        <span id="play-icon-{{.ID}}" style="display: none;">&#9658;</span>
-                    </button>
-                </div>
-                <p id="headers">Members:</p>
-                <ul>
-                    {{range .Members}}
-                        <a class="link" href="https://en.wikipedia.org/wiki/{{.}}"><p class="link">{{.}}</p></a>
-                    {{end}}
-                </ul>
-                <p id="headers">Creation Date:</p>
-                <p class="details">{{.CreationDate}}</p>
-                <p id="headers">First Album:</p>
-                <p class="details">{{.FirstAlbum}}</p>
-                <form action="/details" method="GET">
-                    <input type="hidden" name="id" value="{{.ID}}">
-                    <button class="details-btn">View More <i class="fas fa-external-link-alt"></i></button>
-                </form>
-            </div>
-            </div>
-        {{end}}
-    </div>
-    <script src="/style/script.js"></script>
+    {{ template "searched" . }}
 </body>
 </html>

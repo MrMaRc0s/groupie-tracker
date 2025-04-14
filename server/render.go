@@ -50,7 +50,24 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	searchedArtists := search.SearchArtists(query, artists)
 	filteredArtists := filters.FilterArtists(searchedArtists, r.URL.Query())
 
-	tmpl, err := template.ParseFiles("static/homepage.html")
+	if r.Header.Get("X-Requested-With") == "XMLHttpRequest" {
+		tmpl, err := template.ParseFiles("static/searched.html")
+		if err != nil {
+			ErrorPage(w, http.StatusInternalServerError)
+			return
+		}
+
+		pageData := PageData{
+			Artists: filteredArtists,
+			Query:   query,
+			// Tracks:  TopTracks,
+		}
+
+		tmpl.ExecuteTemplate(w, "searched", pageData)
+		return
+	}
+
+	tmpl, err := template.ParseFiles("static/homepage.html", "static/searched.html")
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError)
 		return

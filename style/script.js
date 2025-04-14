@@ -126,7 +126,7 @@ window.addEventListener("scroll", function() {
 
 document.addEventListener("DOMContentLoaded", function () {
     // Select all artist cards
-    const artistCards = document.querySelectorAll(".artist-cards a");
+    const artistCards = document.getElementById("artists");
     const overlays = document.querySelectorAll(".overlay");
   
     overlays.forEach(overlay => {
@@ -139,29 +139,39 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Open overlay on click
-    artistCards.forEach((card) => {
-        card.addEventListener("click", function (event) {
-            event.preventDefault(); // Prevent the default link behavior
-            const artistId = this.getAttribute("href").substring(7); // Extract ID from href
-            document.getElementById(`artist-${artistId}`).classList.add("show");
-            document.getElementById(`pause-icon-${artistId}`).style.display = 'inline';
-            document.getElementById(`play-icon-${artistId}`).style.display = 'none';
-        });
-    });
+    if (artistCards) {
+      artistCards.addEventListener("click", function (event) {
+        const card = event.target.closest(".card");
+        if (card) {
+          const artistId = card.getAttribute("data-artist-id");
+          const overlay = document.getElementById(`artist-${artistId}`);
+          if (overlay) {
+            overlay.classList.add("show");
+            const pauseIcon = document.getElementById(`pause-icon-${artistId}`);
+            const playIcon = document.getElementById(`play-icon-${artistId}`);
+            if (pauseIcon && playIcon) {
+              pauseIcon.style.display = "inline";
+              playIcon.style.display = "none";
+            }
+          }
+        }
+      });
+    }
 
     // Close overlay on clicking close button or outside the content
-    overlays.forEach((overlay) => {
-        overlay.addEventListener("click", function (event) {
-            if (
-                event.target.classList.contains("close-button") || // Click close button
-                event.target.classList.contains("overlay") // Click outside content
-            ) {
-                this.classList.remove("show");
-                // Extract artistID from overlay's id (assuming id format "artist-{{.ID}}")
-                const artistID = this.id.substring(7);
-                stopTrack(artistID);
-            }
-        });
+    document.addEventListener("click", function (event) {
+      if (
+        event.target.classList.contains("close-button") || // Click close button
+        event.target.classList.contains("overlay") // Click outside content
+      ) {
+        const overlay = event.target.closest(".overlay");
+        if (overlay) {
+          overlay.classList.remove("show");
+          // Extract artistID from overlay's id (assuming id format "artist-{{.ID}}")
+          const artistID = overlay.id.substring(7);
+          stopTrack(artistID);
+        }
+      }
     });
 
     // button to show filter
@@ -191,41 +201,42 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // SEARCH BAR
-const searchBar = document.getElementById('search-bar');
-const suggestionsDiv = document.getElementById('suggestions');
-const resultsDiv = document.getElementById('results');
+  // A simple debounce function to avoid making a request on every single keystroke immediately.
+  function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
 
-let debounceTimer;
-searchBar.addEventListener('keyup', function() {
-  clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(() => {
-    const query = searchBar.value;
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("search-bar");
+    const resultsContainer = document.getElementById("artists"); // Your div container for artists
 
-    // Fetch suggestions.
-    fetch(`/suggestions?query=${encodeURIComponent(query)}`)
-      .then(res => res.json())
-      .then(suggestions => {
-        suggestionsDiv.innerHTML = '';
-        suggestions.forEach(item => {
-          const el = document.createElement('div');
-          el.textContent = `${item.value} - ${item.type}`;
-          suggestionsDiv.appendChild(el);
+    // Event listener with debouncing (adjust the delay as needed)
+    searchInput.addEventListener("input", debounce(async function () {
+      const query = searchInput.value;
+      
+      try {
+        // Update the URL or API endpoint as necessary.
+        const response = await fetch(`/homepage?query=${encodeURIComponent(query)}`, {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
         });
-      });
-
-    // Fetch filtered artist results.
-    fetch(`/homepage?query=${encodeURIComponent(query)}`)
-      .then(res => res.json())
-      .then(artists => {
-        resultsDiv.innerHTML = '';
-        artists.forEach(artist => {
-          const el = document.createElement('div');
-          el.textContent = artist.name;
-          resultsDiv.appendChild(el);
-        });
-      });
-  }, 300); // 300ms debounce delay.
-});
+        
+        if (response.ok) {
+          // You can either expect a JSON response or an HTML fragment.
+          // For example, if you're returning HTML:
+          const htmlFragment = await response.text();
+          resultsContainer.innerHTML = htmlFragment;
+        }
+      } catch (error) {
+        console.error("Error fetching search results: ", error);
+      }
+    }, 300));  // Delay in ms; here 300ms delay after last keystroke
+  });
 
 // Filter
 function showFilter() {
