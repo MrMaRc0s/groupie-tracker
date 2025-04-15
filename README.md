@@ -50,4 +50,5 @@ Creators and Primary Developers :
 - Update welcomepage
 - Update error pages (Almost done)
 - Update interface when there are no artists
+- Update details on filters front-end
 - Update the whole details front-end

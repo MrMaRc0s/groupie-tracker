@@ -51,7 +51,7 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	filteredArtists := filters.FilterArtists(searchedArtists, r.URL.Query())
 
 	if r.Header.Get("X-Requested-With") == "XMLHttpRequest" {
-		tmpl, err := template.ParseFiles("static/searched.html")
+		tmpl, err := template.ParseFiles("static/overlay.html")
 		if err != nil {
 			ErrorPage(w, http.StatusInternalServerError)
 			return
@@ -63,11 +63,11 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 			// Tracks:  TopTracks,
 		}
 
-		tmpl.ExecuteTemplate(w, "searched", pageData)
+		tmpl.ExecuteTemplate(w, "overlay", pageData)
 		return
 	}
 
-	tmpl, err := template.ParseFiles("static/homepage.html", "static/searched.html", "static/header.html")
+	tmpl, err := template.ParseFiles("static/homepage.html", "static/overlay.html", "static/header.html")
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError)
 		return

@@ -9,6 +9,9 @@ function showSlider() {
   // Toggle display using a helper function
   toggleDisplay(slider);
   toggleDisplay(output);
+  
+  const inputEvent = new Event('input');
+  slider.dispatchEvent(inputEvent);
 }
 
 function toggleDisplay(element) {
@@ -24,9 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const volumeSlider = document.getElementById("volume-slider");
   const volumeIcon = document.getElementById("sound-icon");
   const output = document.getElementById("volume-value");
-
-  volumeSlider.addEventListener('input', function() {
-    const volume = this.value;
+  
+  const savedVolume = localStorage.getItem('volume') || '100';
+  
+  volumeSlider.value = savedVolume;
+  output.textContent = `${savedVolume}%`;
+  
+  function updateVolume(volume) {
     let iconSrc;
 
     if (volume === '0') {
@@ -38,19 +45,42 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       iconSrc = 'style/media/icons/volume-max.png';
     }
-    output.textContent = volume; // Update the displayed volume value
-    globalVolume = volume / 100; // Update the global volume variable
+    output.textContent = `${volume}%`;
+    globalVolume = volume / 100;
+
+
+    const sliderStyle = getComputedStyle(volumeSlider);
+    const outputStyle = getComputedStyle(output);
+    let sliderWasHidden = sliderStyle.display === 'none';
+    let outputWasHidden = outputStyle.display === 'none';
+
+    if (sliderWasHidden) volumeSlider.style.display = 'block';
+    if (outputWasHidden) output.style.display = 'block';
+
+    volumeSlider.offsetHeight;
 
     const slideRect = volumeSlider.getBoundingClientRect();
     const sliderWidth = slideRect.width;
     const thumbWidth = volumeSlider.offsetHeight;
-    const position = ((volume - this.min) / (this.max - this.min));
+    const position = ((volume - volumeSlider.min) / (volumeSlider.max - volumeSlider.min));
     const offset = position * (sliderWidth - thumbWidth) + (thumbWidth / 2);
 
     volumeIcon.src = iconSrc;
     output.style.left = `${offset}px`;
-    output.textContent = `${volume}%`;
-  });
+
+    if (sliderWasHidden) volumeSlider.style.display = 'none';
+    if (outputWasHidden) output.style.display = 'none';
+
+    localStorage.setItem('volume', volume);
+  }
+
+  updateVolume(savedVolume);
+
+  volumeSlider.addEventListener('input', function() {
+    const volume = this.value;
+    updateVolume(volume);
+  }
+  );
 });
 
 // MUSIC
@@ -124,19 +154,24 @@ window.addEventListener("scroll", function() {
   }
 });
 
+// Artist Names
+function bigNames() {
+  const overlays = document.querySelectorAll(".overlay");
+  
+  overlays.forEach(overlay => {
+    const heading = overlay.querySelector("h2");
+    const btn = overlay.querySelector('.pause-btn');
+
+    if (heading.textContent.trim().length > 21) {
+      btn.classList.add("big-name");
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     // Select all artist cards
     const artistCards = document.getElementById("artists");
-    const overlays = document.querySelectorAll(".overlay");
-  
-    overlays.forEach(overlay => {
-      const heading = overlay.querySelector("h2");
-      const btn = overlay.querySelector('.pause-btn');
-
-      if (heading.textContent.trim().length > 21) {
-        btn.classList.add("big-name");
-      }
-    });
+    bigNames();
 
     // Open overlay on click
     if (artistCards) {
@@ -232,6 +267,8 @@ document.addEventListener("DOMContentLoaded", function () {
           const htmlFragment = await response.text();
           resultsContainer.innerHTML = htmlFragment;
         }
+        
+        bigNames();
       } catch (error) {
         console.error("Error fetching search results: ", error);
       }

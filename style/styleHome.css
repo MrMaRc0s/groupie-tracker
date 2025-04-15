@@ -839,7 +839,6 @@ fieldset {
 .slider-container #volume-value {
   position: absolute;
   top: -35px;
-  left: 50%;
   transform: translateX(-50%);
   font-family: 'Fredoka One', cursive;
   color: #ffffff;
