@@ -45,10 +45,18 @@ Creators and Primary Developers :
 - 21 Mamonas Assassinas
 - 46 Coldplay ?
 
+# Locations to change
+- georgia usa
+- massachusetts usa,
+- alabama usa
+
 # Things to be done
 **Front-End**
 - Update welcomepage
-- Update error pages (Almost done)
-- Update interface when there are no artists (Almost done)
+- Suggestions
+- Update error pages **(Almost done)**
+- Update interface when there are no artists **(Almost done)**
 - Update details on filters front-end
+- Filters asynchronous **(optional)**
+- Filters Locations
 - Update the whole details front-end
