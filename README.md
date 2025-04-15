@@ -49,6 +49,6 @@ Creators and Primary Developers :
 **Front-End**
 - Update welcomepage
 - Update error pages (Almost done)
-- Update interface when there are no artists
+- Update interface when there are no artists (Almost done)
 - Update details on filters front-end
 - Update the whole details front-end

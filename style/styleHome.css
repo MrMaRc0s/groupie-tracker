@@ -983,6 +983,7 @@ h1.status {
 
 .home {
   display: inline-block;
+  margin-top: 20px;
   padding: 4px 8px;
   background-color: #977517;
   border-radius: 50px;

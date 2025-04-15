@@ -9,7 +9,7 @@ function showSlider() {
   // Toggle display using a helper function
   toggleDisplay(slider);
   toggleDisplay(output);
-  
+
   const inputEvent = new Event('input');
   slider.dispatchEvent(inputEvent);
 }
@@ -236,44 +236,58 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // SEARCH BAR
-  // A simple debounce function to avoid making a request on every single keystroke immediately.
-  function debounce(func, delay) {
-    let timeout;
-    return function (...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(this, args), delay);
-    };
+// A simple debounce function to avoid making a request on every single keystroke immediately.
+function debounce(func, delay) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const searchForm = document.getElementById("search-form");
+  const searchInput = document.getElementById("search-bar");
+  const resultsContainer = document.getElementById("artists"); // Your div container for artists
+  const noResults = document.getElementById("no-results");
+
+  async function performSearch(query) {
+    try {
+      const response = await fetch(`/homepage?query=${encodeURIComponent(query)}`, {
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      });
+      
+      if (response.ok) {
+        const htmlFragment = await response.text();
+        resultsContainer.innerHTML = htmlFragment;
+
+        const artistCards = resultsContainer.querySelectorAll(".card");
+        if (artistCards.length === 0) {
+          noResults.style.display = "block";
+        } else {
+          noResults.style.display = "none";
+        }
+
+        bigNames();
+      }  
+    } catch (error) {
+      console.error("Error fetching search results: ", error);
+    }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.getElementById("search-bar");
-    const resultsContainer = document.getElementById("artists"); // Your div container for artists
-
-    // Event listener with debouncing (adjust the delay as needed)
-    searchInput.addEventListener("input", debounce(async function () {
-      const query = searchInput.value;
-      
-      try {
-        // Update the URL or API endpoint as necessary.
-        const response = await fetch(`/homepage?query=${encodeURIComponent(query)}`, {
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-          }
-        });
-        
-        if (response.ok) {
-          // You can either expect a JSON response or an HTML fragment.
-          // For example, if you're returning HTML:
-          const htmlFragment = await response.text();
-          resultsContainer.innerHTML = htmlFragment;
-        }
-        
-        bigNames();
-      } catch (error) {
-        console.error("Error fetching search results: ", error);
-      }
-    }, 300));  // Delay in ms; here 300ms delay after last keystroke
+  searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const query = searchInput.value.trim();
+    performSearch(query);
   });
+
+  searchInput.addEventListener("input", debounce(async function () {
+    const query = searchInput.value.trim();
+    performSearch(query);
+  }, 300));  // Delay in ms; here 300ms delay after last keystroke
+});
 
 // Filter
 function showFilter() {
