@@ -284,7 +284,7 @@ body, button, input {
 .pause-btn {
   position: absolute;
   top: 88px;
-  left: 100px;
+  left: 25%;
   background-color:  rgba(0, 0, 0, 0.2);
   color: #ffffff;
   border: none;
@@ -306,7 +306,7 @@ body, button, input {
 
 .overlay-content h2 {
   margin-top: 0;
-  font-family: 'Fredoca One', cursive;
+  /* font-family: 'Fredoca One', cursive; */
   font-weight: 700; 
   font-size: 2.0em;
   color: #757700
@@ -314,7 +314,7 @@ body, button, input {
 
 .overlay-content #headers {
   margin: 10px 0;
-  font-family: 'Fredoka One', cursive;
+  /* font-family: 'Fredoka One', cursive; */
   font-weight: 700; 
   font-size: 1.2em;
   color: #757700
@@ -553,9 +553,9 @@ body, button, input {
     max-height: 80vh;
   }
 
-  .pause-btn {
+  /* .pause-btn {
     left: 95px;
-  }
+  } */
   /* .search-bar {
     align-self: stretch;
   }

@@ -48,7 +48,10 @@ Creators and Primary Developers :
 # Things to be done
 **Front-End**
 - Update welcomepage
-- Update error pages (Almost done)
-- Update interface when there are no artists (Almost done)
+- Update error pages (Only visual front)
+- Update interface when there are no artists (Only visual front)
 - Update details on filters front-end
 - Update the whole details front-end
+
+# Notes
+- Hardcoded Min Max values for filters

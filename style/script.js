@@ -162,7 +162,7 @@ function bigNames() {
     const heading = overlay.querySelector("h2");
     const btn = overlay.querySelector('.pause-btn');
 
-    if (heading.textContent.trim().length > 21) {
+    if (heading.textContent.length > 21) {
       btn.classList.add("big-name");
     }
   });
@@ -277,16 +277,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  searchForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const query = searchInput.value.trim();
-    performSearch(query);
-  });
+  if (resultsContainer) {
+    searchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const query = searchInput.value.trim();
+      performSearch(query);
+    });
 
-  searchInput.addEventListener("input", debounce(async function () {
-    const query = searchInput.value.trim();
-    performSearch(query);
-  }, 300));  // Delay in ms; here 300ms delay after last keystroke
+    searchInput.addEventListener("input", debounce(async function () {
+      const query = searchInput.value.trim();
+      performSearch(query);
+    }, 300));  // Delay in ms; here 300ms delay after last keystroke
+  }
 });
 
 // Filter
