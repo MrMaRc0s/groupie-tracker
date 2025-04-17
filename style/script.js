@@ -162,7 +162,7 @@ function bigNames() {
     const heading = overlay.querySelector("h2");
     const btn = overlay.querySelector('.pause-btn');
 
-    if (heading.textContent.trim().length > 21) {
+    if (heading.textContent.length > 21) {
       btn.classList.add("big-name");
     }
   });

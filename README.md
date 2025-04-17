@@ -60,3 +60,8 @@ Creators and Primary Developers :
 - Filters asynchronous **(optional)**
 - Filters Locations
 - Update the whole details front-end
+- Update error pages (Only visual front)
+- Update interface when there are no artists (Only visual front)
+
+# Notes
+- Hardcoded Min Max values for filters

@@ -14,11 +14,11 @@ body{
     background-repeat: no-repeat;
     border: 20px solid #080808;
     outline: 1px solid #111;
-    overflow: hidden;
+    /* overflow: hidden; */
     transition: all ease-in-out 1s;
   }
 
-  .welcomeBox{
+  .welcome{
     color: #000000;
     text-align: center;
     width: 400px;
@@ -28,16 +28,27 @@ body{
     align-items: center;
   }
 
-  .error .txt1 {
+  .welcomeBo{
+    color: #000000;
+    text-align: center;
+    padding-top: 300px;
+    width: 400px;
+    height: 550px;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* .error .txt1 {
     margin-top: -200px;
     left: -300px;
   }
 
   .error .txt2 {
     margin-top: -100px;
-  }
+  } */
   
-  .welcomeBox h1{
+  /* .welcomeBox h1{
     font-family: chill;
     font-size: 100px;
     position: relative;
@@ -56,7 +67,7 @@ body{
     transition: all ease-in-out 0.8s;
     transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
     opacity: 0;
-  }
+  } */
 
   .txt1{
     font-family: chill;
@@ -119,13 +130,13 @@ body{
     transition: all ease-in-out 0.8s;
   }
 
-.welcomeBox:hover .buttons a{
+.welcomeBo:hover .buttons a{
   transition: all ease-in-out 0.8s;
   transform: scale(1);
   opacity: 1; 
 }
 
-.welcomeBox:hover h1{
+/* .welcomeBox:hover h1{
   transition: all ease-in-out 0.8s;
   transform: scale(1);
   opacity: 1; 
@@ -135,7 +146,7 @@ body{
   transition: all ease-in-out 0.8s;
   transform: scale(1);
   opacity: 1; 
-}
+} */
 
   @font-face {
     font-family: 'Chill';
