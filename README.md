@@ -51,17 +51,15 @@ Creators and Primary Developers :
 - alabama usa
 
 # Things to be done
-**Front-End**
+- Update the whole details front-end
 - Update welcomepage
 - Suggestions
-- Update error pages **(Almost done)**
-- Update interface when there are no artists **(Almost done)**
-- Update details on filters front-end
+- Locations format on search
+- Update details on filters **(only visual front)**
+- Update error pages **(Only visual front)**
+- Update interface when there are no artists **(Only visual front)**
 - Filters asynchronous **(optional)**
-- Filters Locations
-- Update the whole details front-end
-- Update error pages (Only visual front)
-- Update interface when there are no artists (Only visual front)
+
 
 # Notes
 - Hardcoded Min Max values for filters

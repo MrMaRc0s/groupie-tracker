@@ -67,7 +67,7 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := template.ParseFiles("static/homepage.html", "static/overlay.html", "static/header.html")
+	tmpl, err := template.ParseFiles("static/homepage.html", "static/overlay.html", "static/header.html", "static/footer.html")
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError)
 		return
@@ -87,7 +87,7 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusNotFound)
 		return
 	}
-	tmpl, err := template.ParseFiles("static/info.html", "static/header.html")
+	tmpl, err := template.ParseFiles("static/info.html", "static/header.html", "static/footer.html")
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError)
 		return
