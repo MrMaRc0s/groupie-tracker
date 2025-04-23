@@ -13,6 +13,12 @@ body {
   min-height: 100vh;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 95vh;
+}
+
 /* .filter-btn {
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
@@ -694,47 +700,6 @@ body, button, input {
   background: #58326b;
 } */
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .main-header {
-    flex-direction: column;
-    align-items: flex-start;
-    height: auto;
-  }
-
-  /* .header-center {
-    display: none;
-  } */
-
-  .header-left,
-  .header-center,
-  .header-right {
-    flex: none;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 10px;
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-  }
-  
-  /* .home {
-    display: block;
-  } */
-
-  .header-right {
-    justify-content: center;
-  }
-
-  .slider-container .slider {
-    width: 100px;
-    height: 8px;
-  }
-
-  .overlay-content {
-    max-height: 80vh;
-  }
-}
 
 fieldset {
   width: 300px;
@@ -963,7 +928,7 @@ input:focus {
 
 .containerror {
   text-align: center;
-  margin-top: 150px;
+  margin-top: 300px;
 }
 
 h1.status {
@@ -995,4 +960,138 @@ h1.status {
 .home:hover {
   background-color: #ffbf0f;
   transform: scale(1.2);
+}
+
+/* Icons */
+
+.github, .linkedin {
+  width: 40px; /* Set desired width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.zone01 {
+  width: 70px;
+  height: auto; 
+}
+
+.zone01-link {
+  height: 40px;
+  background: #920066;
+  border: none;
+  border-radius: 10%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.zone01-link:hover {
+  transform: scale(1.2);
+}
+
+/* Footer */
+
+.footer-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.footer-link:hover {
+  transform: scale(1.2);
+}
+
+.main-footer {
+  justify-content: center;
+  align-items: center;
+  background-color: #111111;
+  padding: 15px 20px;
+  border-top: 6px solid #000000;
+  position: relative;
+  top: 100px;
+  bottom: 0;
+  margin-top: auto;
+  width: 100%;
+  z-index: 100;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  margin-left: 30%;
+}
+
+.footer-right {
+  display: flex;
+  gap: 10px;
+  text-align: right;
+  margin-right: 28%;
+}
+
+.footer-bot {
+  margin-top: 20px;
+}
+
+.footer-text {
+  color: #ac96c9;
+  font-family: 'Fredoka One', cursive;
+}
+
+.footer-text a {
+  color: #ab197d;
+  text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+  }
+
+  /* .header-center {
+    display: none;
+  } */
+
+  .header-left,
+  .header-center,
+  .header-right {
+    flex: none;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* .home {
+    display: block;
+  } */
+
+  .header-right {
+    justify-content: center;
+  }
+
+  .footer-left {
+    margin-left: 10%;
+  }
+  .footer-right {
+    margin-right: 10%;
+  }
+
+  .slider-container .slider {
+    width: 100px;
+    height: 8px;
+  }
+
+  .overlay-content {
+    max-height: 80vh;
+  }
 }

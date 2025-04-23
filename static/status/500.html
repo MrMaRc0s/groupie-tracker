@@ -9,16 +9,19 @@
     <script src="/style/script.js"></script>
 </head> 
 <body>
-    {{ template "header" }}
-    <div class="containerror">
-        <h1 class="status">404</h1>
-        <div class="txt">Not Found</div>
-        <button class="home">
-            <a href="/homepage">
-                <img id="home-icon" src="style/media/icons/home.png"/>
-            </a>
-        </button>
-        <p>Oops! Something went wrong on our side.<br>Please try again later.</p>
+    <div class="wrapper">
+        {{ template "header" . }}
+        <div class="containerror">
+            <h1 class="status">404</h1>
+            <div class="txt">Not Found</div>
+            <button class="home">
+                <a href="/homepage">
+                    <img id="home-icon" src="style/media/icons/home.png"/>
+                </a>
+            </button>
+            <p>Oops! Something went wrong on our side.<br>Please try again later.</p>
+        </div>
+        {{ template "footer" . }}
     </div>
 </body>
 </html>    

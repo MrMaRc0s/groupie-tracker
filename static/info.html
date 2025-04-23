@@ -14,51 +14,53 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-Gmx1x0Z0TW-k9BPLOOpLslMivZxjxhw&callback=initMap" async defer></script>
 </head>
 <body>
-    {{template "header"}}
+    <div class="wrapper">
+        {{template "header" . }}
 
-    <div class="artist-card">
-        {{range .Artists}}
-        <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
-        <p id="headers">Members:</p>
-        <ul>
-            {{range .Members}}
-                <p>{{.}}</p>
-            {{end}}
-        </ul>
-        <p id="headers">Creation Date:</p>
-            <p>{{.CreationDate}}</p>
-        <p id="headers">First Album:</p>
-            <p>{{.FirstAlbum}}</p>
+        <div class="artist-card">
+            {{range .Artists}}
+            <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
+            <p id="headers">Members:</p>
+            <ul>
+                {{range .Members}}
+                    <p>{{.}}</p>
+                {{end}}
+            </ul>
+            <p id="headers">Creation Date:</p>
+                <p>{{.CreationDate}}</p>
+            <p id="headers">First Album:</p>
+                <p>{{.FirstAlbum}}</p>
+        </div>
+        <br>
+        <details class="dropdown">
+            <summary class="dropdown-btn">Locations</summary>
+            <div class="dropdown-content">
+                {{range .Locations}}
+                    <p>{{.}}</p>
+                {{end}}
+            </div>
+        </details>
+        <details class="dropdown">
+            <summary class="dropdown-btn">Concert Dates</summary>
+            <div class="dropdown-content">
+                {{range .ConcertDates}}
+                    <p>{{.}}</p>
+                {{end}}
+            </div>
+        </details>
+        <details class="dropdown">
+            <summary class="dropdown-btn">Relations</summary>
+            <div class="dropdown-content">
+                {{range $key, $value := .Relations}}
+                    <p>{{printf "%s - %s" $key $value}}</p>
+                {{end}}
+            </div>
+        </details>
+    
+        {{end}}
+        <div id="map" style="height: 500px; width: 100%;"></div>
+
+        {{ template "footer" . }}
     </div>
-    <br>
-    <details class="dropdown">
-        <summary class="dropdown-btn">Locations</summary>
-        <div class="dropdown-content">
-            {{range .Locations}}
-                <p>{{.}}</p>
-            {{end}}
-        </div>
-    </details>
-    <details class="dropdown">
-        <summary class="dropdown-btn">Concert Dates</summary>
-        <div class="dropdown-content">
-            {{range .ConcertDates}}
-                <p>{{.}}</p>
-            {{end}}
-        </div>
-    </details>
-    <details class="dropdown">
-        <summary class="dropdown-btn">Relations</summary>
-        <div class="dropdown-content">
-            {{range $key, $value := .Relations}}
-                <p>{{printf "%s - %s" $key $value}}</p>
-            {{end}}
-        </div>
-    </details>
-   
-    {{end}}
-     <div id="map" style="height: 500px; width: 100%;"></div>
-
-    {{ template "footer" . }}
 </body>
 </html>

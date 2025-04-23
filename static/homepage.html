@@ -10,8 +10,10 @@
     <script src="/style/script.js"></script>
 </head>
 <body>
-    {{ template "header" . }}
-    {{ template "overlay" . }}
-    {{ template "footer" . }}
+    <div class="wrapper">
+        {{ template "header" . }}
+        {{ template "overlay" . }}
+        {{ template "footer" . }}
+    </div>
 </body>
 </html>

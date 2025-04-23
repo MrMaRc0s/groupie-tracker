@@ -9,16 +9,19 @@
     <script src="/style/script.js"></script>
 </head> 
 <body>
-    {{ template "header" }}
-    <div class="containerror">
-        <h1 class="status">400</h1>
-        <div class="txt">Bad Request</div>
-        <button class="home">
-            <a href="/homepage">
-                <img id="home-icon" src="style/media/icons/home.png"/>
-            </a>
-        </button>
-        <p>Sorry, but your request was invalid. We dont know this artist.</p>
+    <div class="wrapper">
+        {{ template "header" . }}
+        <div class="containerror">
+            <h1 class="status">400</h1>
+            <div class="txt">Bad Request</div>
+            <button class="home">
+                <a href="/homepage">
+                    <img id="home-icon" src="style/media/icons/home.png"/>
+                </a>
+            </button>
+            <p>Sorry, but your request was invalid. We dont know this artist.</p>
+        </div>
+        {{ template "footer" . }}
     </div>
 </body>
 </html>
