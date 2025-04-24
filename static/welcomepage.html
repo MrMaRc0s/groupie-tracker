@@ -11,20 +11,29 @@
     <link href="https://kit-pro.fontawesome.com/releases/v5.13.0/css/pro.min.css" rel="stylesheet"/>    
     <title>Groupie Tracker</title>
     <link rel="stylesheet" href="/style/styleWelcome.css">
+    <link rel="stylesheet" href="/style/styleHome.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const el = document.querySelector('.main-footer');
+        
+            if (path === '/') {
+            el.classList.add('welcome');
+            }
+        });
+    </script>
 </head>
 <body>
-    <div class="visual">
-        <div class="welcomeBox">
-            <div class="welcome">
-                <div class="txt1">Groupie</div>
-                <div class="txt2">Tracker</div>
-            </div>
-            <div class="welcomeBo">
-                <div class="buttons">
-                <a href="/homepage">Start Here</a>
-                </div>
-            </div>
+    <div class="top">
+        <div class="welcome">
+            <div class="txt">Groupie Tracker</div>
         </div>
     </div>
+    <div class="welcomeBox">
+        <div class="buttons">
+        <a href="/homepage">Start Here</a>
+        </div>
+    </div>
+    {{ template "footer" . }}
 </body>
 </html>

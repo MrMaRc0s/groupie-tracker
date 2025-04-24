@@ -1,134 +1,91 @@
-body{
-    background:#000;
-  }
-  
-  .visual{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh; 
-    background-image: url("https://i.redd.it/q5vqv973wot71.gif");
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat;
-    border: 20px solid #080808;
-    outline: 1px solid #111;
-    /* overflow: hidden; */
-    transition: all ease-in-out 1s;
-  }
+/* .visual{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh; 
+  background-image: url("https://i.redd.it/q5vqv973wot71.gif");
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
+  border: 20px solid #080808;
+  outline: 1px solid #111;
+  overflow: hidden;
+  transition: all ease-in-out 1s;
+}
 
-  .welcome{
-    color: #000000;
-    text-align: center;
-    width: 400px;
-    height: 550px;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-  }
+.welcome{
+  color: #000000;
+  text-align: center;
+  width: 400px;
+  height: 550px;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
 
-  .welcomeBo{
-    color: #000000;
-    text-align: center;
-    padding-top: 300px;
-    width: 400px;
-    height: 550px;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-  }
+.welcomeBo{
+  color: #000000;
+  text-align: center;
+  padding-top: 300px;
+  width: 400px;
+  height: 550px;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
 
-  /* .error .txt1 {
-    margin-top: -200px;
-    left: -300px;
-  }
+.txt1{
+  font-family: chill;
+  font-size: 400px;
+  position: relative;
+  left:-400px;
+  transition: all ease-in-out 0.9s;
+}
 
-  .error .txt2 {
-    margin-top: -100px;
-  } */
-  
-  /* .welcomeBox h1{
-    font-family: chill;
-    font-size: 100px;
-    position: relative;
-    transform: scale(0);
-    transition: all ease-in-out 0.8s;
-    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-    opacity: 0;
-  }
-  
-  .welcomeBox p {
-    font-family: comic cursive;
-    font-size: 35px;
-    margin-top: -200px;
-    position: relative;
-    transform: scale(0);
-    transition: all ease-in-out 0.8s;
-    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-    opacity: 0;
-  } */
+.txt2{
+  font-family: chill;
+  font-size: 400px;
+  position: relative;
+  right: -300px;
+  transition: all ease-in-out 0.9s;
+}
 
-  .txt1{
-    font-family: chill;
-    font-size: 400px;
-    position: relative;
-    left:-400px;
-    transition: all ease-in-out 0.9s;
-    /* transition-delay: 0.9s; */
-  }
-  
-  .txt2{
-    font-family: chill;
-    font-size: 400px;
-    position: relative;
-    right: -300px;
-    transition: all ease-in-out 0.9s;
-    /* transition-delay: 0.9s; */
-  }
-  
-  .welcomeBox:hover .txt1{
-    left: -1600px;
-    transition: all ease-in-out 0.8s;
-  }
-  
-  .welcomeBox:hover .txt2{
-    right: -1600px;
-    transition: all ease-in-out 0.8s;
-  }
-  
-  /* .visual:hover{
-    background: url("images/neon.gif");
-    background-size: 1850px, 870px;
-    transition: all ease-in-out 1s;
-  }
-   */
+.welcomeBox:hover .txt1{
+  left: -1600px;
+  transition: all ease-in-out 0.8s;
+}
+
+.welcomeBox:hover .txt2{
+  right: -1600px;
+  transition: all ease-in-out 0.8s;
+}
 
 .buttons a{
-    text-decoration: none;
-    color: #000000;
-    position: relative;
-    top: -400px;
-    display: flex;
-    font-family: chill;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    text-transform: uppercase;
-    letter-spacing:1px;
-    margin: auto;
-    cursor: pointer;
-    font-size: 100px;
-    font-weight: 700;
-    transform: scale(0);
-    transition: all ease-in-out 0.8s;
-    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-    opacity: 0;
-  }
+  text-decoration: none;
+  color: #000000;
+  position: relative;
+  top: -400px;
+  display: flex;
+  font-family: chill;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing:1px;
+  margin: auto;
+  cursor: pointer;
+  font-size: 100px;
+  font-weight: 700;
+  transform: scale(0);
+  transition: all ease-in-out 0.8s;
+  transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+  opacity: 0;
+}
   
 .buttons a:hover{
-    transition: all ease-in-out 0.8s;
-  }
+  transition: all ease-in-out 0.8s;
+}
 
 .welcomeBo:hover .buttons a{
   transition: all ease-in-out 0.8s;
@@ -136,22 +93,27 @@ body{
   opacity: 1; 
 }
 
-/* .welcomeBox:hover h1{
-  transition: all ease-in-out 0.8s;
-  transform: scale(1);
-  opacity: 1; 
-}
-
-.welcomeBox:hover p{
-  transition: all ease-in-out 0.8s;
-  transform: scale(1);
-  opacity: 1; 
+@font-face {
+  font-family: 'Chill';
+  font-style: normal;
+  font-weight: normal;
+  src: url('https://dl.dropbox.com/s/agpnu5irqlaaeco/Chillvornia%20Stamp%20Slant.otf') format('woff');
 } */
 
-  @font-face {
-    font-family: 'Chill';
-    font-style: normal;
-    font-weight: normal;
-    src: url('https://dl.dropbox.com/s/agpnu5irqlaaeco/Chillvornia%20Stamp%20Slant.otf') format('woff');
-    }
-  
+.top {
+  background-color: #111111;
+  position: fixed;
+  bottom: 50%;
+  top: 0px;
+  width: 100%;
+  padding: 15px 20px;
+  border-bottom: 6px solid #000000;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.main-footer.welcome {
+  position: fixed;
+  top: 50%;
+  transition: transform 0.3s ease;
+}

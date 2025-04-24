@@ -29,7 +29,7 @@ func HomeRender(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusNotFound)
 		return
 	}
-	tmpl, err := template.ParseFiles("static/welcomepage.html")
+	tmpl, err := template.ParseFiles("static/welcomepage.html", "static/footer.html")
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError)
 		return
