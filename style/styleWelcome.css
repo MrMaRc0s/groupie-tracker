@@ -1,105 +1,3 @@
-/* .visual{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh; 
-  background-image: url("https://i.redd.it/q5vqv973wot71.gif");
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat;
-  border: 20px solid #080808;
-  outline: 1px solid #111;
-  overflow: hidden;
-  transition: all ease-in-out 1s;
-}
-
-.welcome{
-  color: #000000;
-  text-align: center;
-  width: 400px;
-  height: 550px;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-}
-
-.welcomeBo{
-  color: #000000;
-  text-align: center;
-  padding-top: 300px;
-  width: 400px;
-  height: 550px;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-}
-
-.txt1{
-  font-family: chill;
-  font-size: 400px;
-  position: relative;
-  left:-400px;
-  transition: all ease-in-out 0.9s;
-}
-
-.txt2{
-  font-family: chill;
-  font-size: 400px;
-  position: relative;
-  right: -300px;
-  transition: all ease-in-out 0.9s;
-}
-
-.welcomeBox:hover .txt1{
-  left: -1600px;
-  transition: all ease-in-out 0.8s;
-}
-
-.welcomeBox:hover .txt2{
-  right: -1600px;
-  transition: all ease-in-out 0.8s;
-}
-
-.buttons a{
-  text-decoration: none;
-  color: #000000;
-  position: relative;
-  top: -400px;
-  display: flex;
-  font-family: chill;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  text-transform: uppercase;
-  letter-spacing:1px;
-  margin: auto;
-  cursor: pointer;
-  font-size: 100px;
-  font-weight: 700;
-  transform: scale(0);
-  transition: all ease-in-out 0.8s;
-  transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-  opacity: 0;
-}
-  
-.buttons a:hover{
-  transition: all ease-in-out 0.8s;
-}
-
-.welcomeBo:hover .buttons a{
-  transition: all ease-in-out 0.8s;
-  transform: scale(1);
-  opacity: 1; 
-}
-
-@font-face {
-  font-family: 'Chill';
-  font-style: normal;
-  font-weight: normal;
-  src: url('https://dl.dropbox.com/s/agpnu5irqlaaeco/Chillvornia%20Stamp%20Slant.otf') format('woff');
-} */
-
 .title {
   position: absolute;
   bottom: 30%;
@@ -129,17 +27,24 @@
 
 .start {
   position: absolute;
-  bottom: 50%;
+  bottom: 40%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 30px;
-  cursor: pointer;
+  
   transition: all ease-in-out 0.3s;
   opacity: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.start a {
+  cursor: pointer;
+  font-size: 30px;
   font-family: 'Fredoka One', cursive;
 }
 
-.start:hover {
+.start a:hover {
   text-decoration: underline;
 }
 

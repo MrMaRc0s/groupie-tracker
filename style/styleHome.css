@@ -1005,7 +1005,7 @@ h1.status {
   padding: 15px 20px;
   border-top: 6px solid #000000;
   position: relative;
-  top: 100px;
+  top: 70px;
   bottom: 0;
   margin-top: auto;
   width: 100%;
@@ -1047,6 +1047,19 @@ h1.status {
   text-decoration: none;
 }
 
+.DEV {
+  width : 250px;
+  height : auto;
+}
+
+.about {
+  font-size: 1.5rem;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .main-header {
@@ -1067,7 +1080,7 @@ h1.status {
     text-align: center;
     margin-bottom: 10px;
     margin: 5px 0;
-    display: flex;
+    /* display: flex; */
     align-items: center;
   }
   

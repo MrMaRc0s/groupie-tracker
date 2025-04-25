@@ -52,14 +52,11 @@ Creators and Primary Developers :
 
 # Things to be done
 - Update the whole details front-end
-- Update welcomepage
 - Suggestions
 - Locations format on search
 - Update details on filters **(only visual front)**
 - Update error pages **(Only visual front)**
-- Update interface when there are no artists **(Only visual front)**
 - Filters asynchronous **(optional)**
-
 
 # Notes
 - Hardcoded Min Max values for filters

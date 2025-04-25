@@ -15,6 +15,8 @@ func main() {
 	http.HandleFunc("/", server.HomeRender)
 	http.HandleFunc("/homepage", server.DataRender)
 	http.HandleFunc("/details", server.DetailsRender)
+	http.HandleFunc("/contact", server.ContactRender)
+	http.HandleFunc("/about", server.AboutRender)
 	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
 	http.Handle("/favicon.ico", http.FileServer(http.Dir("./static")))
 

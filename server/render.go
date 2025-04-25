@@ -17,10 +17,17 @@ var (
 	// TopTracks  []fetch.Track
 )
 
+type Developer struct {
+	ID    int
+	Name  string
+	Image string
+}
+
 type PageData struct {
 	Artists     []fetch.Artist
 	ArtistsJSON template.JS
 	Query       string
+	Dev         []Developer
 	// Tracks  []fetch.Track
 }
 
@@ -133,4 +140,50 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 	pageData.ArtistsJSON = template.JS(artistsJSON)
 	// fmt.Println("Sending JSON:", template.JS(artistsJSON))
 	tmpl.Execute(w, pageData)
+}
+
+func ContactRender(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/contact" {
+		ErrorPage(w, http.StatusNotFound)
+		return
+	}
+	tmpl, err := template.ParseFiles("static/contact.html", "static/header.html", "static/footer.html")
+	if err != nil {
+		ErrorPage(w, http.StatusInternalServerError)
+		return
+	}
+
+	PageData := PageData{
+		Dev: []Developer{
+			{
+				ID:    1,
+				Name:  "CGkaldan",
+				Image: "https://images.steamusercontent.com/ugc/1838044955942860859/48472B0E42426C20A2CFF6BE890A6C77072DB7AC/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+			},
+			{
+				ID:    2,
+				Name:  "CMarkos",
+				Image: "https://janegoodall.ca/wp-content/uploads/2021/10/Perrine20210511_003.jpg",
+			},
+			{
+				ID:    3,
+				Name:  "KPetrout",
+				Image: "https://i.scdn.co/image/ab67616d0000b2735ce0d2cd473df39440c6350e",
+			},
+		},
+	}
+	tmpl.Execute(w, PageData)
+}
+
+func AboutRender(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/about" {
+		ErrorPage(w, http.StatusNotFound)
+		return
+	}
+	tmpl, err := template.ParseFiles("static/about.html", "static/header.html", "static/footer.html")
+	if err != nil {
+		ErrorPage(w, http.StatusInternalServerError)
+		return
+	}
+	tmpl.Execute(w, nil)
 }
