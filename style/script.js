@@ -296,3 +296,37 @@ function showFilter() {
   const filter = document.getElementById('filter');
   filter.classList.toggle('show');
 }
+
+// suggestions
+
+async function getSuggestions(query) {
+  try {
+    const response = await fetch(`/homepage?query=${encodeURIComponent(query)}`, {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    });
+    
+    if (response.ok) {
+      const htmlFragment = await response.text();
+      document.getElementById("suggestions").innerHTML = htmlFragment;
+    }  
+  } catch (error) {
+    console.error("Error fetching search results: ", error);
+  }
+}
+
+function showSuggestions(items) {
+  const suggestions = document.getElementById("suggestions");
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "suggestion-item";
+    div.innerHTML = `${item.Display}
+    <span class="entity type-${item.Type}">${item.Name}</span>`;
+    div.onclick = () => {
+      window.location.href = `/info/${item.ID}`;
+    };
+    suggestions.appendChild(div);
+  });
+  suggestions.style.display = items.length ? 'block' : 'none';
+}

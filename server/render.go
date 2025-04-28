@@ -57,6 +57,10 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	searchedArtists := search.SearchArtists(query, artists)
 	filteredArtists := filters.FilterArtists(searchedArtists, r.URL.Query())
 
+	suggestions := search.GetSuggestions(query, artists)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(suggestions)
+
 	if r.Header.Get("X-Requested-With") == "XMLHttpRequest" {
 		tmpl, err := template.ParseFiles("static/overlay.html")
 		if err != nil {
