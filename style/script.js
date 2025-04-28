@@ -236,7 +236,13 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // SEARCH BAR
-// A simple debounce function to avoid making a request on every single keystroke immediately.
+
+document.addEventListener("DOMContentLoaded", () => {
+  const searchForm = document.getElementById("search-form");
+  const searchInput = document.getElementById("search-bar");
+  const suggestionsDiv = document.getElementById("suggestions");
+  const resultsContainer = document.getElementById("artists"); // Your div container for artists
+  
 function debounce(func, delay) {
   let timeout;
   return function (...args) {
@@ -244,13 +250,6 @@ function debounce(func, delay) {
     timeout = setTimeout(() => func.apply(this, args), delay);
   };
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  const searchForm = document.getElementById("search-form");
-  const searchInput = document.getElementById("search-bar");
-  const resultsContainer = document.getElementById("artists"); // Your div container for artists
-  const noResults = document.getElementById("no-results");
-
   async function performSearch(query) {
     try {
       const response = await fetch(`/homepage?query=${encodeURIComponent(query)}`, {
@@ -262,14 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (response.ok) {
         const htmlFragment = await response.text();
         resultsContainer.innerHTML = htmlFragment;
-
-        const artistCards = resultsContainer.querySelectorAll(".card");
-        if (artistCards.length === 0) {
-          noResults.style.display = "block";
-        } else {
-          noResults.style.display = "none";
-        }
-
+        suggestionsDiv.style.display = 'none';
         bigNames();
       }  
     } catch (error) {
@@ -277,56 +269,123 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (resultsContainer) {
-    searchForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      const query = searchInput.value.trim();
-      performSearch(query);
-    });
+  // if (resultsContainer) {
+  //   searchForm.addEventListener("submit", function (event) {
+  //     event.preventDefault();
+  //     const query = searchInput.value.trim();
+  //     performSearch(query);
+  //   });
 
-    searchInput.addEventListener("input", debounce(async function () {
-      const query = searchInput.value.trim();
-      performSearch(query);
-    }, 300));  // Delay in ms; here 300ms delay after last keystroke
+  //   searchInput.addEventListener("input", debounce(async function () {
+  //     const query = searchInput.value.trim();
+  //     performSearch(query);
+  //   }, 300));  // Delay in ms; here 300ms delay after last keystroke
+  // }
+  
+  // suggestions
+
+  async function getSuggestions(query) {
+    try {
+      console.log('Fetching suggestions for:', query);
+
+      const response = await fetch(`/api/suggestions?q=${encodeURIComponent(query)}`);
+      return await response.json();
+    } catch (error) {
+      console.error('Fetch error:', error);
+      return [];
+    }
   }
+
+  function showSuggestions(items) {
+    suggestionsDiv.innerHTML = ""; // Clear previous suggestions
+    const query = searchInput.value.trim().toLowerCase();
+
+    if (items.length === 0) {
+      suggestionsDiv.style.display = 'none';
+      return;
+    }
+
+    items.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "suggestion-item";
+
+      // Highlight matching text
+      const displayText = item.Display;
+      const matchStart = displayText.toLowerCase().indexOf(query);
+      
+      div.innerHTML = query.length >= 2 && matchStart >= 0
+        ? highlightMatch(displayText, matchStart, query.length)
+        : displayText;
+
+      div.innerHTML += `<span class="entity type"> - ${item.Type}</span>`;
+      div.onclick = () => {
+        searchInput.value = item.Display;
+        performSearch(item.Display);
+      };
+      suggestionsDiv.appendChild(div);
+    });
+    suggestionsDiv.style.display = 'block';
+  }
+
+  function highlightMatch(text, startIndex, length) {
+    return [
+      text.slice(0, startIndex),
+      '<span class="match-highlight">',
+      text.slice(startIndex, startIndex + length),
+      '</span>',
+      text.slice(startIndex + length)
+    ].join('');
+  }
+
+  const handleInput = debounce(async () => {
+    const query = searchInput.value.trim();
+    const [results, suggestions] = await Promise.all([
+      performSearch(query),
+      getSuggestions(query)
+    ]);
+    if (query.length > 0) {
+      showSuggestions(suggestions);
+    } else {
+      suggestionsDiv.style.display = 'none';
+    }
+  }
+  , 300); // Adjust the debounce delay as needed
+
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    handleInput();
+  });
+
+  searchInput.addEventListener("input", () => {
+    handleInput();
+    // Show loading state if needed
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest('.search-container')) {
+      suggestionsDiv.style.display = 'none';
+    }
+  });
+
+  searchInput.addEventListener("keypress", (e) => {
+    const items = suggestionsDiv.querySelectorAll('.suggestion-item');
+    if (!items.length) return;
+
+    switch(e.key) {
+      case 'ArrowDown':
+        console.log('ArrowDown pressed');
+        e.preventDefault();
+        items[1].focus();
+        break;
+      case 'Escape':
+        suggestionsDiv.style.display = 'none';
+        break;
+    }
+  });
 });
 
 // Filter
 function showFilter() {
   const filter = document.getElementById('filter');
   filter.classList.toggle('show');
-}
-
-// suggestions
-
-async function getSuggestions(query) {
-  try {
-    const response = await fetch(`/homepage?query=${encodeURIComponent(query)}`, {
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    });
-    
-    if (response.ok) {
-      const htmlFragment = await response.text();
-      document.getElementById("suggestions").innerHTML = htmlFragment;
-    }  
-  } catch (error) {
-    console.error("Error fetching search results: ", error);
-  }
-}
-
-function showSuggestions(items) {
-  const suggestions = document.getElementById("suggestions");
-  items.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "suggestion-item";
-    div.innerHTML = `${item.Display}
-    <span class="entity type-${item.Type}">${item.Name}</span>`;
-    div.onclick = () => {
-      window.location.href = `/info/${item.ID}`;
-    };
-    suggestions.appendChild(div);
-  });
-  suggestions.style.display = items.length ? 'block' : 'none';
 }

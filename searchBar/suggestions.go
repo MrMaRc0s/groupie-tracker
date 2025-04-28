@@ -3,13 +3,13 @@ package search
 import (
 	"fmt"
 	"groupie/fetch"
+	"strconv"
 	"strings"
 )
 
 type Suggestion struct {
-	Display  string // What to show in the dropdown
-	Type     string // Entity type (member, band, location, etc.)
-	ArtistID int    // Reference to the full artist
+	Display string // What to show in the dropdown
+	Type    string // Entity type (member, band, location, etc.)
 }
 
 func GetSuggestions(query string, artists []fetch.Artist) []Suggestion {
@@ -23,9 +23,32 @@ func GetSuggestions(query string, artists []fetch.Artist) []Suggestion {
 			key := fmt.Sprintf("name:%s", artist.Name)
 			if !seen[key] {
 				suggestions = append(suggestions, Suggestion{
-					Display:  artist.Name,
-					Type:     "artist",
-					ArtistID: artist.ID,
+					Display: artist.Name,
+					Type:    "artist",
+				})
+				seen[key] = true
+			}
+		}
+
+		// Check first album
+		if strings.Contains(strings.ToLower(artist.FirstAlbum), query) {
+			key := fmt.Sprintf("album:%s", artist.FirstAlbum)
+			if !seen[key] {
+				suggestions = append(suggestions, Suggestion{
+					Display: artist.FirstAlbum,
+					Type:    "album",
+				})
+				seen[key] = true
+			}
+		}
+
+		// Check creation date
+		if strings.Contains(strings.ToLower(strconv.Itoa(artist.CreationDate)), query) {
+			key := fmt.Sprintf("date:%d", artist.CreationDate)
+			if !seen[key] {
+				suggestions = append(suggestions, Suggestion{
+					Display: strconv.Itoa(artist.CreationDate),
+					Type:    "date",
 				})
 				seen[key] = true
 			}
@@ -37,16 +60,33 @@ func GetSuggestions(query string, artists []fetch.Artist) []Suggestion {
 				key := fmt.Sprintf("member:%s", member)
 				if !seen[key] {
 					suggestions = append(suggestions, Suggestion{
-						Display:  member,
-						Type:     "member",
-						ArtistID: artist.ID,
+						Display: member,
+						Type:    "member",
 					})
 					seen[key] = true
 				}
 			}
 		}
 
-		// Check other fields similarly for locations, albums, etc.
+		// Check locations
+		for _, location := range artist.Locations {
+			if strings.Contains(strings.ToLower(location.Name), query) {
+				key := fmt.Sprintf("location:%s", location.Name)
+				if !seen[key] {
+					suggestions = append(suggestions, Suggestion{
+						Display: location.Name,
+						Type:    "location",
+					})
+					seen[key] = true
+				}
+			}
+		}
+
 	}
-	return suggestions[:10] // Return top 10 suggestions
+
+	// Limit to 10 suggestions
+	if len(suggestions) > 10 {
+		return suggestions[:10]
+	}
+	return suggestions
 }

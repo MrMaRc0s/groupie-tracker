@@ -1054,10 +1054,46 @@ h1.status {
 
 .about {
   font-size: 1.5rem;
+  position: relative;
+  margin-top: 10%;
+}
+
+/* suggestions */
+#suggestions {
   position: absolute;
-  bottom: 50%;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 315px;
+  top: 75%;
+  color: #9d9d9d;
+  background: #111111;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.suggestion-item:hover {
+  color: #000000;
+  background: #f8f9fa;
+}
+
+.entity-type {
+  float: right;
+  color: #6c757d;
+  font-size: 0.9em;
+}
+
+.match-highlight {
+  background-color: #fff3d6;
+  font-weight: bold;
+  color: #e67e22;
+  padding: 2px 4px;
+  border-radius: 3px;
 }
 
 /* Responsive Design */
