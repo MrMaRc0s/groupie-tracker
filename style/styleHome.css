@@ -505,6 +505,7 @@ body, button, input {
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
+  width: 50%;
 }
 
 .dropdown-btn:hover {
@@ -1094,6 +1095,12 @@ h1.status {
   color: #e67e22;
   padding: 2px 4px;
   border-radius: 3px;
+}
+
+#map {
+  height: 500px;
+  width: 60%;
+  left: 20%;
 }
 
 /* Responsive Design */

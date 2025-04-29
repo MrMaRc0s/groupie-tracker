@@ -52,11 +52,5 @@ Creators and Primary Developers :
 
 # Things to be done
 - Update the whole details front-end
-- Suggestions
-- Locations format on search
-- Update details on filters **(only visual front)**
-- Update error pages **(Only visual front)**
+- Hide API keys 
 - Filters asynchronous **(optional)**
-
-# Notes
-- Hardcoded Min Max values for filters

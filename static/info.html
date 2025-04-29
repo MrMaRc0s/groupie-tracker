@@ -33,16 +33,22 @@
         </div>
         <br>
             <details class="dropdown">
-            <summary class="dropdown-btn">Relations</summary>
+            <summary class="dropdown-btn">Artist's lives</summary>
             <div class="dropdown-content">
                 {{range $key, $value := .Relations}}
-                    <p>{{printf "%s - %s" $key $value}}</p>
+                    <p>
+                        {{$key}} (
+                        {{range $i, $elem := $value}}
+                            {{if $i}}| {{end}}{{ $elem }}
+                        {{end}}
+                        )
+                    </p>
                 {{end}}
             </div>
         </details>
     
         {{end}}
-        <div id="map" style="height: 550px; width: 81.5%;"></div>
+        <div id="map"></div>
 
         {{ template "footer" . }}
     </div>
