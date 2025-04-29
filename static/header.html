@@ -39,14 +39,14 @@
     
     <div class="filter" id="filter">
         <form method="GET" action="/homepage">                       
-
+            
             <label>Creation Date:</label>
-            <input class="filter-input" type="number" name="creationDateMin" id="creationDateMin" min="1958" max="2025" value="1958">-
-            <input class="filter-input" type="number" name="creationDateMax" id="creationDateMax" min="1958" max="2025" value="2025">
+            <input class="filter-input" type="number" name="creationDateMin" id="creationDateMin" min="{{.CreationDateMin}}" max="{{.YearNow}}" value="{{.CreationDateMin}}">-
+            <input class="filter-input" type="number" name="creationDateMax" id="creationDateMax" min="{{.CreationDateMin}}" max="{{.YearNow}}" value="{{.YearNow}}">
             <br />
             <label>First Album Year:</label>
-            <input class="filter-input" type="number" name="firstAlbumDateMin" id="firstAlbumDateMin" min="1963" max="2025" value="1963">-
-            <input class="filter-input" type="number" name="firstAlbumDateMax" id="firstAlbumDateMax" min="1963" max="2025" value="2025">
+            <input class="filter-input" type="number" name="firstAlbumDateMin" id="firstAlbumDateMin" min="{{.FirstAlbumDateMin}}" max="{{.YearNow}}" value="{{.FirstAlbumDateMin}}">-
+            <input class="filter-input" type="number" name="firstAlbumDateMax" id="firstAlbumDateMax" min="{{.FirstAlbumDateMin}}" max="{{.YearNow}}" value="{{.YearNow}}">
 
             <fieldset>
                 <legend>Number of Members:</legend>
