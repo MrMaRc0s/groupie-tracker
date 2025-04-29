@@ -67,16 +67,29 @@ func FilterArtists(artists []fetch.Artist, queryParams url.Values) []fetch.Artis
 			membersMatch := false
 			for _, member := range numberMembers {
 				memberCount, err := strconv.Atoi(member)
-				if err == nil && len(artist.Members) == memberCount {
-					membersMatch = true
-					break
+				if err != nil {
+					continue
+				}
+
+				if memberCount == 8 {
+					// Match artists with 8 or more members
+					if len(artist.Members) >= 8 {
+						membersMatch = true
+						break
+					}
+				} else {
+					// Exact match
+					if len(artist.Members) == memberCount {
+						membersMatch = true
+						break
+					}
 				}
 			}
+
 			if !membersMatch {
 				continue
 			}
 		}
-
 		filteredArtists = append(filteredArtists, artist)
 	}
 
