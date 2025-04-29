@@ -388,4 +388,7 @@ function debounce(func, delay) {
 function showFilter() {
   const filter = document.getElementById('filter');
   filter.classList.toggle('show');
+  if (filter.classList.contains('show')) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

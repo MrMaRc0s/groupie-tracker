@@ -63,10 +63,8 @@
             Locations of Concerts:
             <input class="filter-loc" type="search" list="locations1" id="location" name="location" autocomplete="off">
             <datalist id="locations1">
-                {{range .Artists}}
-                    {{range .Locations}}
-                        <option value="{{.Name}}">{{.Name}}</option>
-                    {{end}}
+                {{range .AllLocations}}
+                    <option value="{{.}}">{{.}}</option>
                 {{end}}
             </datalist>
             

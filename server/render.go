@@ -32,6 +32,7 @@ type PageData struct {
 	FirstAlbumDateMin string
 	YearNow           int
 	CreationDateMin   int
+	AllLocations      []string
 
 	// Tracks  []fetch.Track
 }
@@ -73,6 +74,8 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	creationDateMinn := artists[0].CreationDate
 	yearNow := time.Now().Year()
 	firstAlbumDateMinn := artists[0].FirstAlbum
+	allLocations := []string{}
+	locationSet := make(map[string]bool)
 
 	for _, art := range artists {
 		if art.CreationDate < creationDateMinn {
@@ -81,6 +84,13 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 		if art.FirstAlbum < firstAlbumDateMinn {
 			firstAlbumDateMinn = art.FirstAlbum
 		}
+		for _, loc := range art.Locations {
+			if !locationSet[loc.Name] {
+				allLocations = append(allLocations, loc.Name)
+				locationSet[loc.Name] = true
+			}
+		}
+
 	}
 
 	if len(firstAlbumDateMinn) >= 4 {
@@ -117,6 +127,7 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 		FirstAlbumDateMin: firstAlbumDateMinn,
 		CreationDateMin:   creationDateMinn,
 		YearNow:           yearNow,
+		AllLocations:      allLocations,
 
 		// Tracks:  TopTracks,
 	}
