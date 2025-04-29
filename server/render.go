@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"strconv"
 	"sync"
+	"time"
 )
 
 var (
@@ -24,10 +25,14 @@ type Developer struct {
 }
 
 type PageData struct {
-	Artists     []fetch.Artist
-	ArtistsJSON template.JS
-	Query       string
-	Dev         []Developer
+	Artists           []fetch.Artist
+	ArtistsJSON       template.JS
+	Query             string
+	Dev               []Developer
+	FirstAlbumDateMin string
+	YearNow           int
+	CreationDateMin   int
+
 	// Tracks  []fetch.Track
 }
 
@@ -65,6 +70,23 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	searchedArtists := search.SearchArtists(query, artists)
 	filteredArtists := filters.FilterArtists(searchedArtists, r.URL.Query())
 
+	creationDateMinn := artists[0].CreationDate
+	yearNow := time.Now().Year()
+	firstAlbumDateMinn := artists[0].FirstAlbum
+
+	for _, art := range artists {
+		if art.CreationDate < creationDateMinn {
+			creationDateMinn = art.CreationDate
+		}
+		if art.FirstAlbum < firstAlbumDateMinn {
+			firstAlbumDateMinn = art.FirstAlbum
+		}
+	}
+
+	if len(firstAlbumDateMinn) >= 4 {
+		firstAlbumDateMinn = firstAlbumDateMinn[len(firstAlbumDateMinn)-4:]
+	}
+
 	if r.Header.Get("X-Requested-With") == "XMLHttpRequest" {
 		tmpl, err := template.ParseFiles("static/overlay.html")
 		if err != nil {
@@ -75,6 +97,7 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 		pageData := PageData{
 			Artists: filteredArtists,
 			Query:   query,
+
 			// Tracks:  TopTracks,
 		}
 
@@ -89,8 +112,12 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	}
 
 	pageData := PageData{
-		Artists: filteredArtists,
-		Query:   query,
+		Artists:           filteredArtists,
+		Query:             query,
+		FirstAlbumDateMin: firstAlbumDateMinn,
+		CreationDateMin:   creationDateMinn,
+		YearNow:           yearNow,
+
 		// Tracks:  TopTracks,
 	}
 

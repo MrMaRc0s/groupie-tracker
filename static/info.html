@@ -32,23 +32,7 @@
                 <p>{{.FirstAlbum}}</p>
         </div>
         <br>
-        <details class="dropdown">
-            <summary class="dropdown-btn">Locations</summary>
-            <div class="dropdown-content">
-                {{range .Locations}}
-                    <p>{{.}}</p>
-                {{end}}
-            </div>
-        </details>
-        <details class="dropdown">
-            <summary class="dropdown-btn">Concert Dates</summary>
-            <div class="dropdown-content">
-                {{range .ConcertDates}}
-                    <p>{{.}}</p>
-                {{end}}
-            </div>
-        </details>
-        <details class="dropdown">
+            <details class="dropdown">
             <summary class="dropdown-btn">Relations</summary>
             <div class="dropdown-content">
                 {{range $key, $value := .Relations}}
@@ -58,7 +42,7 @@
         </details>
     
         {{end}}
-        <div id="map" style="height: 500px; width: 100%;"></div>
+        <div id="map" style="height: 550px; width: 81.5%;"></div>
 
         {{ template "footer" . }}
     </div>
