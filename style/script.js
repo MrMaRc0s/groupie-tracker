@@ -286,8 +286,6 @@ function debounce(func, delay) {
 
   async function getSuggestions(query) {
     try {
-      console.log('Fetching suggestions for:', query);
-
       const response = await fetch(`/api/suggestions?q=${encodeURIComponent(query)}`);
       return await response.json();
     } catch (error) {
@@ -351,10 +349,12 @@ function debounce(func, delay) {
   }
   , 300); // Adjust the debounce delay as needed
 
-  searchForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    handleInput();
-  });
+  if (resultsContainer) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      handleInput();
+    });
+  }
 
   searchInput.addEventListener("input", () => {
     handleInput();
