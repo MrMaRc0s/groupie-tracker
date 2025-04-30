@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"os"
 )
 
 // var rateLimit = time.NewTicker(200 * time.Millisecond)
@@ -12,9 +13,9 @@ import (
 func Geocode(city, country string) (float64, float64, error) {
 	// <-rateLimit.C
 
-	apiKey := "djR54+zkh/6VTO7KxRW6tw==UEt82p4yIp9OAPNG"
+	apiKey := os.Getenv("GEO_API_KEY")
 	if apiKey == "" {
-		return 0, 0, fmt.Errorf("API key missing")
+		return 0, 0, fmt.Errorf("API key not found")
 	}
 
 	baseURL := "https://api.api-ninjas.com/v1/geocoding"

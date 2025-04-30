@@ -4,10 +4,20 @@ import (
 	"fmt"
 	"groupie/server"
 	"net/http"
+	"os/exec"
 	"time"
 )
 
 func main() {
+	cmd := exec.Command("bash", "set_keys.sh")
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("Error running script:", err)
+		return
+	}
+
+	fmt.Println("Script executed successfully")
+
 	startNow := time.Now()
 	apiURL := "https://groupietrackers.herokuapp.com/api"
 

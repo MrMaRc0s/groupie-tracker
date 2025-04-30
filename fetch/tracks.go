@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"os"
 )
 
 type Track struct {
@@ -21,7 +22,11 @@ type TopTracksResponse struct {
 }
 
 func FetchTracks(name string) Track {
-	apiKey := "777c4a8284a8eb36cc81d659242ae210"
+	apiKey := os.Getenv("TRACK_API_KEY")
+	if apiKey == "" {
+		fmt.Println("API key not found")
+		return Track{}
+	}
 	baseURL := "https://ws.audioscrobbler.com/2.0/"
 	params := url.Values{}
 	params.Set("method", "artist.gettoptracks")
