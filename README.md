@@ -52,5 +52,4 @@ Creators and Primary Developers :
 
 # Things to be done
 - Update the whole details front-end
-- Hide API keys 
 - Filters asynchronous **(optional)**

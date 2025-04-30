@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"time"
 )
 
 func ErrorPage(w http.ResponseWriter, statusCode int) {
@@ -13,6 +14,12 @@ func ErrorPage(w http.ResponseWriter, statusCode int) {
 		http.Error(w, http.StatusText(statusCode), statusCode)
 		return
 	}
+
+	PageData := PageData{
+		YearNow:           time.Now().Year(),
+		DatesAndLocations: getDatesAndLocations(artists),
+	}
+
 	w.WriteHeader(statusCode)
-	tmpl.Execute(w, nil)
+	tmpl.Execute(w, PageData)
 }

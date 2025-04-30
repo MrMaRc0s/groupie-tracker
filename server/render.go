@@ -47,7 +47,12 @@ func HomeRender(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, nil)
+
+	PageData := PageData{
+		YearNow: time.Now().Year(),
+	}
+
+	tmpl.Execute(w, PageData)
 }
 
 func SuggestionsHandler(w http.ResponseWriter, r *http.Request) {
@@ -175,6 +180,8 @@ func ContactRender(w http.ResponseWriter, r *http.Request) {
 	}
 
 	PageData := PageData{
+		YearNow:           time.Now().Year(),
+		DatesAndLocations: getDatesAndLocations(artists),
 		Dev: []Developer{
 			{
 				ID:    1,
@@ -206,5 +213,11 @@ func AboutRender(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, nil)
+
+	PageData := PageData{
+		YearNow:           time.Now().Year(),
+		DatesAndLocations: getDatesAndLocations(artists),
+	}
+
+	tmpl.Execute(w, PageData)
 }
