@@ -42,13 +42,12 @@
         <form method="GET" action="/homepage">                       
             
             <label>Creation Date:</label>
-            <input class="filter-input" type="number" name="creationDateMin" id="creationDateMin" min="{{.CreationDateMin}}" max="{{.YearNow}}" value="{{.CreationDateMin}}">-
-            <input class="filter-input" type="number" name="creationDateMax" id="creationDateMax" min="{{.CreationDateMin}}" max="{{.YearNow}}" value="{{.YearNow}}">
+            <input class="filter-input" type="number" name="creationDateMin" id="creationDateMin" min="{{.DatesAndLocations.CreationDateMin}}" max="{{.YearNow}}" value="{{.DatesAndLocations.CreationDateMin}}">-
+            <input class="filter-input" type="number" name="creationDateMax" id="creationDateMax" min="{{.DatesAndLocations.CreationDateMin}}" max="{{.YearNow}}" value="{{.YearNow}}">
             <br />
             <label>First Album Year:</label>
-            <input class="filter-input" type="number" name="firstAlbumDateMin" id="firstAlbumDateMin" min="{{.FirstAlbumDateMin}}" max="{{.YearNow}}" value="{{.FirstAlbumDateMin}}">-
-            <input class="filter-input" type="number" name="firstAlbumDateMax" id="firstAlbumDateMax" min="{{.FirstAlbumDateMin}}" max="{{.YearNow}}" value="{{.YearNow}}">
-
+            <input class="filter-input" type="number" name="firstAlbumDateMin" id="firstAlbumDateMin" min="{{.DatesAndLocations.FirstAlbumDateMin}}" max="{{.YearNow}}" value="{{.DatesAndLocations.FirstAlbumDateMin}}">-
+            <input class="filter-input" type="number" name="firstAlbumDateMax" id="firstAlbumDateMax" min="{{.DatesAndLocations.FirstAlbumDateMin}}" max="{{.YearNow}}" value="{{.YearNow}}">
             <fieldset>
                 <legend>Number of Members:</legend>
                 <label><input type="checkbox" name="Member" value="1">1</label>
@@ -63,7 +62,7 @@
             Locations of Concerts:
             <input class="filter-loc" type="search" list="locations1" id="location" name="location" autocomplete="off">
             <datalist id="locations1">
-                {{range .AllLocations}}
+                {{range .DatesAndLocations.AllLocations}}
                     <option value="{{.}}">{{.}}</option>
                 {{end}}
             </datalist>

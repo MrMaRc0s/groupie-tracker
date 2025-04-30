@@ -29,10 +29,8 @@ type PageData struct {
 	ArtistsJSON       template.JS
 	Query             string
 	Dev               []Developer
-	FirstAlbumDateMin string
 	YearNow           int
-	CreationDateMin   int
-	AllLocations      []string
+	DatesAndLocations DatesAndLocations
 
 	// Tracks  []fetch.Track
 }
@@ -71,32 +69,6 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	searchedArtists := search.SearchArtists(query, artists)
 	filteredArtists := filters.FilterArtists(searchedArtists, r.URL.Query())
 
-	creationDateMinn := artists[0].CreationDate
-	yearNow := time.Now().Year()
-	firstAlbumDateMinn := artists[0].FirstAlbum
-	allLocations := []string{}
-	locationSet := make(map[string]bool)
-
-	for _, art := range artists {
-		if art.CreationDate < creationDateMinn {
-			creationDateMinn = art.CreationDate
-		}
-		if art.FirstAlbum < firstAlbumDateMinn {
-			firstAlbumDateMinn = art.FirstAlbum
-		}
-		for _, loc := range art.Locations {
-			if !locationSet[loc.Name] {
-				allLocations = append(allLocations, loc.Name)
-				locationSet[loc.Name] = true
-			}
-		}
-
-	}
-
-	if len(firstAlbumDateMinn) >= 4 {
-		firstAlbumDateMinn = firstAlbumDateMinn[len(firstAlbumDateMinn)-4:]
-	}
-
 	if r.Header.Get("X-Requested-With") == "XMLHttpRequest" {
 		tmpl, err := template.ParseFiles("static/overlay.html")
 		if err != nil {
@@ -124,10 +96,8 @@ func DataRender(w http.ResponseWriter, r *http.Request) {
 	pageData := PageData{
 		Artists:           filteredArtists,
 		Query:             query,
-		FirstAlbumDateMin: firstAlbumDateMinn,
-		CreationDateMin:   creationDateMinn,
-		YearNow:           yearNow,
-		AllLocations:      allLocations,
+		YearNow:           time.Now().Year(),
+		DatesAndLocations: getDatesAndLocations(artists),
 
 		// Tracks:  TopTracks,
 	}
@@ -173,7 +143,9 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 	}
 
 	pageData := PageData{
-		Artists: []fetch.Artist{artists[id]},
+		Artists:           []fetch.Artist{artists[id]},
+		YearNow:           time.Now().Year(),
+		DatesAndLocations: getDatesAndLocations(artists),
 		// Tracks:  TopTracks,
 	}
 
