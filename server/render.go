@@ -8,6 +8,7 @@ import (
 	search "groupie/searchBar"
 	"html/template"
 	"net/http"
+	"os"
 	"strconv"
 	"sync"
 	"time"
@@ -31,6 +32,7 @@ type PageData struct {
 	Dev               []Developer
 	YearNow           int
 	DatesAndLocations DatesAndLocations
+	Src               string
 
 	// Tracks  []fetch.Track
 }
@@ -146,6 +148,7 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 		Artists:           []fetch.Artist{artists[id]},
 		YearNow:           time.Now().Year(),
 		DatesAndLocations: getDatesAndLocations(artists),
+		Src:               os.Getenv("GEO_API_SRC"),
 		// Tracks:  TopTracks,
 	}
 

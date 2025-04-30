@@ -18,7 +18,10 @@ func Geocode(city, country string) (float64, float64, error) {
 		return 0, 0, fmt.Errorf("API key not found")
 	}
 
-	baseURL := "https://api.api-ninjas.com/v1/geocoding"
+	baseURL := os.Getenv("GEO_API_URL")
+	if baseURL == "" {
+		return 0, 0, fmt.Errorf("API URL not found")
+	}
 	params := url.Values{}
 	params.Add("city", city)
 	params.Add("country", country)

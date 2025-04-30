@@ -4,22 +4,17 @@ import (
 	"fmt"
 	"groupie/server"
 	"net/http"
-	"os/exec"
+	"os"
 	"time"
 )
 
 func main() {
-	cmd := exec.Command("bash", "set_keys.sh")
-	err := cmd.Run()
-	if err != nil {
-		fmt.Println("Error running script:", err)
+	startNow := time.Now()
+	apiURL := os.Getenv("GROUPIE_API_URL")
+	if apiURL == "" {
+		fmt.Println("API URL not found")
 		return
 	}
-
-	fmt.Println("Script executed successfully")
-
-	startNow := time.Now()
-	apiURL := "https://groupietrackers.herokuapp.com/api"
 
 	// Setup routes first
 	http.HandleFunc("/", server.HomeRender)

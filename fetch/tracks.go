@@ -27,7 +27,11 @@ func FetchTracks(name string) Track {
 		fmt.Println("API key not found")
 		return Track{}
 	}
-	baseURL := "https://ws.audioscrobbler.com/2.0/"
+	baseURL := os.Getenv("TRACK_API_URL")
+	if baseURL == "" {
+		fmt.Println("API URL not found")
+		return Track{}
+	}
 	params := url.Values{}
 	params.Set("method", "artist.gettoptracks")
 	params.Set("artist", name)
