@@ -7,3 +7,5 @@ export GEO_API_SRC="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-Gmx1x0Z0
 export TRACK_API_KEY="777c4a8284a8eb36cc81d659242ae210"
 export TRACK_API_URL="https://ws.audioscrobbler.com/2.0/"
 export GROUPIE_API_URL="https://groupietrackers.herokuapp.com/api"
+
+echo "keys setted"

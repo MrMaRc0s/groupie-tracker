@@ -382,12 +382,12 @@ body, button, input {
   justify-content: center;
   gap: 30px;
   align-items: center;
-  margin: 10px;
+  margin: 0 auto;
   background: rgb(144 11 11);
   padding: 20px;
   border: 2px solid #230000;
   border-radius: 20px;
-  height: 400px;
+  /* height: 400px; */
   width: 1500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, background 0.3s ease;
@@ -506,6 +506,7 @@ body, button, input {
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
   width: 50%;
+  margin: 0 auto;
 }
 
 .dropdown-btn:hover {
@@ -1101,6 +1102,7 @@ h1.status {
   height: 500px;
   width: 60%;
   left: 20%;
+  border-radius: 8px;
 }
 
 /* Responsive Design */
