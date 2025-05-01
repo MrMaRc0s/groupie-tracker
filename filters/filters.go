@@ -5,19 +5,20 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func FilterArtists(artists []fetch.Artist, queryParams url.Values) []fetch.Artist {
 	var filteredArtists []fetch.Artist
 
-	// Parse query parameters safely
+	year := time.Now().Year()
 	creationDateMin, errMin := strconv.Atoi(queryParams.Get("creationDateMin"))
 	creationDateMax, errMax := strconv.Atoi(queryParams.Get("creationDateMax"))
 	if errMin != nil {
 		creationDateMin = 0
 	}
 	if errMax != nil {
-		creationDateMax = 2025
+		creationDateMax = year
 	}
 
 	firstAlbumDateMin, errMinAlbum := strconv.Atoi(queryParams.Get("firstAlbumDateMin"))
@@ -26,16 +27,15 @@ func FilterArtists(artists []fetch.Artist, queryParams url.Values) []fetch.Artis
 		firstAlbumDateMin = 0
 	}
 	if errMaxAlbum != nil {
-		firstAlbumDateMax = 2025
+		firstAlbumDateMax = year
 	}
 
 	locations := queryParams.Get("location")
 
-	numberMembers := queryParams["Member"] // Match HTML checkboxes
+	numberMembers := queryParams["Member"]
 	var albumYear int
 
 	for _, artist := range artists {
-		// Correct date filtering
 		if artist.CreationDate < creationDateMin || artist.CreationDate > creationDateMax {
 			continue
 		}

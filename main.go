@@ -38,7 +38,7 @@ func main() {
 		fmt.Println("Server error:", err)
 		fmt.Println("Server is running on http://localhost:8081")
 
-		if err := http.ListenAndServe(":8082", nil); err != nil {
+		if err := http.ListenAndServe(":8081", nil); err != nil {
 			fmt.Println("Port 8081 is already in use", err)
 			return
 		}

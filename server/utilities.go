@@ -1,10 +1,14 @@
 package server
 
-import "groupie/fetch"
+import (
+	"groupie/fetch"
+	"strconv"
+	"time"
+)
 
 type DatesAndLocations struct {
 	CreationDateMin   int
-	FirstAlbumDateMin string
+	FirstAlbumDateMin int
 	AllLocations      []string
 }
 
@@ -12,9 +16,9 @@ func getDatesAndLocations(artists []fetch.Artist) DatesAndLocations {
 	if len(artists) == 0 {
 		return DatesAndLocations{}
 	}
-
-	creationDateMinn := artists[0].CreationDate
-	firstAlbumDateMinn := artists[0].FirstAlbum
+	year := time.Now().Year()
+	creationDateMinn := year
+	firstAlbumDateMinn := year
 	allLocations := []string{}
 	locationSet := make(map[string]bool)
 	result := DatesAndLocations{}
@@ -23,8 +27,9 @@ func getDatesAndLocations(artists []fetch.Artist) DatesAndLocations {
 		if art.CreationDate < creationDateMinn {
 			creationDateMinn = art.CreationDate
 		}
-		if art.FirstAlbum < firstAlbumDateMinn {
-			firstAlbumDateMinn = art.FirstAlbum
+		albumYear := getAlbumYear(art.FirstAlbum)
+		if albumYear < firstAlbumDateMinn {
+			firstAlbumDateMinn = albumYear
 		}
 
 		for _, loc := range art.Locations {
@@ -35,11 +40,18 @@ func getDatesAndLocations(artists []fetch.Artist) DatesAndLocations {
 		}
 
 	}
-	if len(firstAlbumDateMinn) >= 4 {
-		firstAlbumDateMinn = firstAlbumDateMinn[len(firstAlbumDateMinn)-4:]
-	}
+
 	result.CreationDateMin = creationDateMinn
 	result.FirstAlbumDateMin = firstAlbumDateMinn
 	result.AllLocations = allLocations
+	return result
+}
+
+func getAlbumYear(album string) int {
+	artistAlbumMin := album
+	if len(artistAlbumMin) >= 4 {
+		artistAlbumMin = artistAlbumMin[len(artistAlbumMin)-4:]
+	}
+	result, _ := strconv.Atoi(artistAlbumMin)
 	return result
 }
