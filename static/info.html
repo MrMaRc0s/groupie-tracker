@@ -20,33 +20,51 @@
         <div class="artist-card">
             {{range .Artists}}
             <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
-            <p id="headers">Members:</p>
-            <ul>
-                {{range .Members}}
-                    <p>{{.}}</p>
-                {{end}}
-            </ul>
-            <p id="headers">Creation Date:</p>
-                <p>{{.CreationDate}}</p>
-            <p id="headers">First Album:</p>
-                <p>{{.FirstAlbum}}</p>
+
+            <div class="artist-info">
+                <div class="artist-dates">
+                    <p id="headers">Creation Date</p>
+                    <p>{{.CreationDate}}</p>
+                </div>
+                <div class="artist-dates">
+                    <p id="headers">First Album</p>
+                    <p>{{.FirstAlbum}}</p>
+                </div>
+            </div>
         </div>
         <br>
-            <details class="dropdown">
-            <summary class="dropdown-btn">Artist's lives</summary>
-            <div class="dropdown-content">
-                {{range $key, $value := .Relations}}
-                    <p>
-                        {{$key}} (
-                        {{range $i, $elem := $value}}
-                            {{if $i}}| {{end}}{{ $elem }}
+        <div class="artist-buttons">
+            <div class="dropdowns">
+                <details class="dropdown">
+                    <summary class="dropdown-btn">Band's Members</summary>
+                    <div class="dropdown-content">
+                        {{range .Members}}
+                            <a href="https://en.wikipedia.org/wiki/{{.}}"><p>{{.}}</p></a>
                         {{end}}
-                        )
-                    </p>
-                {{end}}
+                    </div>
+                </details>
+                <!-- <div class="locations"> -->
+                    <details class="dropdown">
+                        <summary class="dropdown-btn">Artist's lives</summary>
+                        <div class="dropdown-content">
+                            {{range $key, $value := .Relations}}
+                                <details class="dropdown">
+                                    <summary class="nested-dropdown-btn">{{$key}}</summary>
+                                    <div class="nested-dropdown-content">
+                                        {{range $elem := $value}}
+                                        <div>{{ $elem }}</div>
+                                        {{end}}
+                                    </div>
+                                </details>
+                            {{end}}
+                        </div>
+                    </details>
             </div>
-        </details>
-    
+                    <button class="map-btn" id="map-btn">
+                        <img src="/style/media/icons/map.png" alt="Map Icon" class="map-icon">
+                    </button>
+                <!-- </div> -->
+        </div>    
         {{end}}
         <div id="map"></div>
 

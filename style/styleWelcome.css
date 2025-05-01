@@ -30,7 +30,6 @@
   bottom: 40%;
   left: 50%;
   transform: translateX(-50%);
-  
   transition: all ease-in-out 0.3s;
   opacity: 0;
   display: flex;
@@ -38,14 +37,33 @@
   gap: 30px;
 }
 
+/* .start button {
+  background-color: #000000;
+  color: #ab197d;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  font-family: 'Fredoka One', cursive;
+}
+.start button:hover {
+  background-color: #ab197d;
+  color: #000000;
+} */
+
 .start a {
+  text-shadow: 0px 0px 20px rgb(255 128 212);
+  background-clip: text;
+  /* color: #000000ad; */
   cursor: pointer;
   font-size: 30px;
-  font-family: 'Fredoka One', cursive;
+  transition: all ease-in-out 0.3s;
 }
 
 .start a:hover {
-  text-decoration: underline;
+  scale: 1.1;
 }
 
 .top {

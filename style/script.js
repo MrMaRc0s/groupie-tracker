@@ -154,6 +154,16 @@ window.addEventListener("scroll", function() {
   }
 });
 
+// Toggle map display
+document.addEventListener("DOMContentLoaded", function () {
+  const mapBtn = document.getElementById("map-btn");
+  const map = document.getElementById("map");
+  
+  mapBtn.addEventListener("click", function () {
+    toggleDisplay(map);
+  });
+});
+
 // Artist Names
 function bigNames() {
   const overlays = document.querySelectorAll(".overlay");

@@ -51,5 +51,5 @@ Creators and Primary Developers :
 - alabama usa
 
 # Things to be done
-- Update the whole details front-end
+- Sort map markers by date **(optional)**
 - Filters asynchronous **(optional)**
