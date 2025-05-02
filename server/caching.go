@@ -38,9 +38,13 @@ func dataLoad(filename string) ([]fetch.Artist, error) {
 }
 
 func Fetching(apiURL string, filename string) error {
+	var err error
 	if fileExists(filename) {
 		fmt.Println("Using cached data")
-		artists, _ = dataLoad(filename)
+		artists, err = dataLoad(filename)
+		if err != nil {
+			return err
+		}
 		return nil
 	}
 	fetch.FetchArtists(apiURL, func(fetchedArtists []fetch.Artist) {

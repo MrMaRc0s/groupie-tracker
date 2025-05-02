@@ -8,4 +8,4 @@ export TRACK_API_KEY="777c4a8284a8eb36cc81d659242ae210"
 export TRACK_API_URL="https://ws.audioscrobbler.com/2.0/"
 export GROUPIE_API_URL="https://groupietrackers.herokuapp.com/api"
 
-echo "keys setted"
+echo "keys have been set"

@@ -28,7 +28,7 @@ func main() {
 
 	// Start data fetching in background
 	cacheFilename := "data.json"
-	server.Fetching(apiURL, cacheFilename) // Already wrapped in goroutine
+	server.Fetching(apiURL, cacheFilename)
 
 	fmt.Println("Time Taken to Start:", time.Since(startNow))
 	fmt.Println("Server is running on http://localhost:8080")

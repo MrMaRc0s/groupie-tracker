@@ -15,7 +15,6 @@ type RawArtist struct { // Struct to match the API's JSON format
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
-	LocationsURL string   `json:"locations"` // API returns a URL, not actual locations
 }
 
 type Artist struct {

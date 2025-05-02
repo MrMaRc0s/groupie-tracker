@@ -164,7 +164,7 @@ func DetailsRender(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	pageData.ArtistsJSON = template.JS(artistsJSON)
-	// fmt.Println("Sending JSON:", template.JS(artistsJSON))
+
 	tmpl.Execute(w, pageData)
 }
 
