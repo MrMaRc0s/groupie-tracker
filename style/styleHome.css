@@ -375,6 +375,11 @@ body, button, input {
   flex-direction: column;
 }
 
+.artist-card h1 {
+  color: #000000;
+  margin-bottom: 3%;
+}
+
 .artist-card img {
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 1);
   border-radius: 50%;
