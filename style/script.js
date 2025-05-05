@@ -278,21 +278,8 @@ function debounce(func, delay) {
       console.error("Error fetching search results: ", error);
     }
   }
-
-  // if (resultsContainer) {
-  //   searchForm.addEventListener("submit", function (event) {
-  //     event.preventDefault();
-  //     const query = searchInput.value.trim();
-  //     performSearch(query);
-  //   });
-
-  //   searchInput.addEventListener("input", debounce(async function () {
-  //     const query = searchInput.value.trim();
-  //     performSearch(query);
-  //   }, 300));  // Delay in ms; here 300ms delay after last keystroke
-  // }
-  
-  // suggestions
+ 
+  // SUGGESTIONS
 
   async function getSuggestions(query) {
     try {
@@ -394,7 +381,7 @@ function debounce(func, delay) {
   });
 });
 
-// Filter
+// FILTER
 function showFilter() {
   const filter = document.getElementById('filter');
   filter.classList.toggle('show');
