@@ -97,8 +97,10 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 
 	fmt.Println("Artists fetched successfully!")
 
-	// Pass updated artist data to completion function
 	if completion != nil {
 		completion(updatedArtists)
+	} else {
+		errCh <- fmt.Errorf("error passing the updated artist slice: %v", err)
+		return
 	}
 }
