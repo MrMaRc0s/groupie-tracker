@@ -64,12 +64,10 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 	for i, artist := range artists {
 
 		wg.Add(1)
-		go func() {
+		go func(idx int, a Artist) {
 			defer wg.Done()
 
 			// Fetch extra details
-			relCh := make(chan map[string][]string, 1)
-
 			relationURL := URL + "/relation/" + strconv.Itoa(artist.ID)
 
 			relations, err := fetchRelation(relationURL)
@@ -77,21 +75,26 @@ func FetchArtists(URL string, completion func([]Artist)) { // Pass artists data
 				errCh <- fmt.Errorf("error fetching relations for artist %d: %v", artist.ID, err)
 				return
 			}
-			relCh <- relations
 
-			artist.Relations = <-relCh
-
+			artist.Relations = relations
 			artist.Locations = LocationParse(artist.Relations)
 			artist.ConcertDates = DatesParse(artist.Relations)
 			updatedArtists[i] = artist
-		}()
+		}(i, artist)
 	}
 
 	wg.Wait()
 	close(errCh)
 
-	if err := <-errCh; err != nil {
-		fmt.Println(err)
+	var errors []error
+	for err := range errCh {
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		for _, err := range errors {
+			fmt.Println("Error:", err)
+		}
 		return
 	}
 

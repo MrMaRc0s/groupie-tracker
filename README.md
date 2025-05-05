@@ -18,14 +18,18 @@ To run this program you need to install **golang** and after :
 - Open a terminal, and type the following command :
     ```bash
     git clone https://platform.zone01.gr/git/kpetrout/groupie-tracker.git
-2. Run the program :
-- You have first get into the repository you just cloned and then run the command:
+2. Set the API keys :
+- Navigate into the project with `cd` command and run the command:
+    ```bash
+    . set_keys.sh
+3. Run the program :
+- Once the keys are setted run the command:
     ```go
-    go run main.go 
+    go run .
 - If the program run succesfully you will see a message :
     ```
     Server is running on http://localhost:8080
-3. Open in browser :
+4. Open in browser :
 - Now you can (ctrl+click) on the link of the message or just click here http://localhost:8080
 
 ## Authors
@@ -33,30 +37,3 @@ Creators and Primary Developers :
 - Konstantinos Petroutsos
 - Christos Markos
 - Christos Gkaldanidis
-
-# Songs that need to be louder
-- 3 Pink Floyd
-- 5 xxxtentacion ?
-- 6 Mac Miller ?
-- 12 Rihanna ?
-- 13 Genesis
-- 14 Phil Collins
-- 15 Led Zeppelin
-- 21 Mamonas Assassinas
-- 46 Coldplay ?
-
-# Locations to change
-- georgia usa
-- massachusetts usa
-- alabama usa
-
-# Things to be done
-- Sort map markers by date **(optional)**
-- Filters asynchronous **(optional)**
-
-# Things to Study
-- Decode and Unmarshal difference
-- Mutex
-- Goroutines channels
-- Completion function at fetchArtists
-- Why we use RawArtists struct
