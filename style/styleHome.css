@@ -828,7 +828,7 @@ input:focus {
 
 .containerror {
   text-align: center;
-  margin-top: 300px;
+  margin-top: 10%;
 }
 
 h1.status {
@@ -1065,5 +1065,10 @@ h1.status {
   .artist-card {
     width: 80%;
     left: 10%;
+  }
+
+  h1.status {
+    font-size: 3rem;
+    margin-bottom: 30px;
   }
 }
