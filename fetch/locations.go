@@ -55,10 +55,22 @@ func FetchCoords(locs []*Location) error {
 		LocMutex.Unlock()
 
 		city, country = apiSpecifics(city, country)
-		lat, lng, err := geo.Geocode(city, country)
-		if err != nil {
-			fmt.Printf("Geocoding failed for %s: %v\n", loc.Name, err)
-			continue
+
+		var lat, lng float64
+		switch loc.Name {
+		case "georgia, usa":
+			lat, lng = 32.1656, -82.9001
+		case "massachusetts, usa":
+			lat, lng = 42.4072, -71.3824
+		case "alabama, usa":
+			lat, lng = 32.3182, -86.9023
+		default:
+			var err error
+			lat, lng, err = geo.Geocode(city, country)
+			if err != nil {
+				fmt.Printf("Geocoding failed for %s: %v\n", loc.Name, err)
+				continue
+			}
 		}
 
 		loc.Lat, loc.Lng = lat, lng

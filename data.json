@@ -17,8 +17,8 @@
     "locations": [
       {
         "name": "georgia, usa",
-        "lat": 44.72422295,
-        "lng": -73.14704151731551
+        "lat": 32.1656,
+        "lng": -82.9001
       },
       {
         "name": "los angeles, usa",
@@ -340,8 +340,8 @@
       },
       {
         "name": "georgia, usa",
-        "lat": 44.72422295,
-        "lng": -73.14704151731551
+        "lat": 32.1656,
+        "lng": -82.9001
       },
       {
         "name": "nevada, usa",
@@ -519,8 +519,8 @@
       },
       {
         "name": "georgia, usa",
-        "lat": 44.72422295,
-        "lng": -73.14704151731551
+        "lat": 32.1656,
+        "lng": -82.9001
       },
       {
         "name": "lisbon, portugal",
@@ -3177,8 +3177,8 @@
       },
       {
         "name": "georgia, usa",
-        "lat": 44.72422295,
-        "lng": -73.14704151731551
+        "lat": 32.1656,
+        "lng": -82.9001
       },
       {
         "name": "houston, usa",
@@ -3318,8 +3318,8 @@
     "locations": [
       {
         "name": "alabama, usa",
-        "lat": 43.096448,
-        "lng": -78.390856
+        "lat": 32.3182,
+        "lng": -86.9023
       },
       {
         "name": "athens, greece",
@@ -3348,8 +3348,8 @@
       },
       {
         "name": "massachusetts, usa",
-        "lat": 39.775761,
-        "lng": -86.14828559204801
+        "lat": 42.4072,
+        "lng": -71.3824
       },
       {
         "name": "rio de janeiro, brazil",
@@ -4022,8 +4022,8 @@
       },
       {
         "name": "massachusetts, usa",
-        "lat": 39.775761,
-        "lng": -86.14828559204801
+        "lat": 42.4072,
+        "lng": -71.3824
       },
       {
         "name": "milan, italy",
