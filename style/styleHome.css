@@ -459,6 +459,7 @@ body, button, input {
 
 .dropdown-content {
   padding: 20px;
+  min-width: 330px;
   background: linear-gradient(135deg, #673AB7, #E91E63, #FF5722);
   color: #000000;
   font-weight: 700; 
@@ -1067,8 +1068,25 @@ h1.status {
     left: 10%;
   }
 
+  .dropdowns{
+    flex-direction: column;
+  }
+
   h1.status {
     font-size: 3rem;
     margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .dropdown-content{
+    min-width: 220px;
+  }
+  .nested-dropdown-content{
+    width: 120px;
+    left: 10%;
+  }
+  .artist-image{
+    max-width: 200px;
   }
 }
